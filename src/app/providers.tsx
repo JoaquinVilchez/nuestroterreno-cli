@@ -1,7 +1,18 @@
-'use client'
+'use client';
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react';
+import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactNode } from 'react';
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <ChakraProvider>{children}</ChakraProvider>
-}
+const queryClient = new QueryClient();
+
+const Providers = ({ children }: { children: ReactNode }) => (
+  <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider>{children}</ChakraProvider>
+    </QueryClientProvider>
+  </RecoilRoot>
+);
+
+export default Providers;
