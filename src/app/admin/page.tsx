@@ -1,10 +1,12 @@
+'use client';
+
 import { Box, Heading } from '@chakra-ui/react';
 
 export default function AdminPage() {
   return (
-    <Box padding="4" bg="gray.100" maxW="3xl" mx="auto">
-      <Heading as="h1" size="2xl" textAlign="center" mt="8">
-        ADMIN PAGE
+    <Box>
+      <Heading as="h1" size="xl" mt="8">
+        Escritorio
       </Heading>
     </Box>
   );
