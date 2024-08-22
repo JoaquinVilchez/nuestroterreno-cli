@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-export default function SmallWithSocial() {
+export default function FooterComponent() {
   return (
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
@@ -20,8 +20,8 @@ export default function SmallWithSocial() {
         py={4}
         direction={{ base: 'column', md: 'row' }}
         spacing={4}
-        justify={{ base: 'center', md: 'space-between' }}
-        align={{ base: 'center', md: 'center' }}
+        justify={{ base: 'center' }}
+        align={{ base: 'center' }}
       >
         <Text>2024 - Nuestro Terreno 4</Text>
       </Container>

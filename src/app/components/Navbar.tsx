@@ -64,7 +64,7 @@ const NavLink = ({
   </Box>
 );
 
-export default function Navbar() {
+export default function NavbarComponent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
