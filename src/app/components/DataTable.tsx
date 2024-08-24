@@ -179,7 +179,14 @@ export default function DataTable<TData>({
           </Thead>
           <Tbody>
             {table.getRowModel().rows.map((row) => (
-              <Tr key={row.id}>
+              <Tr
+                key={row.id}
+                sx={{
+                  _hover: {
+                    backgroundColor: 'gray.50',
+                  },
+                }}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <Td key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

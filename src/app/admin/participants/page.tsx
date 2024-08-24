@@ -8,7 +8,12 @@ export default function ParticipantsPage() {
     <Box>
       <Box>
         {/* Componente de encabezado de página que incluye el título */}
-        <PageHeader title="Participantes" showButton={true} />
+        <PageHeader
+          title="Participantes"
+          showButton={true}
+          buttonText="Nuevo"
+          href="/admin/participants/new"
+        />
       </Box>
     </Box>
   );
