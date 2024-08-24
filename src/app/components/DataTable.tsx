@@ -5,6 +5,7 @@ import {
   ColumnDef,
   getCoreRowModel,
   getPaginationRowModel,
+  getFilteredRowModel, // Asegúrate de importar el modelo filtrado
   flexRender,
 } from '@tanstack/react-table';
 import {
@@ -23,11 +24,16 @@ import {
   Tooltip,
   Text,
   Spinner,
+  Input,
   useDisclosure,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import ConfirmModal from './ConfirmModal';
 import useCustomToast from './Toast';
+import { SearchIcon } from '@chakra-ui/icons';
+
 interface Action<TData> {
   label: string;
   icon?: React.ReactElement;
@@ -38,20 +44,24 @@ interface DataTableProps<TData> {
   data: TData[];
   columns: ColumnDef<TData>[];
   actions?: Action<TData>[];
-  isLoading?: boolean; // Prop para el estado de carga
-  error?: Error | null; // Prop para manejar errores
+  filter?: boolean;
+  isLoading?: boolean;
+  error?: Error | null;
 }
 
 export default function DataTable<TData>({
   data,
   columns,
   actions = [],
+  filter = true,
   isLoading = false,
   error = null,
 }: DataTableProps<TData>) {
   // Estado para paginación
   const [pageSize, setPageSize] = useState(10);
   const [pageIndex, setPageIndex] = useState(0);
+  const [globalFilter, setGlobalFilter] = useState(''); // Estado para el término del filtro
+
   const showToast = useCustomToast();
 
   const table = useReactTable({
@@ -63,6 +73,7 @@ export default function DataTable<TData>({
         pageSize,
         pageIndex,
       },
+      globalFilter, // Pasamos el filtro global al estado de la tabla
     },
     onPaginationChange: (updater) => {
       const newState =
@@ -74,32 +85,30 @@ export default function DataTable<TData>({
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(), // Asegura que el modelo filtrado esté incluido
+    onGlobalFilterChange: setGlobalFilter, // Función que actualiza el filtro global
   });
 
   // Hook de Chakra para controlar la visibilidad del modal
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Estado para guardar la fila seleccionada (por ejemplo, la fila que quieres eliminar)
+  // Estado para guardar la fila seleccionada
   const [selectedRow, setSelectedRow] = useState<TData | null>(null);
 
-  // Función que se ejecuta cuando haces clic en el icono de eliminar
   const handleDeleteClick = (row: TData) => {
-    setSelectedRow(row); // Guarda la fila seleccionada en el estado
-    onOpen(); // Abre el modal de confirmación
+    setSelectedRow(row);
+    onOpen();
   };
 
-  // Función que se ejecuta cuando el usuario confirma la eliminación
   const confirmDelete = () => {
     if (selectedRow) {
-      // Encuentra la acción de "Eliminar" y ejecuta la función asociada
       actions
         .find((action) => action.label === 'Eliminar')
         ?.onClick(selectedRow);
-      onClose(); // Cierra el modal
+      onClose();
     }
   };
 
-  // Si hay un error, lo mostramos
   if (error) {
     showToast({
       title: 'Error',
@@ -113,7 +122,6 @@ export default function DataTable<TData>({
     );
   }
 
-  // Si está cargando, mostramos un spinner centrado
   if (isLoading) {
     return (
       <Box
@@ -127,7 +135,6 @@ export default function DataTable<TData>({
     );
   }
 
-  // Si no hay datos, mostramos un mensaje amigable
   if (!data || data.length === 0) {
     return (
       <Box p={4} textAlign="center">
@@ -138,6 +145,21 @@ export default function DataTable<TData>({
 
   return (
     <Box>
+      {/* Filtro Global */}
+      {filter && (
+        <Box mb={8} display="flex" alignItems="center">
+          <InputGroup minWidth={100}>
+            <InputLeftElement pointerEvents="none">
+              <SearchIcon color="gray.300" />
+            </InputLeftElement>
+            <Input
+              placeholder="Buscar..."
+              value={globalFilter ?? ''} // Se asegura de que el filtro sea una cadena vacía si es nulo o indefinido
+              onChange={(e) => setGlobalFilter(e.target.value)}
+            />
+          </InputGroup>
+        </Box>
+      )}
       <TableContainer w="100%">
         <Table variant="simple" size="sm">
           <Thead>
