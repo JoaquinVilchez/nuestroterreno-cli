@@ -5,7 +5,7 @@ import {
   ColumnDef,
   getCoreRowModel,
   getPaginationRowModel,
-  getFilteredRowModel, // Asegúrate de importar el modelo filtrado
+  getFilteredRowModel,
   flexRender,
 } from '@tanstack/react-table';
 import {
@@ -28,11 +28,12 @@ import {
   useDisclosure,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import ConfirmModal from './ConfirmModal';
 import useCustomToast from './Toast';
-import { SearchIcon } from '@chakra-ui/icons';
+import { SearchIcon, CloseIcon } from '@chakra-ui/icons';
 
 interface Action<TData> {
   label: string;
@@ -73,7 +74,7 @@ export default function DataTable<TData>({
         pageSize,
         pageIndex,
       },
-      globalFilter, // Pasamos el filtro global al estado de la tabla
+      globalFilter,
     },
     onPaginationChange: (updater) => {
       const newState =
@@ -85,8 +86,8 @@ export default function DataTable<TData>({
     },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getFilteredRowModel: getFilteredRowModel(), // Asegura que el modelo filtrado esté incluido
-    onGlobalFilterChange: setGlobalFilter, // Función que actualiza el filtro global
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
   });
 
   // Hook de Chakra para controlar la visibilidad del modal
@@ -143,6 +144,8 @@ export default function DataTable<TData>({
     );
   }
 
+  const filteredRows = table.getRowModel().rows;
+
   return (
     <Box>
       {/* Filtro Global */}
@@ -154,72 +157,93 @@ export default function DataTable<TData>({
             </InputLeftElement>
             <Input
               placeholder="Buscar..."
-              value={globalFilter ?? ''} // Se asegura de que el filtro sea una cadena vacía si es nulo o indefinido
+              value={globalFilter ?? ''}
               onChange={(e) => setGlobalFilter(e.target.value)}
             />
+            {globalFilter && (
+              <InputRightElement>
+                <IconButton
+                  aria-label="Clear search"
+                  icon={<CloseIcon />}
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setGlobalFilter('')}
+                />
+              </InputRightElement>
+            )}
           </InputGroup>
         </Box>
       )}
-      <TableContainer w="100%">
-        <Table variant="simple" size="sm">
-          <Thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <Th key={header.id}>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
-                  </Th>
-                ))}
-                {actions.length > 0 && <Th textAlign="right">Acciones</Th>}
-              </Tr>
-            ))}
-          </Thead>
-          <Tbody>
-            {table.getRowModel().rows.map((row) => (
-              <Tr
-                key={row.id}
-                sx={{
-                  _hover: {
-                    backgroundColor: 'gray.50',
-                  },
-                }}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <Td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Td>
-                ))}
-                {actions.length > 0 && (
-                  <Td textAlign="right">
-                    <HStack justifyContent="flex-end" spacing={2}>
-                      {actions.map((action, index) => (
-                        <Tooltip label={action.label} key={index}>
-                          {action.label === 'Eliminar' ? (
-                            <IconButton
-                              aria-label={action.label}
-                              icon={action.icon}
-                              onClick={() => handleDeleteClick(row.original)} // Abre el modal de confirmación
-                            />
-                          ) : (
-                            <IconButton
-                              aria-label={action.label}
-                              icon={action.icon}
-                              onClick={() => action.onClick(row.original)} // Ejecuta la función personalizada
-                            />
-                          )}
-                        </Tooltip>
-                      ))}
-                    </HStack>
-                  </Td>
-                )}
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+
+      {filteredRows.length === 0 ? (
+        <Box p={4} textAlign="center">
+          <Text>No se encontraron coincidencias.</Text>
+        </Box>
+      ) : (
+        <TableContainer w="100%">
+          <Table variant="simple" size="sm">
+            <Thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <Tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <Th key={header.id}>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                    </Th>
+                  ))}
+                  {actions.length > 0 && <Th textAlign="right">Acciones</Th>}
+                </Tr>
+              ))}
+            </Thead>
+            <Tbody>
+              {filteredRows.map((row) => (
+                <Tr
+                  key={row.id}
+                  sx={{
+                    _hover: {
+                      backgroundColor: 'gray.50',
+                    },
+                  }}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <Td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </Td>
+                  ))}
+                  {actions.length > 0 && (
+                    <Td textAlign="right">
+                      <HStack justifyContent="flex-end" spacing={2}>
+                        {actions.map((action, index) => (
+                          <Tooltip label={action.label} key={index}>
+                            {action.label === 'Eliminar' ? (
+                              <IconButton
+                                aria-label={action.label}
+                                icon={action.icon}
+                                onClick={() => handleDeleteClick(row.original)}
+                              />
+                            ) : (
+                              <IconButton
+                                aria-label={action.label}
+                                icon={action.icon}
+                                onClick={() => action.onClick(row.original)}
+                              />
+                            )}
+                          </Tooltip>
+                        ))}
+                      </HStack>
+                    </Td>
+                  )}
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
 
       {/* Controles de paginación */}
       <Box
@@ -272,9 +296,9 @@ export default function DataTable<TData>({
       <ConfirmModal
         title="¿Estás seguro?"
         body={`¿Seguro que quieres eliminar el elemento seleccionado?`}
-        isOpen={isOpen} // Controla la visibilidad del modal
-        onClose={onClose} // Cierra el modal
-        onConfirm={confirmDelete} // Confirma la eliminación
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={confirmDelete}
       />
     </Box>
   );
