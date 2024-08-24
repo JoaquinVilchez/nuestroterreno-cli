@@ -23,9 +23,11 @@ import {
   Tooltip,
   Text,
   Spinner,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-
+import ConfirmModal from './ConfirmModal';
+import useCustomToast from './Toast';
 interface Action<TData> {
   label: string;
   icon?: React.ReactElement;
@@ -50,6 +52,7 @@ export default function DataTable<TData>({
   // Estado para paginación
   const [pageSize, setPageSize] = useState(10);
   const [pageIndex, setPageIndex] = useState(0);
+  const showToast = useCustomToast();
 
   const table = useReactTable({
     data,
@@ -73,8 +76,36 @@ export default function DataTable<TData>({
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  // Hook de Chakra para controlar la visibilidad del modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // Estado para guardar la fila seleccionada (por ejemplo, la fila que quieres eliminar)
+  const [selectedRow, setSelectedRow] = useState<TData | null>(null);
+
+  // Función que se ejecuta cuando haces clic en el icono de eliminar
+  const handleDeleteClick = (row: TData) => {
+    setSelectedRow(row); // Guarda la fila seleccionada en el estado
+    onOpen(); // Abre el modal de confirmación
+  };
+
+  // Función que se ejecuta cuando el usuario confirma la eliminación
+  const confirmDelete = () => {
+    if (selectedRow) {
+      // Encuentra la acción de "Eliminar" y ejecuta la función asociada
+      actions
+        .find((action) => action.label === 'Eliminar')
+        ?.onClick(selectedRow);
+      onClose(); // Cierra el modal
+    }
+  };
+
   // Si hay un error, lo mostramos
   if (error) {
+    showToast({
+      title: 'Error',
+      description: `Error al cargar los datos: ${error.message}`,
+      status: 'error',
+    });
     return (
       <Box p={4} textAlign="center">
         <Text color="red.500">Error al cargar los datos: {error.message}</Text>
@@ -120,7 +151,7 @@ export default function DataTable<TData>({
                     )}
                   </Th>
                 ))}
-                {actions.length > 0 && <Th>Acciones</Th>}
+                {actions.length > 0 && <Th textAlign="right">Acciones</Th>}
               </Tr>
             ))}
           </Thead>
@@ -137,11 +168,19 @@ export default function DataTable<TData>({
                     <HStack justifyContent="flex-end" spacing={2}>
                       {actions.map((action, index) => (
                         <Tooltip label={action.label} key={index}>
-                          <IconButton
-                            aria-label={action.label}
-                            icon={action.icon}
-                            onClick={() => action.onClick(row.original)}
-                          />
+                          {action.label === 'Eliminar' ? (
+                            <IconButton
+                              aria-label={action.label}
+                              icon={action.icon}
+                              onClick={() => handleDeleteClick(row.original)} // Abre el modal de confirmación
+                            />
+                          ) : (
+                            <IconButton
+                              aria-label={action.label}
+                              icon={action.icon}
+                              onClick={() => action.onClick(row.original)} // Ejecuta la función personalizada
+                            />
+                          )}
                         </Tooltip>
                       ))}
                     </HStack>
@@ -152,6 +191,7 @@ export default function DataTable<TData>({
           </Tbody>
         </Table>
       </TableContainer>
+
       {/* Controles de paginación */}
       <Box
         mt={4}
@@ -159,36 +199,54 @@ export default function DataTable<TData>({
         justifyContent="space-between"
         alignItems="center"
       >
-        <Button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Anterior
-        </Button>
-        <Button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Siguiente
-        </Button>
-        <Box>
-          Página {table.getState().pagination.pageIndex + 1} de{' '}
-          {table.getPageCount()}
-        </Box>
-        <Box>
-          <Select
-            value={pageSize}
-            onChange={(e) => setPageSize(Number(e.target.value))}
-            width="fit-content"
+        <Box display="flex" gap={5}>
+          <Button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
           >
-            {[10, 50, 100].map((size) => (
-              <option key={size} value={size}>
-                Mostrar {size}
-              </option>
-            ))}
-          </Select>
+            Anterior
+          </Button>
+          <Button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Siguiente
+          </Button>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          gap={10}
+        >
+          <Box>
+            Página {table.getState().pagination.pageIndex + 1} de{' '}
+            {table.getPageCount()}
+          </Box>
+          <Box>
+            <Select
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+              width="fit-content"
+            >
+              {[10, 50, 100].map((size) => (
+                <option key={size} value={size}>
+                  Mostrar {size}
+                </option>
+              ))}
+            </Select>
+          </Box>
         </Box>
       </Box>
+
+      {/* Modal de confirmación para eliminar */}
+      <ConfirmModal
+        title="¿Estás seguro?"
+        body={`¿Seguro que quieres eliminar el elemento seleccionado?`}
+        isOpen={isOpen} // Controla la visibilidad del modal
+        onClose={onClose} // Cierra el modal
+        onConfirm={confirmDelete} // Confirma la eliminación
+      />
     </Box>
   );
 }

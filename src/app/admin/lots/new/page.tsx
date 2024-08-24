@@ -5,7 +5,7 @@ import { Box } from '@chakra-ui/react';
 
 export default function NewLotPage() {
   return (
-    <Box mt={8}>
+    <Box>
       <PageHeader title="Nuevo lote" showButton={false} />
     </Box>
   );

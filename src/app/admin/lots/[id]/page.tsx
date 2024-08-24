@@ -1,11 +1,11 @@
 'use client';
 
-import { useParams } from 'next/navigation'; // Importa el hook adecuado
+import { useParams } from 'next/navigation';
 import { Box } from '@chakra-ui/react';
 import PageHeader from '@/app/components/PageHeader';
 
 export default function EditLotPage() {
-  const { id } = useParams(); // Usa `useParams` para obtener el parámetro `id`
+  const { id } = useParams();
 
   return (
     <Box mt={8}>
