@@ -13,6 +13,7 @@ interface HeaderProps {
   buttonText?: string;
   href?: string;
   onClick?: () => void;
+  goBackSteps?: number;
 }
 
 export default function PageHeader({
@@ -22,6 +23,7 @@ export default function PageHeader({
   buttonText = 'Nuevo',
   href,
   onClick,
+  goBackSteps = 1,
 }: HeaderProps) {
   const [showArrow, setShowArrow] = useState(false);
   const router = useRouter();
@@ -30,8 +32,8 @@ export default function PageHeader({
   const handleGoBack = () => {
     const pathSegments = pathname.split('/').filter(Boolean);
     let targetPath = '/';
-    if (pathSegments.length > 1) {
-      targetPath = `/${pathSegments.slice(0, pathSegments.length - 1).join('/')}`;
+    if (pathSegments.length > goBackSteps) {
+      targetPath = `/${pathSegments.slice(0, pathSegments.length - goBackSteps).join('/')}`;
     }
     router.push(targetPath);
   };

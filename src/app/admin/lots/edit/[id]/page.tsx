@@ -9,7 +9,11 @@ export default function EditLotPage() {
 
   return (
     <Box mt={8}>
-      <PageHeader title={`Editar lote ${id}`} showButton={false} />
+      <PageHeader
+        title={`Editar lote ${id}`}
+        showButton={false}
+        goBackSteps={2}
+      />
     </Box>
   );
 }

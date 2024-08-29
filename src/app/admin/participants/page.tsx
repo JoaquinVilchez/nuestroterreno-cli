@@ -4,7 +4,6 @@ import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
 import { fetchParticipants } from '@/services/participants';
 import { Participant } from '@/types/participant';
-import { LockIcon } from '@chakra-ui/icons';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Suspense } from 'react';
@@ -31,10 +30,6 @@ export default function ParticipantsPage() {
     { accessorKey: 'type', header: 'Tipo de sorteo' },
   ];
 
-  const customAction = () => {
-    alert('CUSTOM ACTION');
-  };
-
   return (
     <Box>
       {/* Componente de encabezado de página que incluye el título */}
@@ -52,14 +47,10 @@ export default function ParticipantsPage() {
             columns={columns}
             isLoading={isLoading}
             error={error as Error}
-            dataType="participant"
-            actions={[
-              {
-                label: 'Custom Action',
-                icon: <LockIcon />,
-                onClick: customAction,
-              },
-            ]}
+            dataType={{
+              type: 'participant',
+              label: 'participante',
+            }}
           ></DataTable>
         </Box>
       </Suspense>

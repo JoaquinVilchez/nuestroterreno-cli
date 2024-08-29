@@ -83,56 +83,68 @@ export default function DataTable<TData extends WithId>({
   const showToast = useCustomToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleDeleteClick = useCallback(
-    (row: TData) => {
+  /**
+   * Acción de eliminación
+   * - Solicita confirmación antes de proceder a eliminar.
+   */
+  const deleteAction = useCallback(
+    async (row: TData) => {
+      // Abre el modal de confirmación
       setSelectedRow(row);
       onOpen();
     },
     [onOpen],
   );
 
-  const confirmDelete = () => {
-    if (selectedRow) {
-      deleteAction(selectedRow);
-      onClose();
-    }
-  };
+  /**
+   * Confirma la eliminación y muestra mensajes de éxito o error.
+   */
+  const confirmDelete = useCallback(async () => {
+    if (!selectedRow) return;
 
-  const cancelDelete = () => {
-    if (selectedRow) {
+    try {
+      // Simula una llamada a la API o realiza la eliminación real
+      console.log(`/admin/${dataType.type}s/delete/${selectedRow.id}`);
+
+      showToast({
+        title: `${capitalizeFirstLetter(dataType.label)} eliminado`,
+        description: `El ${dataType.label} ha sido eliminado exitosamente.`,
+        status: 'success',
+      });
+    } catch {
+      showToast({
+        title: 'Error',
+        description: `No se pudo eliminar el ${dataType.label}.`,
+        status: 'error',
+      });
+    } finally {
+      // Cierra el modal después de la acción
       setSelectedRow(null);
       onClose();
     }
-  };
+  }, [dataType, selectedRow, showToast, onClose]);
 
-  const deleteAction = useCallback(
-    async (row: TData) => {
-      try {
-        console.log(`/admin/${dataType.type}/delete/${row.id}`);
-        showToast({
-          title: `${capitalizeFirstLetter(dataType.label)} eliminado`,
-          description: `El ${dataType.label} ha sido eliminado exitosamente.`,
-          status: 'success',
-        });
-      } catch {
-        showToast({
-          title: 'Error',
-          description: `No se pudo eliminar el ${dataType.label}.`,
-          status: 'error',
-        });
-      }
-    },
-    [dataType, showToast],
-  );
+  /**
+   * Cancela la eliminación y cierra el modal.
+   */
+  const cancelDelete = useCallback(() => {
+    setSelectedRow(null);
+    onClose();
+  }, [onClose]);
 
+  /**
+   * Acción de edición.
+   */
   const editAction = useCallback(
     (row: TData) => {
-      router.push(`/admin/${dataType.type}/edit/${row.id}`);
+      router.push(`/admin/${dataType.type}s/edit/${row.id}`);
     },
     [dataType, router],
   );
 
-  // Table Configuration
+  /**
+   * Configuración de la tabla utilizando React Table
+   */
   const table = useReactTable({
     data,
     columns,
@@ -158,6 +170,9 @@ export default function DataTable<TData extends WithId>({
     onGlobalFilterChange: setGlobalFilter,
   });
 
+  /**
+   * Combina acciones predeterminadas con acciones personalizadas.
+   */
   const combinedActions = useMemo(() => {
     const defaultActions: Action<TData>[] = [];
 
@@ -173,13 +188,16 @@ export default function DataTable<TData extends WithId>({
       defaultActions.push({
         label: 'Eliminar',
         icon: <DeleteIcon />,
-        onClick: handleDeleteClick,
+        onClick: deleteAction,
       });
     }
 
     return [...defaultActions, ...actions];
-  }, [actions, disableDefaultActions, editAction, handleDeleteClick]);
+  }, [actions, disableDefaultActions, editAction, deleteAction]);
 
+  /**
+   * Renderización condicional según el estado.
+   */
   if (error) {
     showToast({
       title: 'Error',
@@ -263,7 +281,9 @@ export default function DataTable<TData extends WithId>({
                       )}
                     </Th>
                   ))}
-                  {actions.length > 0 && <Th textAlign="right">Acciones</Th>}
+                  {combinedActions.length > 0 && (
+                    <Th textAlign="right">Acciones</Th>
+                  )}
                 </Tr>
               ))}
             </Thead>
@@ -285,7 +305,6 @@ export default function DataTable<TData extends WithId>({
                       )}
                     </Td>
                   ))}
-
                   {combinedActions.length > 0 && (
                     <Td textAlign="right">
                       <HStack justifyContent="flex-end" spacing={2}>
@@ -294,9 +313,7 @@ export default function DataTable<TData extends WithId>({
                             <IconButton
                               aria-label={action.label}
                               icon={action.icon}
-                              onClick={() => {
-                                action.onClick(row.original);
-                              }}
+                              onClick={() => action.onClick(row.original)}
                             />
                           </Tooltip>
                         ))}
