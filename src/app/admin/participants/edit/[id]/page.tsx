@@ -9,7 +9,11 @@ export default function EditParticipantPage() {
 
   return (
     <Box mt={8}>
-      <PageHeader title={`Editar participante ${id}`} showButton={false} />
+      <PageHeader
+        title={`Editar participante ${id}`}
+        showButton={false}
+        goBackSteps={2}
+      />
     </Box>
   );
 }
