@@ -4,6 +4,7 @@ import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
 import { getMany } from '@/services/getManyService';
 import { Result } from '@/types/result';
+import { getFullName } from '@/utils/formatters';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Suspense } from 'react';
@@ -28,16 +29,24 @@ export default function ResultsPage() {
    */
   const columns: ColumnDef<Result>[] = [
     {
-      accessorKey: 'participant.lastName', // Accede a la propiedad lastName de participant
-      header: 'Apellido',
+      accessorKey: 'participant',
+      header: 'Nombre completo',
+      cell: ({ getValue }) => {
+        const participant = getValue<Result['participant']>();
+        return getFullName(participant.firstName, participant.lastName);
+      },
     },
     {
-      accessorKey: 'participant.firstName', // Accede a la propiedad firstName de participant
-      header: 'Nombre',
-    },
-    {
-      accessorKey: 'lot.number', // Accede a la propiedad number de lot
-      header: 'Número de lote',
+      accessorKey: 'lot',
+      header: 'Lote',
+      cell: ({ getValue, row }) => {
+        const lot = getValue<Result['lot']>();
+        const ballNumber = row.original.orderNumber;
+
+        return lot?.denomination
+          ? lot.denomination
+          : `SUPLENTE - NRO ${ballNumber}`;
+      },
     },
     {
       accessorKey: 'group',
@@ -53,7 +62,7 @@ export default function ResultsPage() {
     <Box>
       {/* Componente de encabezado de página que incluye el título */}
       <PageHeader
-        title="Results"
+        title="Resultados"
         showButton={true}
         buttonText="Nuevo"
         href="/admin/results/new"
