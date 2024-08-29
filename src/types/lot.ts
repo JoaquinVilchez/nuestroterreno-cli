@@ -1,6 +1,8 @@
+import { DrawType } from './drawType';
+
 export type Lot = {
   id: number;
-  group: string;
-  drawType: string;
+  group: number;
+  drawType: DrawType;
   denomination: string;
 };

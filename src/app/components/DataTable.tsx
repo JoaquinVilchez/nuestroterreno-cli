@@ -30,10 +30,20 @@ import {
   InputLeftElement,
   InputRightElement,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import ConfirmModal from './ConfirmModal';
 import useCustomToast from './Toast';
-import { SearchIcon, CloseIcon } from '@chakra-ui/icons';
+import { SearchIcon, CloseIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { capitalizeFirstLetter } from '@/utils/formatters';
+
+// Types and Interfaces
+type WithId = { id: number };
+
+interface DataType {
+  type: string; // Para usar en el endpoint
+  label: string; // Para usar en mensajes de éxito/error
+}
 
 interface Action<TData> {
   label: string;
@@ -41,30 +51,88 @@ interface Action<TData> {
   onClick: (row: TData) => void;
 }
 
-interface DataTableProps<TData> {
+interface DataTableProps<TData extends WithId> {
   data: TData[];
   columns: ColumnDef<TData>[];
   actions?: Action<TData>[];
+  disableDefaultActions?: string[];
   filter?: boolean;
   isLoading?: boolean;
   error?: Error | null;
+  dataType: DataType;
 }
 
-export default function DataTable<TData>({
+// Main Component
+export default function DataTable<TData extends WithId>({
   data,
   columns,
   actions = [],
+  disableDefaultActions = [],
   filter = true,
   isLoading = false,
   error = null,
+  dataType,
 }: DataTableProps<TData>) {
-  // Estado para paginación
+  // States
   const [pageSize, setPageSize] = useState(10);
   const [pageIndex, setPageIndex] = useState(0);
-  const [globalFilter, setGlobalFilter] = useState(''); // Estado para el término del filtro
-
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [selectedRow, setSelectedRow] = useState<TData | null>(null);
+  // Hooks
+  const router = useRouter();
   const showToast = useCustomToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleDeleteClick = useCallback(
+    (row: TData) => {
+      setSelectedRow(row);
+      onOpen();
+    },
+    [onOpen],
+  );
+
+  const confirmDelete = () => {
+    if (selectedRow) {
+      deleteAction(selectedRow);
+      onClose();
+    }
+  };
+
+  const cancelDelete = () => {
+    if (selectedRow) {
+      setSelectedRow(null);
+      onClose();
+    }
+  };
+
+  const deleteAction = useCallback(
+    async (row: TData) => {
+      try {
+        console.log(`/admin/${dataType.type}/delete/${row.id}`);
+        showToast({
+          title: `${capitalizeFirstLetter(dataType.label)} eliminado`,
+          description: `El ${dataType.label} ha sido eliminado exitosamente.`,
+          status: 'success',
+        });
+      } catch {
+        showToast({
+          title: 'Error',
+          description: `No se pudo eliminar el ${dataType.label}.`,
+          status: 'error',
+        });
+      }
+    },
+    [dataType, showToast],
+  );
+
+  const editAction = useCallback(
+    (row: TData) => {
+      router.push(`/admin/${dataType.type}/edit/${row.id}`);
+    },
+    [dataType, router],
+  );
+
+  // Table Configuration
   const table = useReactTable({
     data,
     columns,
@@ -90,25 +158,27 @@ export default function DataTable<TData>({
     onGlobalFilterChange: setGlobalFilter,
   });
 
-  // Hook de Chakra para controlar la visibilidad del modal
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const combinedActions = useMemo(() => {
+    const defaultActions: Action<TData>[] = [];
 
-  // Estado para guardar la fila seleccionada
-  const [selectedRow, setSelectedRow] = useState<TData | null>(null);
-
-  const handleDeleteClick = (row: TData) => {
-    setSelectedRow(row);
-    onOpen();
-  };
-
-  const confirmDelete = () => {
-    if (selectedRow) {
-      actions
-        .find((action) => action.label === 'Eliminar')
-        ?.onClick(selectedRow);
-      onClose();
+    if (!disableDefaultActions.includes('edit')) {
+      defaultActions.push({
+        label: 'Editar',
+        icon: <EditIcon />,
+        onClick: editAction,
+      });
     }
-  };
+
+    if (!disableDefaultActions.includes('delete')) {
+      defaultActions.push({
+        label: 'Eliminar',
+        icon: <DeleteIcon />,
+        onClick: handleDeleteClick,
+      });
+    }
+
+    return [...defaultActions, ...actions];
+  }, [actions, disableDefaultActions, editAction, handleDeleteClick]);
 
   if (error) {
     showToast({
@@ -215,24 +285,19 @@ export default function DataTable<TData>({
                       )}
                     </Td>
                   ))}
-                  {actions.length > 0 && (
+
+                  {combinedActions.length > 0 && (
                     <Td textAlign="right">
                       <HStack justifyContent="flex-end" spacing={2}>
-                        {actions.map((action, index) => (
+                        {combinedActions.map((action, index) => (
                           <Tooltip label={action.label} key={index}>
-                            {action.label === 'Eliminar' ? (
-                              <IconButton
-                                aria-label={action.label}
-                                icon={action.icon}
-                                onClick={() => handleDeleteClick(row.original)}
-                              />
-                            ) : (
-                              <IconButton
-                                aria-label={action.label}
-                                icon={action.icon}
-                                onClick={() => action.onClick(row.original)}
-                              />
-                            )}
+                            <IconButton
+                              aria-label={action.label}
+                              icon={action.icon}
+                              onClick={() => {
+                                action.onClick(row.original);
+                              }}
+                            />
                           </Tooltip>
                         ))}
                       </HStack>
@@ -297,7 +362,7 @@ export default function DataTable<TData>({
         title="¿Estás seguro?"
         body={`¿Seguro que quieres eliminar el elemento seleccionado?`}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={cancelDelete}
         onConfirm={confirmDelete}
       />
     </Box>

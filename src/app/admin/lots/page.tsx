@@ -4,10 +4,9 @@ import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
 import { fetchLots } from '@/services/lots';
 import { Lot } from '@/types/lot';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { Suspense, useCallback } from 'react';
+import { Suspense } from 'react';
 import { useQuery } from 'react-query';
 
 export default function LotsPage() {
@@ -26,13 +25,10 @@ export default function LotsPage() {
     { accessorKey: 'denomination', header: 'Denominación' },
   ];
 
-  const editLot = useCallback((lot: Lot) => {
-    console.log(`Editar Lote ${lot.id}`);
-  }, []);
-
-  const deleteLot = useCallback((lot: Lot) => {
-    console.log(`Eliminar Lote ${lot.id}`);
-  }, []);
+  const dataType = {
+    type: 'lot',
+    label: 'lote',
+  };
 
   return (
     <Box>
@@ -51,18 +47,7 @@ export default function LotsPage() {
             columns={columns}
             isLoading={isLoading}
             error={error as Error}
-            actions={[
-              {
-                label: 'Editar',
-                icon: <EditIcon />,
-                onClick: editLot, // Función que se ejecuta al hacer clic en "Editar"
-              },
-              {
-                label: 'Eliminar',
-                icon: <DeleteIcon />,
-                onClick: deleteLot, // Función que se ejecuta al hacer clic en "Eliminar"
-              },
-            ]}
+            dataType={dataType}
           />
         </Box>
       </Suspense>
