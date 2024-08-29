@@ -377,7 +377,7 @@ export default function DataTable<TData extends WithId>({
       {/* Modal de confirmación para eliminar */}
       <ConfirmModal
         title="¿Estás seguro?"
-        body={`¿Seguro que quieres eliminar el elemento seleccionado?`}
+        body={`¿Seguro que quieres eliminar el ${dataType.label} seleccionado?`}
         isOpen={isOpen}
         onClose={cancelDelete}
         onConfirm={confirmDelete}
