@@ -2,7 +2,7 @@
 
 import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
-import { fetchParticipants } from '@/services/participants';
+import { getMany } from '@/services/getManyService';
 import { Participant } from '@/types/participant';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
@@ -11,12 +11,12 @@ import { useQuery } from 'react-query';
 
 export default function ParticipantsPage() {
   // Hook useQuery para obtener los datos de participantes desde la API
-  // 'participants' es la clave del cache, y fetchParticipants es la función que obtiene los datos
+  // 'participants' es la clave del cache, y fetchResults es la función que obtiene los datos
   const {
     data: participantsData,
     error,
     isLoading,
-  } = useQuery('participants', fetchParticipants);
+  } = useQuery('participants', () => getMany('participant'));
 
   /**
    * Definición de columnas para TanStack Table

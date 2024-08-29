@@ -2,7 +2,7 @@
 
 import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
-import { fetchLots } from '@/services/lots';
+import { getMany } from '@/services/getManyService';
 import { Lot } from '@/types/lot';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
@@ -11,8 +11,12 @@ import { useQuery } from 'react-query';
 
 export default function LotsPage() {
   // Hook useQuery para obtener los datos de lotes desde la API
-  // 'lots' es la clave del cache, y fetchLots es la función que obtiene los datos
-  const { data: lotsData, error, isLoading } = useQuery('lots', fetchLots);
+  // 'lots' es la clave del cache, y fetchResults es la función que obtiene los datos
+  const {
+    data: lotsData,
+    error,
+    isLoading,
+  } = useQuery('lots', () => getMany('lot'));
 
   /**
    * Definición de columnas para TanStack Table
