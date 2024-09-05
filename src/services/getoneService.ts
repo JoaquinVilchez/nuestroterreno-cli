@@ -1,14 +1,29 @@
-// import apiClient from './apiClient';
+import { useCallback } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { apiLoadingState, apiErrorState } from '../atoms/apiState';
+import apiClient from './apiClient';
+import { DataType } from '@/types/dataType';
 
-// // Tipar la función `getMany`
-// export const getOne = async (endpoint: string) => {
-//   const params = new URLSearchParams();
+export const useGetOne = () => {
+  const setLoading = useSetRecoilState(apiLoadingState);
+  const setError = useSetRecoilState(apiErrorState);
 
-//   const url = params.toString()
-//     ? `/${endpoint}?${params.toString()}`
-//     : `/${endpoint}`;
+  const getOne = useCallback(
+    async (dataType: DataType, id: string | number) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const { data } = await apiClient.get(`/${dataType.endpoint}/${id}`);
+        return data;
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        throw err;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, setError], // Asegúrate de que estas dependencias no cambian
+  );
 
-//   // Realizar la solicitud y devolver los datos
-//   const { data } = await apiClient.get(url);
-//   return data;
-// };
+  return { getOne };
+};

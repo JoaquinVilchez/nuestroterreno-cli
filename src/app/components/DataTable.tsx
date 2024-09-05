@@ -126,7 +126,7 @@ export default function DataTable<TData extends WithId>({
    */
   const editAction = useCallback(
     (row: TData) => {
-      router.push(`/admin/${dataType.route}s/edit/${row.id}`);
+      router.push(`/admin/${dataType.route}/edit/${row.id}`);
     },
     [dataType, router],
   );

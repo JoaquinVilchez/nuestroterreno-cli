@@ -6,26 +6,28 @@ import { DataType } from '@/types/dataType';
 import { capitalizeFirstLetter } from '@/utils/formatters';
 import { useQueryClient } from 'react-query';
 
-export const useCreateOne = () => {
-  const queryClient = useQueryClient();
+export const useEditOne = () => {
+  const queryClient = useQueryClient(); // Para acceder al queryClient
   const setLoading = useSetRecoilState(apiLoadingState);
   const setError = useSetRecoilState(apiErrorState);
   const showToast = useCustomToast();
 
-  const createOne = async (dataType: DataType, data: Record<string, any>) => {
+  const editOne = async (
+    dataType: DataType,
+    id: string | number,
+    data: Record<string, any>,
+  ) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await apiClient.post(`/${dataType.endpoint}`, data, {
-        withCredentials: true,
-      });
+      const response = await apiClient.put(`/${dataType.endpoint}/${id}`, data);
 
       queryClient.invalidateQueries(dataType.key);
 
       showToast({
         title: `${capitalizeFirstLetter(dataType.label)} creado`,
-        description: `El ${dataType.label} ha sido creado exitosamente.`,
+        description: `El ${dataType.label} ha sido editado exitosamente.`,
         status: 'success',
       });
       return response.data;
@@ -42,5 +44,5 @@ export const useCreateOne = () => {
     }
   };
 
-  return { createOne };
+  return { editOne };
 };
