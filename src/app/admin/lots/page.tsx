@@ -2,21 +2,25 @@
 
 import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
-import { getMany } from '@/services/getManyService';
+import { useGetMany } from '@/services/getManyService';
 import { Lot } from '@/types/lot';
+import catalogs from '@/utils/catalogs';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Suspense } from 'react';
 import { useQuery } from 'react-query';
 
 export default function LotsPage() {
+  const { getMany } = useGetMany();
+  const { lotCatalog } = catalogs;
+
   // Hook useQuery para obtener los datos de lotes desde la API
   // 'lots' es la clave del cache, y fetchResults es la función que obtiene los datos
   const {
     data: lotsData,
     error,
     isLoading,
-  } = useQuery('lots', () => getMany('lot'));
+  } = useQuery(lotCatalog.key, () => getMany(lotCatalog));
 
   /**
    * Definición de columnas para TanStack Table
@@ -29,29 +33,22 @@ export default function LotsPage() {
     { accessorKey: 'denomination', header: 'Denominación' },
   ];
 
-  const dataType = {
-    type: 'lot',
-    label: 'lote',
-  };
-
   return (
     <Box>
-      {/* Componente de encabezado de página que incluye el título y un botón para agregar un nuevo lote */}
       <PageHeader
         title="Lotes"
         showButton={true}
         buttonText="Nuevo"
-        href="/admin/lots/new"
+        href={`/admin/${lotCatalog.route}/new`}
       />
       <Suspense fallback={<Spinner />}>
         <Box mt={8}>
-          {/* Tabla de datos con paginación, manejo de errores y estado de carga */}
           <DataTable
             data={lotsData}
             columns={columns}
             isLoading={isLoading}
             error={error as Error}
-            dataType={dataType}
+            dataType={lotCatalog}
           />
         </Box>
       </Suspense>

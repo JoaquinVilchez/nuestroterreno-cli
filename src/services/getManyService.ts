@@ -1,6 +1,9 @@
+import { useSetRecoilState } from 'recoil';
+import { apiLoadingState, apiErrorState } from '../atoms/apiState';
 import apiClient from './apiClient';
+import useCustomToast from '@/app/components/Toast';
+import { DataType } from '@/types/dataType';
 
-// Definir la interfaz para las opciones
 interface getManyOptions {
   includes?: string[];
   quantity?: number;
@@ -9,28 +12,44 @@ interface getManyOptions {
   resultType?: 'incumbent' | 'alternate';
 }
 
-// Tipar la función `getMany`
-export const getMany = async (
-  endpoint: string,
-  options: getManyOptions = {},
-) => {
-  const { includes = [], quantity, orderBy, drawType, resultType } = options;
+// Hook personalizado
+export const useGetMany = () => {
+  const setLoading = useSetRecoilState(apiLoadingState);
+  const setError = useSetRecoilState(apiErrorState);
+  const showToast = useCustomToast();
 
-  // Construir la URL con los parámetros dinámicos
-  const params = new URLSearchParams();
+  const getMany = async (dataType: DataType, options: getManyOptions = {}) => {
+    setLoading(true);
+    setError(null);
 
-  if (includes.length > 0) params.append('includes', includes.join(','));
-  if (quantity !== undefined) params.append('quantity', quantity.toString());
-  if (orderBy) params.append('orderBy', orderBy);
-  if (drawType) params.append('drawType', drawType);
-  if (resultType) params.append('resultType', resultType);
+    const { includes = [], quantity, orderBy, drawType, resultType } = options;
+    const params = new URLSearchParams();
 
-  // Construir la URL final con o sin parámetros
-  const url = params.toString()
-    ? `/${endpoint}?${params.toString()}`
-    : `/${endpoint}`;
+    if (includes.length > 0) params.append('includes', includes.join(','));
+    if (quantity !== undefined) params.append('quantity', quantity.toString());
+    if (orderBy) params.append('orderBy', orderBy);
+    if (drawType) params.append('drawType', drawType);
+    if (resultType) params.append('resultType', resultType);
 
-  // Realizar la solicitud y devolver los datos
-  const { data } = await apiClient.get(url);
-  return data;
+    const url = params.toString()
+      ? `/${dataType.endpoint}?${params.toString()}`
+      : `/${dataType.endpoint}`;
+
+    try {
+      const { data } = await apiClient.get(url);
+      return data;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+      showToast({
+        title: 'Error',
+        description: err instanceof Error ? err.message : 'Unknown error',
+        status: 'error',
+      });
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { getMany };
 };

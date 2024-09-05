@@ -2,21 +2,25 @@
 
 import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
-import { getMany } from '@/services/getManyService';
+import { useGetMany } from '@/services/getManyService';
 import { Participant } from '@/types/participant';
+import catalogs from '@/utils/catalogs';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Suspense } from 'react';
 import { useQuery } from 'react-query';
 
 export default function ParticipantsPage() {
+  const { getMany } = useGetMany();
+  const { participantCatalog } = catalogs;
+
   // Hook useQuery para obtener los datos de participantes desde la API
   // 'participants' es la clave del cache, y fetchResults es la función que obtiene los datos
   const {
     data: participantsData,
     error,
     isLoading,
-  } = useQuery('participants', () => getMany('participant'));
+  } = useQuery(participantCatalog.key, () => getMany(participantCatalog));
 
   /**
    * Definición de columnas para TanStack Table
@@ -37,7 +41,7 @@ export default function ParticipantsPage() {
         title="Participantes"
         showButton={true}
         buttonText="Nuevo"
-        href="/admin/participants/new"
+        href={`/admin/${participantCatalog.route}/new`}
       />
       <Suspense fallback={<Spinner />}>
         <Box mt={8}>
@@ -47,10 +51,7 @@ export default function ParticipantsPage() {
             columns={columns}
             isLoading={isLoading}
             error={error as Error}
-            dataType={{
-              type: 'participant',
-              label: 'participante',
-            }}
+            dataType={participantCatalog}
           ></DataTable>
         </Box>
       </Suspense>

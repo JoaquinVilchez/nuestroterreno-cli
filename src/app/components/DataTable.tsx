@@ -35,15 +35,11 @@ import { useRouter } from 'next/navigation';
 import ConfirmModal from './ConfirmModal';
 import useCustomToast from './Toast';
 import { SearchIcon, CloseIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import { capitalizeFirstLetter } from '@/utils/formatters';
+import { useDeleteOne } from '@/services/deleteOneService';
+import { DataType } from '@/types/dataType';
 
 // Types and Interfaces
 type WithId = { id: number };
-
-interface DataType {
-  type: string; // Para usar en el endpoint
-  label: string; // Para usar en mensajes de éxito/error
-}
 
 interface Action<TData> {
   label: string;
@@ -82,6 +78,7 @@ export default function DataTable<TData extends WithId>({
   const router = useRouter();
   const showToast = useCustomToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { deleteOne } = useDeleteOne();
 
   /**
    * Acción de eliminación
@@ -103,14 +100,7 @@ export default function DataTable<TData extends WithId>({
     if (!selectedRow) return;
 
     try {
-      // Simula una llamada a la API o realiza la eliminación real
-      console.log(`/admin/${dataType.type}s/delete/${selectedRow.id}`);
-
-      showToast({
-        title: `${capitalizeFirstLetter(dataType.label)} eliminado`,
-        description: `El ${dataType.label} ha sido eliminado exitosamente.`,
-        status: 'success',
-      });
+      await deleteOne(dataType, selectedRow.id);
     } catch {
       showToast({
         title: 'Error',
@@ -118,11 +108,10 @@ export default function DataTable<TData extends WithId>({
         status: 'error',
       });
     } finally {
-      // Cierra el modal después de la acción
       setSelectedRow(null);
       onClose();
     }
-  }, [dataType, selectedRow, showToast, onClose]);
+  }, [dataType, selectedRow, showToast, onClose, deleteOne]);
 
   /**
    * Cancela la eliminación y cierra el modal.
@@ -137,7 +126,7 @@ export default function DataTable<TData extends WithId>({
    */
   const editAction = useCallback(
     (row: TData) => {
-      router.push(`/admin/${dataType.type}s/edit/${row.id}`);
+      router.push(`/admin/${dataType.route}s/edit/${row.id}`);
     },
     [dataType, router],
   );

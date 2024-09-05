@@ -2,7 +2,7 @@
 
 import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
-import { getMany } from '@/services/getManyService';
+import { useGetMany } from '@/services/getManyService';
 import { Result } from '@/types/result';
 import { getFullName } from '@/utils/formatters';
 import { Box, Spinner } from '@chakra-ui/react';
@@ -11,6 +11,8 @@ import { Suspense } from 'react';
 import { useQuery } from 'react-query';
 
 export default function ResultsPage() {
+  const { getMany } = useGetMany();
+
   // Hook useQuery para obtener los datos de resultados desde la API
   // 'results' es la clave del cache, y fetchResults es la función que obtiene los datos
   const {

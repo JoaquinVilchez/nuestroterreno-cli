@@ -2,12 +2,19 @@
 
 import ButtonComponent from '@/app/components/Button';
 import PageHeader from '@/app/components/PageHeader';
+import { useCreateOne } from '@/services/createOneService';
 import { DrawType } from '@/types/drawType';
+import catalogs from '@/utils/catalogs';
 import {
   Box,
   FormControl,
   FormLabel,
   Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Select,
   SimpleGrid,
   Text,
@@ -15,24 +22,36 @@ import {
 } from '@chakra-ui/react';
 import { FieldApi, useForm } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 
 export default function NewParticipantPage() {
   type ParticipantData = {
     firstName: string;
     lastName: string;
+    ballNumber: number;
     dni: string;
     group: number;
     type: DrawType;
   };
 
+  const { createOne } = useCreateOne();
+  const router = useRouter();
+  const { participantCatalog } = catalogs;
+
   const form = useForm<ParticipantData>({
     onSubmit: async ({ value }) => {
-      await console.log('SUBMIT: ', value);
+      try {
+        await createOne(participantCatalog, value);
+        router.push(`/admin/${participantCatalog.route}`);
+      } catch {
+        return;
+      }
     },
     defaultValues: {
       firstName: '',
       lastName: '',
+      ballNumber: 0,
       dni: '',
       group: 1,
       type: DrawType.CPD,
@@ -47,14 +66,13 @@ export default function NewParticipantPage() {
             {field.state.meta.errors.join(', ')}
           </Text>
         ) : null}
-        {field.state.meta.isValidating ? 'Validating...' : null}
+        {field.state.meta.isValidating ? 'Validando...' : null}
       </>
     );
   };
 
   return (
     <Box>
-      x
       <PageHeader title="Nuevo participante" showButton={false} />
       <Box
         maxW="4xl"
@@ -73,7 +91,7 @@ export default function NewParticipantPage() {
           }}
         >
           <VStack spacing={4} align="stretch">
-            <SimpleGrid columns={2} spacing={4}>
+            <SimpleGrid columns={3} spacing={4}>
               {/* Campo: Nombre */}
               <form.Field
                 name="firstName"
@@ -131,6 +149,45 @@ export default function NewParticipantPage() {
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Ingresa el apellido"
                     />
+                    <FieldInfo field={field} />
+                  </FormControl>
+                )}
+              </form.Field>
+
+              {/* Campo: Número de bolilla */}
+              <form.Field
+                name="ballNumber"
+                validators={{
+                  onChange: z
+                    .number()
+                    .min(1, 'El número de bolilla debe ser mayor a 0')
+                    .max(
+                      10000,
+                      'El número de bolilla no puede ser mayor a 10000',
+                    ),
+                }}
+                validatorAdapter={zodValidator()}
+              >
+                {(field) => (
+                  <FormControl isInvalid={!!field.state.meta.errors.length}>
+                    <FormLabel htmlFor="ballNumber">
+                      Número de bolilla
+                    </FormLabel>
+                    <NumberInput>
+                      <NumberInputField
+                        id="ballNumber"
+                        name="ballNumber"
+                        value={field.state.value}
+                        onChange={(e) =>
+                          field.handleChange(Number(e.target.value))
+                        }
+                        placeholder="Ingresa el número de bolilla"
+                      />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
                     <FieldInfo field={field} />
                   </FormControl>
                 )}
