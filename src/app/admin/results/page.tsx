@@ -4,6 +4,7 @@ import DataTable from '@/app/components/DataTable';
 import PageHeader from '@/app/components/PageHeader';
 import { useGetMany } from '@/services/getManyService';
 import { Result } from '@/types/result';
+import catalogs from '@/utils/catalogs';
 import { getFullName } from '@/utils/formatters';
 import { Box, Spinner } from '@chakra-ui/react';
 import { ColumnDef } from '@tanstack/react-table';
@@ -12,15 +13,26 @@ import { useQuery } from 'react-query';
 
 export default function ResultsPage() {
   const { getMany } = useGetMany();
+  const { resultCatalog } = catalogs;
 
   // Hook useQuery para obtener los datos de resultados desde la API
   // 'results' es la clave del cache, y fetchResults es la función que obtiene los datos
+  // const {
+  //   data: resultsData,
+  //   error,
+  //   isLoading,
+  // } = useQuery('results', () =>
+  //   getMany('result', {
+  //     includes: ['lot', 'participant'],
+  //   }),
+  // );
+
   const {
-    data: resultsData,
+    data: resultData,
     error,
     isLoading,
-  } = useQuery('results', () =>
-    getMany('result', {
+  } = useQuery(resultCatalog.key, () =>
+    getMany(resultCatalog, {
       includes: ['lot', 'participant'],
     }),
   );
@@ -67,20 +79,17 @@ export default function ResultsPage() {
         title="Resultados"
         showButton={true}
         buttonText="Nuevo"
-        href="/admin/results/new"
+        href="/admin/draw"
       />
       <Suspense fallback={<Spinner />}>
         <Box mt={8}>
           {/* Tabla de datos con paginación, manejo de errores y estado de carga */}
           <DataTable
-            data={resultsData}
+            data={resultData}
             columns={columns}
             isLoading={isLoading}
             error={error as Error}
-            dataType={{
-              type: 'result',
-              label: 'resultado',
-            }}
+            dataType={resultCatalog}
           ></DataTable>
         </Box>
       </Suspense>
