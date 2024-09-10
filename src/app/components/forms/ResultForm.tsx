@@ -19,6 +19,11 @@ import { useParams, useRouter } from 'next/navigation';
 import catalogs from '@/utils/catalogs';
 import { useEditOne } from '@/services/editOneService';
 import { ResultType } from '@/types/resultType';
+import ReactSelect from 'react-select';
+import { useGetMany } from '@/services/getManyService';
+import { useQuery } from 'react-query';
+import { Lot } from '@/types/lot';
+import { Participant } from '@/types/participant';
 
 type ResultData = {
   participant: number | undefined;
@@ -28,15 +33,28 @@ type ResultData = {
   resultType: ResultType | undefined;
 };
 
-export default function LotForm({ resultData }: { resultData?: ResultData }) {
+export default function ResultForm({
+  resultData,
+}: {
+  resultData?: ResultData;
+}) {
   const { createOne } = useCreateOne();
   const { editOne } = useEditOne();
-  const router = useRouter();
   const { id } = useParams();
-  const { resultCatalog } = catalogs;
-  const resultId = Array.isArray(id) ? id[0] : id;
-
+  const { resultCatalog, lotCatalog, participantCatalog } = catalogs;
   const isEditing = Boolean(resultData);
+  const resultId = Array.isArray(id) ? id[0] : id;
+  const router = useRouter();
+  const { getMany } = useGetMany();
+
+  const { data: lotsData, isLoading: isLoadingLots } = useQuery('lots', () =>
+    getMany(lotCatalog),
+  );
+
+  const { data: participantsData, isLoading: isLoadingParticipants } = useQuery(
+    'participants',
+    () => getMany(participantCatalog),
+  );
 
   const form = useForm<ResultData>({
     onSubmit: async ({ value }) => {
@@ -165,52 +183,76 @@ export default function LotForm({ resultData }: { resultData?: ResultData }) {
             <form.Field
               name="lot"
               validators={{
-                onChange: z.string().min(1, 'Debe seleccionar un lote'),
+                onChange: z.number().min(1, 'Debe seleccionar un lote'),
               }}
               validatorAdapter={zodValidator()}
             >
               {(field) => (
                 <FormControl isInvalid={!!field.state.meta.errors.length}>
                   <FormLabel htmlFor="lot">Lote</FormLabel>
-                  <Select
+                  <ReactSelect
                     id="lot"
                     name="lot"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(Number(e.target.value))}
-                  >
-                    <option value={1}>Lote 1</option>
-                    <option value={2}>Lote 2</option>
-                    <option value={3}>Lote 3</option>
-                    <option value={4}>Lote 4</option>
-                  </Select>
+                    isLoading={isLoadingLots}
+                    options={
+                      lotsData
+                        ? lotsData.map((lot: Lot) => ({
+                            value: lot.id,
+                            label: `Lote ${lot.id} - ${lot.denomination}`,
+                          }))
+                        : []
+                    }
+                    placeholder="Selecciona un lote"
+                    value={lotsData?.find(
+                      (option: { value: number; label: string }) =>
+                        option.value === field.state.value,
+                    )}
+                    onChange={(selectedOption) => {
+                      if (selectedOption && selectedOption.value) {
+                        field.handleChange(selectedOption.value);
+                      }
+                    }}
+                  />
                   <FieldInfo field={field} />
                 </FormControl>
               )}
             </form.Field>
           </SimpleGrid>
           <SimpleGrid>
-            {/* Campo: Lote */}
+            {/* Campo: Participante */}
             <form.Field
               name="participant"
               validators={{
-                onChange: z.string().min(1, 'Debe seleccionar un participante'),
+                onChange: z.number().min(1, 'Debe seleccionar un participante'),
               }}
               validatorAdapter={zodValidator()}
             >
               {(field) => (
                 <FormControl isInvalid={!!field.state.meta.errors.length}>
                   <FormLabel htmlFor="participant">Participante</FormLabel>
-                  <Select
+                  <ReactSelect
                     id="participant"
                     name="participant"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(Number(e.target.value))}
-                  >
-                    <option value={1}>Participante 1</option>
-                    <option value={2}>Participante 2</option>
-                    <option value={3}>Participante 3</option>
-                    <option value={4}>Participante 4</option>
-                  </Select>
+                    isLoading={isLoadingParticipants}
+                    options={
+                      participantsData
+                        ? participantsData.map((participant: Participant) => ({
+                            value: participant.id,
+                            label: `${participant.id} - ${participant.lastName}, ${participant.firstName}`,
+                          }))
+                        : []
+                    }
+                    placeholder="Selecciona un participante"
+                    value={participantsData?.find(
+                      (option: { value: number; label: string }) =>
+                        option.value === field.state.value,
+                    )}
+                    onChange={(selectedOption) => {
+                      if (selectedOption && selectedOption.value) {
+                        field.handleChange(selectedOption.value);
+                      }
+                    }}
+                  />
                   <FieldInfo field={field} />
                 </FormControl>
               )}
