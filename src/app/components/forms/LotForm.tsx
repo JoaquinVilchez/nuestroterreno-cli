@@ -140,17 +140,17 @@ export default function LotForm({ lotData }: { lotData?: LotData }) {
             >
               {(field) => (
                 <FormControl isInvalid={!!field.state.meta.errors.length}>
-                  <FormLabel htmlFor="type">Tipo de sorteo</FormLabel>
+                  <FormLabel htmlFor="drawType">Tipo de sorteo</FormLabel>
                   <Select
-                    id="type"
-                    name="type"
+                    id="drawType"
+                    name="drawType"
                     value={field.state.value}
                     onChange={(e) =>
                       field.handleChange(e.target.value as DrawType)
                     }
                   >
-                    <option value="CPD">CPD</option>
-                    <option value="GENERAL">GENERAL</option>
+                    <option value={DrawType.CPD}>CPD</option>
+                    <option value={DrawType.GENERAL}>GENERAL</option>
                   </Select>
                   <FieldInfo field={field} />
                 </FormControl>

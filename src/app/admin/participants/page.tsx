@@ -31,7 +31,7 @@ export default function ParticipantsPage() {
     { accessorKey: 'lastName', header: 'Apellido' },
     { accessorKey: 'firstName', header: 'Nombre' },
     { accessorKey: 'group', header: 'Grupo' },
-    { accessorKey: 'type', header: 'Tipo de sorteo' },
+    { accessorKey: 'drawType', header: 'Tipo de sorteo' },
   ];
 
   return (

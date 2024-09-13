@@ -3,13 +3,17 @@ import { apiLoadingState, apiErrorState } from '../atoms/apiState';
 import apiClient from './apiClient';
 import useCustomToast from '@/app/components/Toast';
 import { DataType } from '@/types/dataType';
+import { ResultType } from '@/types/resultType';
+import { DrawType } from '@/types/drawType';
 
 interface getManyOptions {
   includes?: string[];
   quantity?: number;
   orderBy?: 'ASC' | 'DESC';
-  drawType?: 'CPD' | 'GENERAL';
-  resultType?: 'incumbent' | 'alternate';
+  drawType?: DrawType;
+  resultType?: ResultType;
+  group?: number;
+  forSelect?: boolean;
 }
 
 // Hook personalizado
@@ -22,7 +26,15 @@ export const useGetMany = () => {
     setLoading(true);
     setError(null);
 
-    const { includes = [], quantity, orderBy, drawType, resultType } = options;
+    const {
+      includes = [],
+      quantity,
+      orderBy,
+      drawType,
+      resultType,
+      group,
+      forSelect,
+    } = options;
     const params = new URLSearchParams();
 
     if (includes.length > 0) params.append('includes', includes.join(','));
@@ -30,6 +42,8 @@ export const useGetMany = () => {
     if (orderBy) params.append('orderBy', orderBy);
     if (drawType) params.append('drawType', drawType);
     if (resultType) params.append('resultType', resultType);
+    if (group) params.append('group', group.toString());
+    if (forSelect) params.append('forSelect', forSelect.toString());
 
     const url = params.toString()
       ? `/${dataType.endpoint}?${params.toString()}`

@@ -7,5 +7,5 @@ export type Participant = {
   lastName: string;
   dni: string;
   group: number;
-  type: DrawType;
+  drawType: DrawType;
 };

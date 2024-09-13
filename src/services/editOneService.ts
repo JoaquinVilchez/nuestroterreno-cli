@@ -31,13 +31,17 @@ export const useEditOne = () => {
         status: 'success',
       });
       return response.data;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || err.message;
+
+      setError(errorMessage);
+
       showToast({
         title: 'Error',
-        description: err instanceof Error ? err.message : 'Unknown error',
+        description: errorMessage,
         status: 'error',
       });
+
       throw err;
     } finally {
       setLoading(false);

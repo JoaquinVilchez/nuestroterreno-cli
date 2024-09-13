@@ -31,7 +31,7 @@ type ParticipantData = {
   ballNumber: number;
   dni: string;
   group: number;
-  type: DrawType;
+  drawType: DrawType;
 };
 
 export default function ParticipantForm({
@@ -67,7 +67,7 @@ export default function ParticipantForm({
       ballNumber: participantData?.ballNumber ?? 0,
       dni: participantData?.dni || '',
       group: participantData?.group || 1,
-      type: participantData?.type || DrawType.CPD,
+      drawType: participantData?.drawType || DrawType.CPD,
     },
   });
   return (
@@ -242,7 +242,7 @@ export default function ParticipantForm({
 
             {/* Campo: Tipo de Sorteo */}
             <form.Field
-              name="type"
+              name="drawType"
               validators={{
                 onChange: z.nativeEnum(DrawType),
               }}
@@ -250,17 +250,17 @@ export default function ParticipantForm({
             >
               {(field) => (
                 <FormControl isInvalid={!!field.state.meta.errors.length}>
-                  <FormLabel htmlFor="type">Tipo de sorteo</FormLabel>
+                  <FormLabel htmlFor="drawType">Tipo de sorteo</FormLabel>
                   <Select
-                    id="type"
-                    name="type"
+                    id="drawType"
+                    name="drawType"
                     value={field.state.value}
                     onChange={(e) =>
                       field.handleChange(e.target.value as DrawType)
                     }
                   >
-                    <option value="CPD">CPD</option>
-                    <option value="GENERAL">GENERAL</option>
+                    <option value={DrawType.CPD}>CPD</option>
+                    <option value={DrawType.GENERAL}>GENERAL</option>
                   </Select>
                   <FieldInfo field={field} />
                 </FormControl>

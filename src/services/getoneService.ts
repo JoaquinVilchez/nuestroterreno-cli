@@ -22,7 +22,7 @@ export const useGetOne = () => {
         setLoading(false);
       }
     },
-    [setLoading, setError], // Asegúrate de que estas dependencias no cambian
+    [setLoading, setError],
   );
 
   return { getOne };
