@@ -6,12 +6,14 @@ import { io, Socket } from 'socket.io-client';
 interface ServerToClientEvents {
   lastResults: (results: Result[]) => void;
   nextLot: (lot: Lot) => void;
+  defaultPage: () => void;
 }
 
 interface ClientToServerEvents {
   joinRoom: (room: string) => void;
   requestLastResults: (quantity: number) => void;
   requestNextLot: () => void;
+  requestDefaultPage: () => void;
 }
 
 let socket: Socket<ServerToClientEvents, ClientToServerEvents> | null = null;

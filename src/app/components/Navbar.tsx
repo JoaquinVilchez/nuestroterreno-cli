@@ -124,6 +124,7 @@ export default function NavbarComponent() {
                 <MenuItem
                   as={NextLink}
                   href="/admin/screen/bigscreen"
+                  target="_blank"
                   icon={<ExternalLinkIcon />}
                 >
                   Pantalla principal
@@ -131,6 +132,7 @@ export default function NavbarComponent() {
                 <MenuItem
                   as={NextLink}
                   href="/admin/screen/prompter"
+                  target="_blank"
                   icon={<ExternalLinkIcon />}
                 >
                   Prompter
@@ -138,6 +140,7 @@ export default function NavbarComponent() {
                 <MenuItem
                   as={NextLink}
                   href="/admin/screen/streaming"
+                  target="_blank"
                   icon={<ExternalLinkIcon />}
                 >
                   Transmisión
