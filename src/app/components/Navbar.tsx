@@ -40,6 +40,10 @@ const Links = [
     label: 'Lotes',
     url: 'lots',
   },
+  {
+    label: 'Switcher',
+    url: 'switcher',
+  },
 ];
 
 const NavLink = ({
