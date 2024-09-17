@@ -9,6 +9,7 @@ import {
 } from '@/utils/socket';
 import {
   Box,
+  Heading,
   SimpleGrid,
   Spinner,
   Tab,
@@ -21,41 +22,51 @@ import { Suspense, useEffect, useState } from 'react';
 
 type ButtonAction = 'lastResults' | 'nextLot' | 'defaultPage';
 
-export default function ResultsPage() {
-  const [activeButton, setActiveButton] = useState<ButtonAction | null>(null);
+export default function SwitcherPage() {
+  const [mainScreenActiveButton, setMainScreenActiveButton] =
+    useState<ButtonAction | null>(null);
+  const [prompterActiveButton, setPrompterActiveButton] =
+    useState<ButtonAction | null>(null);
+  const [broadcastActiveButton, setBroadcastActiveButton] =
+    useState<ButtonAction | null>(null);
 
   useEffect(() => {
     initiateSocketConnection();
-
     return () => {
       disconnectSocket();
     };
   }, []);
 
-  const handleButton = (action: ButtonAction) => {
-    switch (action) {
-      case 'lastResults':
-        emitEvent('requestLastResults', 5);
-        console.log('Emitido requestLastResults con cantidad 5');
-        break;
-      case 'nextLot':
-        emitEvent('requestNextLot');
-        console.log('Emitido requestNextLot');
-        break;
-      case 'defaultPage':
-        emitEvent('requestDefaultPage');
-        console.log('Logo MVT');
-        break;
-      default:
-        console.warn('Acción desconocida');
+  const handleButton = (
+    action: ButtonAction,
+    screen: 'mainScreen' | 'prompter' | 'broadcast',
+  ) => {
+    // Emitir eventos específicos para cada pestaña
+    emitEvent(`${screen}Action`, action);
+    console.log(`Emitido ${action} para ${screen}`);
+
+    // Actualizar el estado activo específico de la pestaña
+    if (screen === 'mainScreen') {
+      setMainScreenActiveButton(action);
+    } else if (screen === 'prompter') {
+      setPrompterActiveButton(action);
+    } else if (screen === 'broadcast') {
+      setBroadcastActiveButton(action);
     }
-    setActiveButton(action); // Set the active button based on action
   };
 
-  const renderButton = (action: ButtonAction, label: string) => (
+  const renderButton = (
+    action: ButtonAction,
+    label: string,
+    screen: 'mainScreen' | 'prompter' | 'broadcast',
+  ) => (
     <SwitcherButton
-      onClick={() => handleButton(action)}
-      isActive={activeButton === action}
+      onClick={() => handleButton(action, screen)}
+      isActive={
+        (screen === 'mainScreen' && mainScreenActiveButton === action) ||
+        (screen === 'prompter' && prompterActiveButton === action) ||
+        (screen === 'broadcast' && broadcastActiveButton === action)
+      }
     >
       {label}
     </SwitcherButton>
@@ -65,7 +76,7 @@ export default function ResultsPage() {
     <Box>
       <PageHeader title="Switcher" />
       <Suspense fallback={<Spinner />}>
-        <Tabs isManual variant="enclosed" mt={8}>
+        <Tabs isFitted variant="enclosed" mt={8}>
           <TabList>
             <Tab>Pantalla principal</Tab>
             <Tab>Prompter</Tab>
@@ -73,24 +84,39 @@ export default function ResultsPage() {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <SimpleGrid columns={3} spacing={4}>
-                {renderButton('defaultPage', 'Placa básica')}
-                {renderButton('nextLot', 'Próximo sorteo')}
-                {renderButton('lastResults', 'Últimos 5 resultados')}
+              <Heading mt={4}>Pantalla principal</Heading>
+              <SimpleGrid columns={3} spacing={4} mt={4}>
+                {renderButton('defaultPage', 'Placa básica', 'mainScreen')}
+                {renderButton('nextLot', 'Próximo sorteo', 'mainScreen')}
+                {renderButton(
+                  'lastResults',
+                  'Últimos 5 resultados',
+                  'mainScreen',
+                )}
               </SimpleGrid>
             </TabPanel>
             <TabPanel>
-              <SimpleGrid columns={3} spacing={4}>
-                {renderButton('defaultPage', 'Placa básica')}
-                {renderButton('nextLot', 'Próximo sorteo')}
-                {renderButton('lastResults', 'Últimos 5 resultados')}
+              <Heading mt={4}>Prompter</Heading>
+              <SimpleGrid columns={3} spacing={4} mt={4}>
+                {renderButton('defaultPage', 'Placa básica', 'prompter')}
+                {renderButton('nextLot', 'Próximo sorteo', 'prompter')}
+                {renderButton(
+                  'lastResults',
+                  'Últimos 5 resultados',
+                  'prompter',
+                )}
               </SimpleGrid>
             </TabPanel>
             <TabPanel>
-              <SimpleGrid columns={3} spacing={4}>
-                {renderButton('defaultPage', 'Placa básica')}
-                {renderButton('nextLot', 'Próximo sorteo')}
-                {renderButton('lastResults', 'Últimos 5 resultados')}
+              <Heading mt={4}>Transmisión</Heading>
+              <SimpleGrid columns={3} spacing={4} mt={4}>
+                {renderButton('defaultPage', 'Placa básica', 'broadcast')}
+                {renderButton('nextLot', 'Próximo sorteo', 'broadcast')}
+                {renderButton(
+                  'lastResults',
+                  'Últimos 5 resultados',
+                  'broadcast',
+                )}
               </SimpleGrid>
             </TabPanel>
           </TabPanels>

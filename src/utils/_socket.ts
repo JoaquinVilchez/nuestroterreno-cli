@@ -7,14 +7,13 @@ interface ServerToClientEvents {
   lastResults: (results: Result[]) => void;
   nextLot: (lot: Lot) => void;
   defaultPage: () => void;
-  none: () => void;
 }
 
 interface ClientToServerEvents {
   joinRoom: (room: string) => void;
-  mainScreenAction: (action: string) => void;
-  prompterAction: (action: string) => void;
-  broadcastAction: (action: string) => void;
+  requestLastResults: (quantity: number) => void;
+  requestNextLot: () => void;
+  requestDefaultPage: () => void;
 }
 
 let socket: Socket<ServerToClientEvents, ClientToServerEvents> | null = null;
@@ -43,7 +42,7 @@ export const disconnectSocket = (): void => {
 
 export const subscribeToEvent = <K extends keyof ServerToClientEvents>(
   eventName: K,
-  callback: ServerToClientEvents[K],
+  callback: (...args: Parameters<ServerToClientEvents[K]>) => void,
 ): void => {
   if (!socket) return;
   socket.on(eventName, callback as any);
