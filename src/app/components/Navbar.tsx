@@ -123,7 +123,7 @@ export default function NavbarComponent() {
               <MenuList>
                 <MenuItem
                   as={NextLink}
-                  href="/admin/screen/bigscreen"
+                  href="/admin/screen/mainscreen"
                   target="_blank"
                   icon={<ExternalLinkIcon />}
                 >

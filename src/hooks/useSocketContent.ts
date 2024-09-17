@@ -38,7 +38,7 @@ export const useSocketContent = (
 
     // Suscribe a todos los eventos definidos para este tipo de pantalla
     eventTypes.forEach((type) => {
-      console.log('subscribeEvento to:', type);
+      console.log('subscribeEvent to:', type);
       subscribeToEvent(type as any, handleContent(type));
     });
 
@@ -48,7 +48,7 @@ export const useSocketContent = (
       });
       disconnectSocket();
     };
-  }, [screenType]); // No dependas de content.type aquí
+  }, [screenType]);
 
   return content;
 };
