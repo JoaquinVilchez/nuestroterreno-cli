@@ -62,10 +62,8 @@ export default function ResultForm({
     onSubmit: async ({ value }) => {
       try {
         if (isEditing) {
-          console.log('editar', value, resultId);
           await editOne(resultCatalog, resultId, value);
         } else {
-          console.log('crear', value);
           await createOne(resultCatalog, value);
         }
         router.push(`/admin/${resultCatalog.route}`);

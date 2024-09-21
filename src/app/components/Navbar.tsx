@@ -22,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
+import { signOut } from 'next-auth/react';
 
 const Links = [
   {
@@ -166,7 +167,11 @@ export default function NavbarComponent() {
                 <MenuItem>Perfil</MenuItem>
                 <MenuItem>Configuraciones</MenuItem>
                 <MenuDivider />
-                <MenuItem>Cerrar sesión</MenuItem>
+                <MenuItem
+                  onClick={() => signOut({ callbackUrl: '/auth/login' })}
+                >
+                  Cerrar sesión
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
