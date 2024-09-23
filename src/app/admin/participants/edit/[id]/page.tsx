@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import PageHeader from '@/app/components/PageHeader';
 import ParticipantForm from '@/app/components/forms/ParticipantForm';
 import catalogs from '@/utils/catalogs';
-import { useGetOne } from '@/services/getOneService';
 import { useRecoilValue } from 'recoil';
 import { apiErrorState, apiLoadingState } from '@/atoms/apiState';
+import { useGetOne } from '@/services/getoneService';
 
 export default function EditParticipantPage() {
   const { id } = useParams();
