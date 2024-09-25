@@ -5,10 +5,6 @@ import FieldInfo from '@/app/components/FieldInfo';
 import { useCreateOne } from '@/services/createOneService';
 import { DrawType } from '@/types/drawType';
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Box,
   FormControl,
   FormLabel,
@@ -126,22 +122,6 @@ export default function ResultForm({
 
   return (
     <Box>
-      <Box>
-        <Alert status="warning">
-          <AlertIcon />
-          <Box>
-            <AlertTitle>
-              Falta mejorar notablemente las validaciones y experiencia de uso.
-            </AlertTitle>
-            <AlertDescription>
-              <a href="https://app.clickup.com/t/86b24w8x0" target="_blank">
-                Link tarea clickup
-              </a>
-            </AlertDescription>
-          </Box>
-        </Alert>
-      </Box>
-
       <Box
         maxW="4xl"
         mx="auto"

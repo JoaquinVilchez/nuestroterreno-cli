@@ -3,7 +3,7 @@
 import PageHeader from '@/app/components/PageHeader';
 import { Box, Heading } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent';
-import { isLot, isResultArray } from '@/utils/typeGuards';
+import { isResultArray } from '@/utils/typeGuards';
 
 export default function ScreenMainScreenPage() {
   const content = useSocketContent('mainScreen'); // Específica para mainScreen
@@ -21,10 +21,18 @@ export default function ScreenMainScreenPage() {
       ));
     }
 
-    if (content.type === 'nextLot' && isLot(content.data)) {
+    if (content.type === 'fullInfo') {
       return (
         <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
-          <p>Ganador: {content.data.denomination}</p>
+          <p>fullInfo data: {content.data}</p>
+        </Box>
+      );
+    }
+
+    if (content.type === 'nextDraw') {
+      return (
+        <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
+          <p>nextDraw data: {content.data}</p>
         </Box>
       );
     }
@@ -39,7 +47,7 @@ export default function ScreenMainScreenPage() {
   return (
     <Box>
       <PageHeader title="Pantalla Principal" showButton={false} />
-      <Box mt={5}>{renderContent()}</Box>
+      <Box>{renderContent()}</Box>
     </Box>
   );
 }

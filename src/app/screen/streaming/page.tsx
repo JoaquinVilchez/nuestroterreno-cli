@@ -6,7 +6,7 @@ import PageHeader from '@/app/components/PageHeader';
 import { isResultArray, isLot } from '@/utils/typeGuards';
 
 export default function PrompterPage() {
-  const content = useSocketContent('prompter'); // Usa el hook para obtener el contenido específico para prompter
+  const content = useSocketContent('broadcast'); // Usa el hook para obtener el contenido específico para prompter
 
   const renderContent = () => {
     if (!content.data) {
@@ -29,7 +29,17 @@ export default function PrompterPage() {
         }
         break;
 
-      case 'nextLot':
+      case 'fullInfo':
+        if (content.data) {
+          return (
+            <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
+              <p>fullInfoData: {content.data}</p>
+            </Box>
+          );
+        }
+        break;
+
+      case 'nextDraw':
         if (isLot(content.data)) {
           return (
             <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
@@ -54,7 +64,7 @@ export default function PrompterPage() {
   return (
     <Box>
       <PageHeader title="Prompter" showButton={false} />
-      <Box mt={5}>{renderContent()}</Box>
+      <Box>{renderContent()}</Box>
     </Box>
   );
 }

@@ -2,6 +2,7 @@
 
 import PageHeader from '@/app/components/PageHeader';
 import SwitcherButton from '@/app/components/SwitcherButton';
+import { waitState } from '@/atoms/waitSate';
 import {
   actions,
   ActionType,
@@ -15,6 +16,7 @@ import {
 } from '@/utils/socket';
 import {
   Box,
+  Grid,
   Heading,
   SimpleGrid,
   Spinner,
@@ -25,6 +27,7 @@ import {
   Tabs,
 } from '@chakra-ui/react';
 import { Suspense, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 export default function SwitcherPage() {
   const [activeButtons, setActiveButtons] = useState<
@@ -35,12 +38,18 @@ export default function SwitcherPage() {
     broadcast: null,
   });
 
+  const [wait, setWait] = useRecoilState(waitState);
+
   useEffect(() => {
     initiateSocketConnection();
     return () => {
       disconnectSocket();
     };
   }, []);
+
+  const toggleWait = () => {
+    setWait(!wait);
+  };
 
   const handleButton = (action: ActionType, screen: ScreenType) => {
     emitEvent(`${screen}Action`, action);
@@ -74,6 +83,27 @@ export default function SwitcherPage() {
             {screens.map((screen) => (
               <TabPanel key={screen.id}>
                 <Heading mt={4}>{screen.label}</Heading>
+                {screen.id === 'prompter' && (
+                  <Box>
+                    <Grid templateColumns="repeat(2, 1fr)" gap={6} my={5}>
+                      <SwitcherButton
+                        w="100%"
+                        onClick={toggleWait}
+                        isActive={wait}
+                      >
+                        ESPERAR
+                      </SwitcherButton>
+                      <SwitcherButton
+                        w="100%"
+                        onClick={() => alert('hi')}
+                        isActive={false}
+                      >
+                        ENVIAR MENSAJE
+                      </SwitcherButton>
+                    </Grid>
+                    <hr />
+                  </Box>
+                )}
                 <SimpleGrid columns={3} spacing={4} mt={4}>
                   {actions.map((action) =>
                     renderButton(action.id, action.label, screen.id),

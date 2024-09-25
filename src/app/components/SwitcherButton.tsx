@@ -2,15 +2,19 @@ import { Button } from '@chakra-ui/react';
 import { MouseEvent } from 'react';
 
 interface SwitcherButtonProps {
-  onClick: (event: MouseEvent<HTMLButtonElement>) => void; // Definiendo el tipo para el evento onClick
-  children: React.ReactNode; // Esto asegura que cualquier elemento React válido pueda ser pasado como hijo
-  isActive: boolean; // Tipo booleano para la prop isActive
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  children: React.ReactNode;
+  isActive: boolean;
+  // Añadir aquí cualquier otra prop específica que quieras asegurar
 }
 
-const SwitcherButton: React.FC<SwitcherButtonProps> = ({
+const SwitcherButton: React.FC<
+  SwitcherButtonProps & React.ComponentProps<typeof Button>
+> = ({
   onClick,
   children,
   isActive,
+  ...props // Este recoge todas las demás props pasadas al componente
 }) => {
   return (
     <Button
@@ -28,6 +32,7 @@ const SwitcherButton: React.FC<SwitcherButtonProps> = ({
       fontSize="lg"
       fontWeight="bold"
       borderRadius="md"
+      {...props} // Propagar todas las props adicionales al componente Button
     >
       {children}
     </Button>

@@ -1,18 +1,17 @@
-import { Lot } from '@/types/lot';
 import { Result } from '@/types/result';
 import { io, Socket } from 'socket.io-client';
 
 // Definimos interfaces para los eventos que recibimos y enviamos
 interface ServerToClientEvents {
   lastResults: (results: Result[]) => void;
-  nextLot: (lot: Lot) => void;
+  nextDraw: (result: any) => void;
   defaultPage: () => void;
 }
 
 interface ClientToServerEvents {
   joinRoom: (room: string) => void;
   requestLastResults: (quantity: number) => void;
-  requestNextLot: () => void;
+  requestNextDraw: () => void;
   requestDefaultPage: () => void;
 }
 

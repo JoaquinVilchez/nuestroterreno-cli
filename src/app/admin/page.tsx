@@ -19,6 +19,7 @@ export default function AdminPage() {
           <p>User Profile</p>
           <p>Name: {session?.user?.firstName}</p>
           <p>Email: {session?.user?.email}</p>
+          <p>token: {session?.user?.accessToken}</p>
         </div>
       ) : (
         <Text fontSize="lg">No has iniciado sesión.</Text>
