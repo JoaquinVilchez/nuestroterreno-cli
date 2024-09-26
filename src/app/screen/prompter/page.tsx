@@ -2,7 +2,6 @@
 
 import { Box, Grid, GridItem, Image, Progress, Text } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent'; // Importa el hook
-import { isResultArray } from '@/utils/typeGuards';
 import dynamic from 'next/dynamic';
 import { useRecoilValue } from 'recoil';
 import { waitState } from '@/atoms/waitSate';
@@ -20,23 +19,8 @@ export default function PrompterPage() {
 
   const renderContent = () => {
     console.log('renderContent: ', content);
-    if (!content.data) {
-      return null;
-    }
 
     switch (content.type) {
-      case 'lastResults':
-        if (isResultArray(content.data)) {
-          return <Box>Hola</Box>;
-        }
-        break;
-
-      case 'nextDraw':
-        if (isResultArray(content.data)) {
-          return <Box>Hola</Box>;
-        }
-        break;
-
       case 'winnerInfo': {
         if (content.data) {
           return (
@@ -323,17 +307,25 @@ export default function PrompterPage() {
 
       case 'defaultPage':
         console.log('DEFAULTPAGE', content.data);
-        if (content.data) {
-          return (
-            <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
-              LOGOOOOO
-              <Image
-                src="/logo.png"
-                alt="Logo Municipalidad de Venado Tuerto"
-              />
-            </Box>
-          );
-        }
+
+        return (
+          <Box
+            p={2}
+            borderWidth={1}
+            borderRadius="md"
+            mb={2}
+            height="100vh"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Image
+              src="/logo.png"
+              width="30%"
+              alt="Logo Municipalidad de Venado Tuerto"
+            />
+          </Box>
+        );
 
       default:
         return <p>Dato no reconocido</p>;

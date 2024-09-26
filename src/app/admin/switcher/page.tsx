@@ -60,14 +60,21 @@ export default function SwitcherPage() {
     actionId: ActionType,
     actionLabel: string,
     screenId: ScreenType,
-  ) => (
-    <SwitcherButton
-      onClick={() => handleButton(actionId, screenId)}
-      isActive={activeButtons[screenId] === actionId}
-    >
-      {actionLabel}
-    </SwitcherButton>
-  );
+  ) => {
+    const action = actions.find((action) => action.id === actionId);
+    if (action && action.hide && action.hide.includes(screenId)) {
+      return null;
+    }
+
+    return (
+      <SwitcherButton
+        onClick={() => handleButton(actionId, screenId)}
+        isActive={activeButtons[screenId] === actionId}
+      >
+        {actionLabel}
+      </SwitcherButton>
+    );
+  };
 
   return (
     <Box>
