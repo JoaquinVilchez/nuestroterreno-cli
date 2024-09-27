@@ -1,6 +1,6 @@
 'use client';
 
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent'; // Importa el hook
 import PageHeader from '@/app/components/PageHeader';
 import { isResultArray, isLot } from '@/utils/typeGuards';
@@ -57,7 +57,19 @@ export default function PrompterPage() {
         );
 
       default:
-        return <p>Dato no reconocido</p>;
+        return (
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            bg="black"
+            height="100vh"
+          >
+            <Text fontSize="2xl" color="white" bg="red" px="15px">
+              Sin Señal
+            </Text>
+          </Box>
+        );
     }
   };
 

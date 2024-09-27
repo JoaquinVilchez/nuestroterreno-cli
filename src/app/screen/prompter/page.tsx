@@ -21,6 +21,56 @@ export default function PrompterPage() {
     console.log('renderContent: ', content);
 
     switch (content.type) {
+      case 'lastWinner': {
+        if (content.data) {
+          return (
+            <Box
+              id="lastWinnerScreen"
+              bg="black"
+              color="white"
+              height="100vh"
+              width="100vw"
+              overflow="hidden"
+              padding="50px"
+              fontWeight="bold"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="column"
+            >
+              <Box>
+                <Text fontSize="6xl" mb={0} textAlign="center">
+                  ÚLTIMO GANADOR
+                </Text>
+                <Text
+                  fontSize="8xl"
+                  bg="red.500"
+                  px="40"
+                  mt={0}
+                  textAlign="center"
+                >
+                  {getFullName(
+                    content.data.participant.firstName,
+                    content.data.participant.lastName,
+                  )}
+                </Text>
+                <Box textAlign="center">
+                  <Text fontSize="6xl">
+                    {content.data.lot && content.data.lot.denomination
+                      ? `${content.data.lot.denomination.toUpperCase()}`
+                      : `SUPLENTE NRO: ${content.data.orderNumber}`}
+                  </Text>
+                  <Text fontSize="6xl">
+                    {content.data.drawType.toUpperCase()} -{' '}
+                    {TranslateCatalog[content.data.resultType].toUpperCase()}
+                  </Text>
+                </Box>
+              </Box>
+            </Box>
+          );
+        }
+      }
+
       case 'winnerInfo': {
         if (content.data) {
           return (
@@ -42,7 +92,13 @@ export default function PrompterPage() {
                 <Text fontSize="4xl" mb={0} textAlign="center">
                   GANADOR
                 </Text>
-                <Text fontSize="8xl" bg="red.500" px="40" mt={0}>
+                <Text
+                  fontSize="8xl"
+                  bg="red.500"
+                  px="40"
+                  mt={0}
+                  textAlign="center"
+                >
                   {getFullName(
                     content.data.participant.firstName,
                     content.data.participant.lastName,
@@ -55,7 +111,7 @@ export default function PrompterPage() {
                   </Text>
                   <Text fontSize="2xl">
                     {content.data.lot && content.data.lot.denomination
-                      ? `LOTE ${content.data.lot.denomination}`
+                      ? `${content.data.lot.denomination.toUpperCase()}`
                       : `SUPLENTE NRO: ${content.data.orderNumber}`}
                   </Text>
                 </Box>
@@ -78,8 +134,8 @@ export default function PrompterPage() {
         if (content.data) {
           const data = {
             lot: content.data.nextDraw.lot
-              ? content.data.nextDraw.lot.denomination
-              : '-',
+              ? content.data.nextDraw.lot.denomination.toUpperCase()
+              : content.data.nextDraw.orderNumber,
             resultType:
               TranslateCatalog[content.data.nextDraw.resultType].toUpperCase(),
             group: content.data.nextDraw.group,
@@ -128,76 +184,76 @@ export default function PrompterPage() {
                     />
                   </Text>
                 </GridItem>
+
                 <GridItem
                   colSpan={6}
                   bg="black"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
                   border="4px solid white"
+                  minHeight="500px"
+                  p={4}
                 >
-                  <Text fontSize="8xl" textAlign="center">
-                    {TranslateCatalog[
-                      content.data.nextDraw.resultType
-                    ].toUpperCase()}
+                  <Text fontSize="4xl" textAlign="center">
+                    ÚLTIMOS 5 GANADORES
                   </Text>
-                </GridItem>
-                <GridItem
-                  colSpan={5}
-                  bg="black"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  border="4px solid white"
-                >
-                  <Text fontSize="8xl" textAlign="center">
-                    {`GRUPO ${content.data.nextDraw.group}`}
-                  </Text>
-                </GridItem>
-                <GridItem
-                  colSpan={1}
-                  bg="blue.700"
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  border="4px solid white"
-                >
-                  <Text fontSize="4xl" textAlign="center" m="0">
-                    GRUPO
-                  </Text>
-                  <Text fontSize="6xl" textAlign="center" m="0">
-                    {content.data.nextDraw.group} de 2
-                  </Text>
-                </GridItem>
-                <GridItem
-                  colSpan={5}
-                  bg="black"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  border="4px solid white"
-                >
-                  <Text fontSize="8xl" textAlign="center">
-                    {content.data.nextDraw.drawType}
-                  </Text>
-                </GridItem>
-                <GridItem
-                  colSpan={1}
-                  bg="blue.700"
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  justifyContent="center"
-                  border="4px solid white"
-                >
-                  <Text fontSize="4xl" textAlign="center" m="0">
-                    SORTEO
-                  </Text>
-                  <Text fontSize="6xl" textAlign="center" m="0">
-                    {content.data.nextDraw.drawNumber} de{' '}
-                    {content.data.nextDraw.quantity}
-                  </Text>
+                  <Box overflowY="auto" maxH="calc(100vh - 150px)">
+                    <Grid
+                      templateColumns=".75fr 0.25fr .25fr .25fr 0.1fr"
+                      bg="white"
+                      p={2}
+                    >
+                      <Text color="black" fontSize="25px" fontWeight="bold">
+                        Nombre
+                      </Text>
+                      <Text color="black" fontSize="25px" fontWeight="bold">
+                        Lote
+                      </Text>
+                      <Text color="black" fontSize="25px" fontWeight="bold">
+                        Tipo Ganador
+                      </Text>
+                      <Text color="black" fontSize="25px" fontWeight="bold">
+                        Tipo Sorteo
+                      </Text>
+                      <Text color="black" fontSize="25px" fontWeight="bold">
+                        Orden
+                      </Text>
+                    </Grid>
+                    {content.data.lastResults.map((winner, index) => (
+                      <Grid
+                        key={index}
+                        templateColumns=".75fr 0.25fr .25fr .25fr 0.1fr"
+                        bg={index % 2 === 0 ? 'black.600' : 'black.700'}
+                        p={2}
+                      >
+                        <GridItem>
+                          <Text fontSize="4xl">
+                            {`${winner.participant.lastName}, ${winner.participant.firstName}`}
+                          </Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text fontSize="4xl">
+                            {winner.lot?.denomination
+                              ? winner.lot.denomination.toUpperCase()
+                              : '-'}
+                          </Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text fontSize="4xl">
+                            {TranslateCatalog[winner.resultType].toUpperCase()}
+                          </Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text fontSize="4xl">
+                            {winner.drawType.toUpperCase()}
+                          </Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text fontSize="4xl">
+                            {winner.orderNumber ? winner.orderNumber : '-'}
+                          </Text>
+                        </GridItem>
+                      </Grid>
+                    ))}
+                  </Box>
                 </GridItem>
 
                 <GridItem
@@ -236,68 +292,78 @@ export default function PrompterPage() {
                     ))}
                   </Grid>
                 </GridItem>
-
-                <GridItem
-                  colSpan={4}
-                  bg="black"
-                  border="4px solid white"
-                  height="100vh"
-                  px={4}
-                >
-                  <Text fontSize="4xl" textAlign="center">
-                    ÚLTIMOS 5 GANADORES
-                  </Text>
-                  <Box overflowY="auto" maxH="calc(100vh - 150px)">
-                    <Grid
-                      templateColumns="1fr 0.25fr .25fr .25fr 0.1fr"
-                      bg="gray.800"
-                      p={2}
-                      border="1px solid white"
+                <GridItem colSpan={4}>
+                  <Grid
+                    templateRows="repeat(1, 1fr)"
+                    templateColumns="repeat(6, 1fr)"
+                  >
+                    <GridItem
+                      colSpan={6}
+                      rowSpan={1}
+                      bg="black"
+                      border="4px solid white"
                     >
-                      <Text fontWeight="bold">Nombre</Text>
-                      <Text fontWeight="bold">Lote</Text>
-                      <Text fontWeight="bold">Tipo Ganador</Text>
-                      <Text fontWeight="bold">Tipo Sorteo</Text>
-                      <Text fontWeight="bold">Orden</Text>
-                    </Grid>
-                    {content.data.lastResults.map((winner, index) => (
-                      <Grid
-                        key={index}
-                        templateColumns="1fr 0.25fr .25fr .25fr 0.1fr"
-                        bg={index % 2 === 0 ? 'black.600' : 'black.700'}
-                        p={2}
-                        border="1px solid white"
-                      >
-                        <GridItem>
-                          <Text fontSize="2xl">
-                            {`${winner.participant.lastName}, ${winner.participant.firstName}`}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="2xl">
-                            {winner.lot?.denomination
-                              ? winner.lot.denomination
-                              : '-'}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="2xl">
-                            {TranslateCatalog[winner.resultType].toUpperCase()}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="2xl">
-                            {winner.drawType.toUpperCase()}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="2xl">
-                            {winner.orderNumber ? winner.orderNumber : '-'}
-                          </Text>
-                        </GridItem>
-                      </Grid>
-                    ))}
-                  </Box>
+                      <Text fontSize="6xl" textAlign="center">
+                        {TranslateCatalog[
+                          content.data.nextDraw.resultType
+                        ].toUpperCase()}
+                      </Text>
+                    </GridItem>
+                    <GridItem
+                      colSpan={4}
+                      rowSpan={1}
+                      bg="black"
+                      border="4px solid white"
+                    >
+                      <Text fontSize="6xl" textAlign="center">
+                        {`GRUPO ${content.data.nextDraw.group}`}
+                      </Text>
+                    </GridItem>
+                    <GridItem
+                      colSpan={2}
+                      rowSpan={1}
+                      bg="blue.700"
+                      border="4px solid white"
+                    >
+                      <Text fontSize="4xl" textAlign="center" m="auto">
+                        GRUPO
+                      </Text>
+                      <Text fontSize="6xl" textAlign="center" m="0">
+                        {content.data.nextDraw.group} de 2
+                      </Text>
+                    </GridItem>
+                    <GridItem
+                      colSpan={4}
+                      rowSpan={1}
+                      bg="black"
+                      border="4px solid white"
+                    >
+                      <Text fontSize="6xl" textAlign="center">
+                        {content.data.nextDraw.drawType}
+                      </Text>
+                    </GridItem>
+                    <GridItem
+                      colSpan={2}
+                      rowSpan={1}
+                      bg="blue.700"
+                      border="4px solid white"
+                    >
+                      <Text fontSize="4xl" textAlign="center" m="0">
+                        SORTEO
+                      </Text>
+                      <Text fontSize="6xl" textAlign="center" m="0">
+                        {content.data.nextDraw.drawNumber} de{' '}
+                        {content.data.nextDraw.quantity}
+                      </Text>
+                    </GridItem>
+                  </Grid>
+                  <GridItem
+                    colSpan={4}
+                    rowSpan={1}
+                    height="100%"
+                    bg="black"
+                    border="4px solid white"
+                  />
                 </GridItem>
               </Grid>
             </Box>
@@ -320,7 +386,7 @@ export default function PrompterPage() {
             alignItems="center"
           >
             <Image
-              src="/logo.png"
+              src="/logo_mvt.png"
               width="30%"
               alt="Logo Municipalidad de Venado Tuerto"
             />
@@ -328,7 +394,19 @@ export default function PrompterPage() {
         );
 
       default:
-        return <p>Dato no reconocido</p>;
+        return (
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            bg="black"
+            height="100vh"
+          >
+            <Text fontSize="2xl" color="white" bg="red" px="15px">
+              Sin Señal
+            </Text>
+          </Box>
+        );
     }
   };
 

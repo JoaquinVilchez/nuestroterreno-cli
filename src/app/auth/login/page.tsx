@@ -18,7 +18,7 @@ export default function LoginPage() {
         <Box minW="xl">
           <VStack>
             <Image
-              src="/logo.png"
+              src="/logo_mvt.png"
               width={150}
               mb={10}
               alt="Logo Municipalidad de Venado Tuerto"

@@ -59,10 +59,12 @@ export default function ResultForm({
       try {
         if (isEditing) {
           await editOne(resultCatalog, resultId, value);
+          router.push(`/admin/${resultCatalog.route}`);
         } else {
           await createOne(resultCatalog, value);
+          router.push(`/admin/draw`);
+          // TODO: Podemos resetear los campos y traer de nuevo los registros o traerlos de forma optimizada par ano volver a traer los 5700 registros
         }
-        router.push(`/admin/${resultCatalog.route}`);
       } catch {
         return;
       }
@@ -266,7 +268,7 @@ export default function ResultForm({
                         lotsData
                           ? lotsData.map((lot: Lot) => ({
                               value: lot.id,
-                              label: `Lote ${lot.id} - ${lot.denomination}`,
+                              label: `${lot.id} - ${lot.denomination}`,
                             }))
                           : []
                       }

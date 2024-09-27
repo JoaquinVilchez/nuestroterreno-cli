@@ -11,6 +11,7 @@ import { Lot } from '@/types/lot';
 
 type EventType =
   | 'lastResults'
+  | 'lastWinner'
   | 'nextDraw'
   | 'fullInfo'
   | 'winnerInfo'
@@ -18,6 +19,7 @@ type EventType =
   | 'none';
 const eventTypes: EventType[] = [
   'lastResults',
+  'lastWinner',
   'nextDraw',
   'fullInfo',
   'winnerInfo',

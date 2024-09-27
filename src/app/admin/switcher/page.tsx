@@ -16,8 +16,11 @@ import {
 } from '@/utils/socket';
 import {
   Box,
+  FormControl,
+  FormLabel,
   Grid,
   Heading,
+  Select,
   SimpleGrid,
   Spinner,
   Tab,
@@ -111,11 +114,64 @@ export default function SwitcherPage() {
                     <hr />
                   </Box>
                 )}
-                <SimpleGrid columns={3} spacing={4} mt={4}>
+                <SimpleGrid columns={4} spacing={4} mt={4}>
                   {actions.map((action) =>
                     renderButton(action.id, action.label, screen.id),
                   )}
                 </SimpleGrid>
+
+                {screen.id === 'mainScreen' && (
+                  <Box
+                    p={5}
+                    mt={5}
+                    boxShadow="md"
+                    border="1px solid #EDF2F6"
+                    borderRadius={5}
+                  >
+                    <SimpleGrid columns={4} spacing={4}>
+                      <FormControl>
+                        <FormLabel>Cantidad</FormLabel>
+                        <Select placeholder="Seleccione cantidad">
+                          <option value="5">5</option>
+                          <option value="4">3</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Grupo</FormLabel>
+                        <Select placeholder="Seleccione grupo">
+                          <option value="">Todos</option>
+                          <option value="1">Grupo 1</option>
+                          <option value="2">Grupo 2</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Tipo de Sorteo</FormLabel>
+                        <Select placeholder="Seleccione tipo de sorteo">
+                          <option value="">Todos</option>
+                          <option value="cpd">CPD</option>
+                          <option value="general">General</option>
+                        </Select>
+                      </FormControl>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="flex-end"
+                        mt={4}
+                      >
+                        <SwitcherButton
+                          onClick={() =>
+                            handleButton('lastResults', 'mainScreen')
+                          }
+                          isActive={
+                            activeButtons['mainScreen'] === 'lastResults'
+                          }
+                        >
+                          Últimos 5 resultados
+                        </SwitcherButton>
+                      </Box>
+                    </SimpleGrid>
+                  </Box>
+                )}
               </TabPanel>
             ))}
           </TabPanels>

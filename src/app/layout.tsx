@@ -11,7 +11,7 @@ import Providers from './providers';
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
-      <html lang="en">
+      <html lang="es">
         <body>
           <Providers>
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />

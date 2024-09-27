@@ -58,7 +58,7 @@ export default function ResultsPage() {
         const ballNumber = row.original.orderNumber;
 
         return lot?.denomination
-          ? lot.denomination
+          ? lot.denomination.toUpperCase()
           : `SUPLENTE - NRO ${ballNumber}`;
       },
     },
