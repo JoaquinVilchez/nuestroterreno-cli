@@ -49,21 +49,27 @@ export default function PrompterPage() {
                   mt={0}
                   textAlign="center"
                 >
-                  {getFullName(
-                    content.data.participant.firstName,
-                    content.data.participant.lastName,
-                  )}
+                  {`${content.data.participant.id} - ${getFullName(content.data.participant.firstName, content.data.participant.lastName)}`}
                 </Text>
                 <Box textAlign="center">
-                  <Text fontSize="6xl">
-                    {content.data.lot && content.data.lot.denomination
-                      ? `${content.data.lot.denomination.toUpperCase()}`
-                      : `SUPLENTE NRO: ${content.data.orderNumber}`}
-                  </Text>
-                  <Text fontSize="6xl">
-                    {content.data.drawType.toUpperCase()} -{' '}
-                    {TranslateCatalog[content.data.resultType].toUpperCase()}
-                  </Text>
+                  <Box gap={4} display="flex" mt={5}>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      {content.data.lot && content.data.lot.denomination
+                        ? `${content.data.lot.denomination.toUpperCase()}`
+                        : `SUPLENTE NRO: ${content.data.orderNumber}`}
+                    </Text>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      GRUPO {content.data.group}
+                    </Text>
+                  </Box>
+                  <Box gap={4} display="flex" mt={5}>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      {TranslateCatalog[content.data.resultType].toUpperCase()}
+                    </Text>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      {content.data.drawType.toUpperCase()}
+                    </Text>
+                  </Box>
                 </Box>
               </Box>
             </Box>
@@ -99,21 +105,27 @@ export default function PrompterPage() {
                   mt={0}
                   textAlign="center"
                 >
-                  {getFullName(
-                    content.data.participant.firstName,
-                    content.data.participant.lastName,
-                  )}
+                  {`${content.data.participant.id} - ${getFullName(content.data.participant.firstName, content.data.participant.lastName)}`}
                 </Text>
                 <Box textAlign="center">
-                  <Text fontSize="6xl">
-                    {content.data.drawType.toUpperCase()} -{' '}
-                    {TranslateCatalog[content.data.resultType].toUpperCase()}
-                  </Text>
-                  <Text fontSize="2xl">
-                    {content.data.lot && content.data.lot.denomination
-                      ? `${content.data.lot.denomination.toUpperCase()}`
-                      : `SUPLENTE NRO: ${content.data.orderNumber}`}
-                  </Text>
+                  <Box gap={4} display="flex" mt={5}>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      {content.data.lot && content.data.lot.denomination
+                        ? `${content.data.lot.denomination.toUpperCase()}`
+                        : `SUPLENTE NRO: ${content.data.orderNumber}`}
+                    </Text>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      GRUPO {content.data.group}
+                    </Text>
+                  </Box>
+                  <Box gap={4} display="flex" mt={5}>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      {TranslateCatalog[content.data.resultType].toUpperCase()}
+                    </Text>
+                    <Text fontSize="6xl" w="50%" bg="white" color="black">
+                      {content.data.drawType.toUpperCase()}
+                    </Text>
+                  </Box>
                 </Box>
               </Box>
               <Progress
@@ -226,7 +238,7 @@ export default function PrompterPage() {
                       >
                         <GridItem>
                           <Text fontSize="4xl">
-                            {`${winner.participant.lastName}, ${winner.participant.firstName}`}
+                            {`${winner.participant.id} - ${getFullName(winner.participant.firstName, winner.participant.lastName)}`}
                           </Text>
                         </GridItem>
                         <GridItem>

@@ -4,6 +4,7 @@ import { Box, Text } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent'; // Importa el hook
 import PageHeader from '@/app/components/PageHeader';
 import { isResultArray, isLot } from '@/utils/typeGuards';
+import { Result } from '@/types/result';
 
 export default function PrompterPage() {
   const content = useSocketContent('broadcast'); // Usa el hook para obtener el contenido específico para prompter
@@ -15,11 +16,11 @@ export default function PrompterPage() {
 
     switch (content.type) {
       case 'lastResults':
-        if (isResultArray(content.data)) {
+        if (isResultArray(content.data.results)) {
           return (
             <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
               <p>Últimos 5 resultados</p>
-              {content.data.map((result) => (
+              {content.data.results.map((result: Result) => (
                 <Box key={result.id}>
                   <p>ID: {result.id}</p>
                 </Box>

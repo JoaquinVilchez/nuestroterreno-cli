@@ -13,6 +13,7 @@ type EventType =
   | 'lastResults'
   | 'lastWinner'
   | 'nextDraw'
+  | 'nextCategory'
   | 'fullInfo'
   | 'winnerInfo'
   | 'defaultPage'
@@ -21,6 +22,7 @@ const eventTypes: EventType[] = [
   'lastResults',
   'lastWinner',
   'nextDraw',
+  'nextCategory',
   'fullInfo',
   'winnerInfo',
   'defaultPage',

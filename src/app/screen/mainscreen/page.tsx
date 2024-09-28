@@ -3,6 +3,7 @@
 import { Box, Image, Text } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent';
 import { getFullName } from '@/utils/formatters';
+import { TranslateCatalog } from '@/utils/catalogs';
 
 export default function MainScreenPage() {
   const content = useSocketContent('mainScreen');
@@ -34,7 +35,7 @@ export default function MainScreenPage() {
               <Box>
                 <Box>
                   <Text
-                    fontSize="8xl"
+                    fontSize="7xl"
                     mb={0}
                     textAlign="center"
                     sx={{ textStyle: 'customText' }}
@@ -42,7 +43,7 @@ export default function MainScreenPage() {
                     ÚLTIMO GANADOR
                   </Text>
                   <Text
-                    fontSize="7xl"
+                    fontSize="6xl"
                     bg="#FA3232"
                     px="40"
                     mt={0}
@@ -50,14 +51,11 @@ export default function MainScreenPage() {
                     sx={{ textStyle: 'customText' }}
                     color="white"
                   >
-                    {getFullName(
-                      content.data.participant.firstName,
-                      content.data.participant.lastName,
-                    )}
+                    {`${content.data.participant.id} - ${getFullName(content.data.participant.firstName, content.data.participant.lastName)}`}
                   </Text>
                 </Box>
                 <Text
-                  fontSize="6xl"
+                  fontSize="5xl"
                   bg="#FA3232"
                   px="40"
                   mt={6}
@@ -71,7 +69,7 @@ export default function MainScreenPage() {
                 </Text>
                 <Box display="flex" gap={4} mt={6}>
                   <Text
-                    fontSize="6xl"
+                    fontSize="5xl"
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
@@ -81,7 +79,7 @@ export default function MainScreenPage() {
                     GRUPO {content.data.group}
                   </Text>
                   <Text
-                    fontSize="6xl"
+                    fontSize="5xl"
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
@@ -106,7 +104,7 @@ export default function MainScreenPage() {
         if (content.data) {
           return (
             <Box
-              id="nextDrawScreen"
+              id="winnerInfoScreen"
               height="100vh"
               width="100vw"
               padding="50px"
@@ -141,10 +139,7 @@ export default function MainScreenPage() {
                     sx={{ textStyle: 'customText' }}
                     color="white"
                   >
-                    {getFullName(
-                      content.data.participant.firstName,
-                      content.data.participant.lastName,
-                    )}
+                    {`${content.data.participant.id} - ${getFullName(content.data.participant.firstName, content.data.participant.lastName)}`}
                   </Text>
                 </Box>
                 <Box display="flex" gap={4} mt={6}>
@@ -164,6 +159,7 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
+                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     GRUPO {content.data.group}
@@ -173,6 +169,7 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
+                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     {content.data.drawType.toUpperCase()}
@@ -212,7 +209,7 @@ export default function MainScreenPage() {
               <Box>
                 <Box>
                   <Text
-                    fontSize="8xl"
+                    fontSize="7xl"
                     mb={0}
                     textAlign="center"
                     sx={{ textStyle: 'customText' }}
@@ -220,7 +217,7 @@ export default function MainScreenPage() {
                     PRÓXIMO SORTEO
                   </Text>
                   <Text
-                    fontSize="8xl"
+                    fontSize="7xl"
                     bg="#FA3232"
                     px="40"
                     mt={0}
@@ -239,6 +236,7 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
+                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     GRUPO {content.data.group}
@@ -248,11 +246,91 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
+                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     {content.data.drawType}
                   </Text>
                 </Box>
+              </Box>
+              <Image
+                src="/logo_mvt.png"
+                width="10%"
+                alt="Logo Nuestro Terreno"
+              />
+            </Box>
+          );
+        }
+      }
+
+      case 'nextCategory': {
+        if (content.data) {
+          return (
+            <Box
+              id="nextDrawScreen"
+              height="100vh"
+              width="100vw"
+              padding="50px"
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              flexDir="column"
+              bgImage="url('/trama_nuestro-terreno.png')"
+              bgRepeat="repeat"
+            >
+              <Image
+                src="/logo_nuestro-terreno.png"
+                width="20%"
+                alt="Logo Nuestro Terreno"
+              />
+              <Box display="flex" flexDirection="column" gap={4} mt={6}>
+                <Text
+                  fontSize="7xl"
+                  mb={0}
+                  textAlign="center"
+                  sx={{ textStyle: 'customText' }}
+                >
+                  PRÓXIMA CATEGORÍA
+                </Text>
+                <Text
+                  fontSize="7xl"
+                  bg="#FA3232"
+                  px="40"
+                  mt={0}
+                  textAlign="center"
+                  sx={{ textStyle: 'customText' }}
+                  color="white"
+                >
+                  {content.data.group === '1'
+                    ? 'GRUPO 1 - FAMILIAR '
+                    : 'GRUPO 2 - INDIVIDUAL'}
+                </Text>
+                <Text
+                  fontSize="6xl"
+                  bg="#FA3232"
+                  px="10"
+                  w="100%"
+                  textAlign="center"
+                  sx={{ textStyle: 'customText' }}
+                  color="white"
+                >
+                  {content.data.drawType === 'CPD'
+                    ? 'CUPO POR DISCAPACIDAD'
+                    : 'GENERAL'}
+                </Text>
+                <Text
+                  fontSize="6xl"
+                  bg="#FA3232"
+                  px="10"
+                  w="100%"
+                  textAlign="center"
+                  sx={{ textStyle: 'customText' }}
+                  color="white"
+                >
+                  {content.data.resultType === 'incumbent'
+                    ? 'TITULARES'
+                    : 'SUPLENTES'}
+                </Text>
               </Box>
               <Image
                 src="/logo_mvt.png"
@@ -292,34 +370,57 @@ export default function MainScreenPage() {
                     textAlign="center"
                     sx={{ textStyle: 'customText' }}
                   >
-                    ÚLTIMOS GANADORES
+                    ÚLTIMOS RESULTADOS
                   </Text>
-                  <Box>
-                    <Text
-                      fontSize="4xl"
-                      minH="75px"
-                      bg="#FA3232"
-                      px="50px"
-                      color="white"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="start"
-                    >
-                      {content.data.group}
-                    </Text>
+                  <Box display="flex" gap={4} mt={6}>
+                    {content.data.params.resultType && (
+                      <Text
+                        fontSize="2xl"
+                        bg="#11929b"
+                        w="100%"
+                        textAlign="center"
+                        color="white"
+                      >
+                        {TranslateCatalog[
+                          content.data.params.resultType
+                        ].toUpperCase()}
+                      </Text>
+                    )}
+                    {content.data.params.group && (
+                      <Text
+                        fontSize="2xl"
+                        bg="#11929b"
+                        w="100%"
+                        textAlign="center"
+                        color="white"
+                      >
+                        GRUPO {content.data.params.group}
+                      </Text>
+                    )}
+                    {content.data.params.drawType && (
+                      <Text
+                        fontSize="2xl"
+                        bg="#11929b"
+                        w="100%"
+                        textAlign="center"
+                        color="white"
+                      >
+                        {content.data.params.drawType.toUpperCase()}
+                      </Text>
+                    )}
                   </Box>
-                  {content.data.map((winner: any, index: number) => (
+                  {content.data.results.map((winner: any, index: number) => (
                     <Box
                       display="flex"
                       justifyContent="space-around"
                       alignItems="center"
                       mt={4}
+                      minH="100px"
+                      bg="#FA3232"
                       key={index} // Aquí agregas la prop `key`
                     >
                       <Text
                         fontSize="4xl"
-                        minH="75px"
-                        bg="#FA3232"
                         w="60%"
                         textAlign="left"
                         px="50px"
@@ -328,19 +429,14 @@ export default function MainScreenPage() {
                         alignItems="center"
                         justifyContent="start"
                       >
-                        {getFullName(
-                          winner.participant.firstName,
-                          winner.participant.lastName,
-                        )}
+                        {`${winner.participant.id} - ${getFullName(winner.participant.firstName, winner.participant.lastName)}`}
                       </Text>
                       <Text
                         alignItems="center"
-                        bg="#FA3232"
                         color="white"
                         display="flex"
                         fontSize="4xl"
                         justifyContent="center"
-                        minH="75px"
                         pr="50px"
                         textAlign="center"
                         w="20%"
@@ -349,8 +445,6 @@ export default function MainScreenPage() {
                       </Text>
                       <Text
                         fontSize="4xl"
-                        minH="75px"
-                        bg="#FA3232"
                         textAlign="left"
                         w="20%"
                         pr="50px"
@@ -361,7 +455,7 @@ export default function MainScreenPage() {
                       >
                         {winner.lot?.denomination
                           ? `${winner.lot.denomination.toUpperCase()}`
-                          : `NRO ORDEN: ${winner.orderNumber}`}
+                          : `ORDEN: ${winner.orderNumber}`}
                       </Text>
                     </Box>
                   ))}

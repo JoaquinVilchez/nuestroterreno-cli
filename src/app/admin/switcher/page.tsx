@@ -42,6 +42,10 @@ export default function SwitcherPage() {
   });
 
   const [wait, setWait] = useRecoilState(waitState);
+  const [quantity, setQuantity] = useState('5');
+  const [group, setGroup] = useState<number | undefined>(undefined);
+  const [resultType, setResultType] = useState('');
+  const [drawType, setDrawType] = useState('');
 
   useEffect(() => {
     initiateSocketConnection();
@@ -54,8 +58,12 @@ export default function SwitcherPage() {
     setWait(!wait);
   };
 
-  const handleButton = (action: ActionType, screen: ScreenType) => {
-    emitEvent(`${screen}Action`, action);
+  const handleButton = (
+    action: ActionType,
+    screen: ScreenType,
+    params?: [],
+  ) => {
+    emitEvent(`${screen}Action`, action, params);
     setActiveButtons((prev) => ({ ...prev, [screen]: action }));
   };
 
@@ -128,25 +136,49 @@ export default function SwitcherPage() {
                     border="1px solid #EDF2F6"
                     borderRadius={5}
                   >
-                    <SimpleGrid columns={4} spacing={4}>
+                    <SimpleGrid columns={5} spacing={4}>
                       <FormControl>
                         <FormLabel>Cantidad</FormLabel>
-                        <Select placeholder="Seleccione cantidad">
+                        <Select onChange={(e) => setQuantity(e.target.value)}>
                           <option value="5">5</option>
-                          <option value="4">3</option>
+                          <option value="3">3</option>
                         </Select>
                       </FormControl>
                       <FormControl>
                         <FormLabel>Grupo</FormLabel>
-                        <Select placeholder="Seleccione grupo">
+                        <Select
+                          placeholder="Seleccione grupo"
+                          onChange={(e) => {
+                            // Establece el estado a `undefined` si el valor es la cadena vacía, de lo contrario conviértelo a número
+                            setGroup(
+                              e.target.value === ''
+                                ? undefined
+                                : Number(e.target.value),
+                            );
+                          }}
+                        >
                           <option value="">Todos</option>
                           <option value="1">Grupo 1</option>
                           <option value="2">Grupo 2</option>
                         </Select>
                       </FormControl>
                       <FormControl>
+                        <FormLabel>Tipo de Ganador</FormLabel>
+                        <Select
+                          placeholder="Seleccione tipo de ganador"
+                          onChange={(e) => setResultType(e.target.value)}
+                        >
+                          <option value="">Todos</option>
+                          <option value="incumbent">Titular</option>
+                          <option value="alternate">Suplente</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
                         <FormLabel>Tipo de Sorteo</FormLabel>
-                        <Select placeholder="Seleccione tipo de sorteo">
+                        <Select
+                          placeholder="Seleccione tipo de sorteo"
+                          onChange={(e) => setDrawType(e.target.value)}
+                        >
                           <option value="">Todos</option>
                           <option value="cpd">CPD</option>
                           <option value="general">General</option>
@@ -160,13 +192,18 @@ export default function SwitcherPage() {
                       >
                         <SwitcherButton
                           onClick={() =>
-                            handleButton('lastResults', 'mainScreen')
+                            handleButton('lastResults', 'mainScreen', {
+                              group,
+                              resultType,
+                              drawType,
+                              quantity: Number(quantity),
+                            })
                           }
                           isActive={
                             activeButtons['mainScreen'] === 'lastResults'
                           }
                         >
-                          Últimos 5 resultados
+                          Últimos Resultados
                         </SwitcherButton>
                       </Box>
                     </SimpleGrid>

@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 
 // Definimos interfaces para los eventos que recibimos y enviamos
 interface ServerToClientEvents {
-  lastResults: (results: Result[]) => void;
+  lastResults: (response: any) => void;
   lastWinner: (winner: Result) => void;
   nextDraw: (result: any) => void;
   fullInfo: (response: any) => void;
@@ -14,7 +14,7 @@ interface ServerToClientEvents {
 
 interface ClientToServerEvents {
   joinRoom: (room: string) => void;
-  mainScreenAction: (action: string, params: any) => void;
+  mainScreenAction: (action: string) => void;
   prompterAction: (action: string) => void;
   broadcastAction: (action: string) => void;
 }
