@@ -184,10 +184,7 @@ export default function LandingPage() {
             height="100%"
             src="https://www.youtube.com/embed/L-LgknHn6Fs"
             title="YouTube video player"
-            frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
             style={{
               width: '100%', // Asegura que el iframe se ajuste al tamaño del contenedor Box
               height: '100%', // Asegura que el iframe se ajuste al tamaño del contenedor Box
