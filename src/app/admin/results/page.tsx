@@ -15,18 +15,6 @@ export default function ResultsPage() {
   const { getMany } = useGetMany();
   const { resultCatalog } = catalogs;
 
-  // Hook useQuery para obtener los datos de resultados desde la API
-  // 'results' es la clave del cache, y fetchResults es la función que obtiene los datos
-  // const {
-  //   data: resultsData,
-  //   error,
-  //   isLoading,
-  // } = useQuery('results', () =>
-  //   getMany('result', {
-  //     includes: ['lot', 'participant'],
-  //   }),
-  // );
-
   const {
     data: resultData,
     error,
@@ -37,10 +25,6 @@ export default function ResultsPage() {
     }),
   );
 
-  /**
-   * Definición de columnas para TanStack Table
-   * Cada columna se define con un accessorKey (la clave del objeto de datos) y un header (el nombre que se mostrará en la tabla)
-   */
   const columns: ColumnDef<Result>[] = [
     {
       accessorKey: 'participant',
