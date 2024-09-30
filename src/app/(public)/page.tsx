@@ -216,7 +216,7 @@ export default function LandingPage() {
           alignItems="center"
         >
           <Button onClick={() => refetch()} isLoading={isFetching} mb={8}>
-            REFRESCAR INFORMACIÓN
+            ACTUALIZAR RESULTADOS
           </Button>
           <Text fontSize={{ base: 'lg', md: '2xl' }} textAlign="center">
             CONSULTA POR TU NOMBRE O BOLILLA
