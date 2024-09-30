@@ -20,7 +20,7 @@ export default function DrawPage() {
           <ResultForm />
         </Box>
         <Box width={['100%', '30%']} p={4}>
-          <Text>Ultimos 5 ganadores</Text>
+          <Text>Últimos Resultados</Text>
         </Box>
       </Flex>
     </Box>

@@ -9,17 +9,29 @@ import {
 import { Result } from '@/types/result';
 import { Lot } from '@/types/lot';
 
-type EventType = 'lastResults' | 'nextLot' | 'defaultPage' | 'none';
+type EventType =
+  | 'lastResults'
+  | 'lastWinner'
+  | 'nextDraw'
+  | 'nextCategory'
+  | 'fullInfo'
+  | 'winnerInfo'
+  | 'defaultPage'
+  | 'none';
 const eventTypes: EventType[] = [
   'lastResults',
-  'nextLot',
+  'lastWinner',
+  'nextDraw',
+  'nextCategory',
+  'fullInfo',
+  'winnerInfo',
   'defaultPage',
   'none',
 ];
 
 interface Content {
   type: EventType;
-  data: Result[] | Lot | string | null;
+  data: Result[] | Lot | string | null | any;
 }
 
 export const useSocketContent = (

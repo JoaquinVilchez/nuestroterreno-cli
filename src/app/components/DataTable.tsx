@@ -7,6 +7,7 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
   flexRender,
+  filterFns,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -157,6 +158,7 @@ export default function DataTable<TData extends WithId>({
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: filterFns.includesString,
   });
 
   /**
@@ -224,7 +226,7 @@ export default function DataTable<TData extends WithId>({
   const filteredRows = table.getRowModel().rows;
 
   return (
-    <Box>
+    <Box w="100%">
       {/* Filtro Global */}
       {filter && (
         <Box mb={8} display="flex" alignItems="center">
@@ -257,7 +259,7 @@ export default function DataTable<TData extends WithId>({
           <Text>No se encontraron coincidencias.</Text>
         </Box>
       ) : (
-        <TableContainer w="100%">
+        <TableContainer w="100%" overflowX="auto">
           <Table variant="simple" size="sm">
             <Thead>
               {table.getHeaderGroups().map((headerGroup) => (
@@ -320,10 +322,11 @@ export default function DataTable<TData extends WithId>({
       <Box
         mt={4}
         display="flex"
+        flexDirection={{ base: 'column', md: 'row' }}
         justifyContent="space-between"
         alignItems="center"
       >
-        <Box display="flex" gap={5}>
+        <Box display="flex" gap={5} mb={{ base: 4, md: 0 }}>
           <Button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}

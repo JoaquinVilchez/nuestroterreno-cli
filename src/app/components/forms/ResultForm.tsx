@@ -5,10 +5,6 @@ import FieldInfo from '@/app/components/FieldInfo';
 import { useCreateOne } from '@/services/createOneService';
 import { DrawType } from '@/types/drawType';
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Box,
   FormControl,
   FormLabel,
@@ -63,10 +59,12 @@ export default function ResultForm({
       try {
         if (isEditing) {
           await editOne(resultCatalog, resultId, value);
+          router.push(`/admin/${resultCatalog.route}`);
         } else {
           await createOne(resultCatalog, value);
+          router.push(`/admin/draw`);
+          // TODO: Podemos resetear los campos y traer de nuevo los registros o traerlos de forma optimizada par ano volver a traer los 5700 registros
         }
-        router.push(`/admin/${resultCatalog.route}`);
       } catch {
         return;
       }
@@ -126,22 +124,6 @@ export default function ResultForm({
 
   return (
     <Box>
-      <Box>
-        <Alert status="warning">
-          <AlertIcon />
-          <Box>
-            <AlertTitle>
-              Falta mejorar notablemente las validaciones y experiencia de uso.
-            </AlertTitle>
-            <AlertDescription>
-              <a href="https://app.clickup.com/t/86b24w8x0" target="_blank">
-                Link tarea clickup
-              </a>
-            </AlertDescription>
-          </Box>
-        </Alert>
-      </Box>
-
       <Box
         maxW="4xl"
         mx="auto"
@@ -286,7 +268,7 @@ export default function ResultForm({
                         lotsData
                           ? lotsData.map((lot: Lot) => ({
                               value: lot.id,
-                              label: `Lote ${lot.id} - ${lot.denomination}`,
+                              label: `${lot.id} - ${lot.denomination}`,
                             }))
                           : []
                       }

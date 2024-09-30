@@ -1,11 +1,13 @@
-import { Lot } from '@/types/lot';
 import { Result } from '@/types/result';
 import { io, Socket } from 'socket.io-client';
 
 // Definimos interfaces para los eventos que recibimos y enviamos
 interface ServerToClientEvents {
-  lastResults: (results: Result[]) => void;
-  nextLot: (lot: Lot) => void;
+  lastResults: (response: any) => void;
+  lastWinner: (winner: Result) => void;
+  nextDraw: (result: any) => void;
+  fullInfo: (response: any) => void;
+  winnerInfo: (response: any) => void;
   defaultPage: () => void;
   none: () => void;
 }
@@ -58,8 +60,9 @@ export const unsubscribeFromEvent = <K extends keyof ServerToClientEvents>(
 
 export const emitEvent = <K extends keyof ClientToServerEvents>(
   eventName: K,
-  ...args: Parameters<ClientToServerEvents[K]>
+  ...args: unknown[]
 ): void => {
   if (!socket) return;
-  socket.emit(eventName, ...args);
+  console.log(eventName, args);
+  socket.emit(eventName, ...(args as Parameters<ClientToServerEvents[K]>));
 };

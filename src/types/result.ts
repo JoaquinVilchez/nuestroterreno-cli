@@ -1,6 +1,7 @@
 import { DrawType } from './drawType';
 import { Lot } from './lot';
 import { Participant } from './participant';
+import { ResultType } from './resultType';
 
 export type Result = {
   id: number;
@@ -9,4 +10,5 @@ export type Result = {
   lot: Lot;
   group: string;
   drawType: DrawType;
+  resultType: ResultType;
 };

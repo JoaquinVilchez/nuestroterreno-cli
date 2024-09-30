@@ -1,12 +1,13 @@
 'use client';
 
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent'; // Importa el hook
 import PageHeader from '@/app/components/PageHeader';
 import { isResultArray, isLot } from '@/utils/typeGuards';
+import { Result } from '@/types/result';
 
 export default function PrompterPage() {
-  const content = useSocketContent('prompter'); // Usa el hook para obtener el contenido específico para prompter
+  const content = useSocketContent('broadcast'); // Usa el hook para obtener el contenido específico para prompter
 
   const renderContent = () => {
     if (!content.data) {
@@ -15,11 +16,11 @@ export default function PrompterPage() {
 
     switch (content.type) {
       case 'lastResults':
-        if (isResultArray(content.data)) {
+        if (isResultArray(content.data.results)) {
           return (
             <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
               <p>Últimos 5 resultados</p>
-              {content.data.map((result) => (
+              {content.data.results.map((result: Result) => (
                 <Box key={result.id}>
                   <p>ID: {result.id}</p>
                 </Box>
@@ -29,7 +30,17 @@ export default function PrompterPage() {
         }
         break;
 
-      case 'nextLot':
+      case 'fullInfo':
+        if (content.data) {
+          return (
+            <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
+              <p>fullInfoData: {content.data}</p>
+            </Box>
+          );
+        }
+        break;
+
+      case 'nextDraw':
         if (isLot(content.data)) {
           return (
             <Box p={2} borderWidth={1} borderRadius="md" mb={2}>
@@ -47,14 +58,26 @@ export default function PrompterPage() {
         );
 
       default:
-        return <p>Dato no reconocido</p>;
+        return (
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            bg="black"
+            height="100vh"
+          >
+            <Text fontSize="2xl" color="white" bg="red" px="15px">
+              Sin Señal
+            </Text>
+          </Box>
+        );
     }
   };
 
   return (
     <Box>
       <PageHeader title="Prompter" showButton={false} />
-      <Box mt={5}>{renderContent()}</Box>
+      <Box>{renderContent()}</Box>
     </Box>
   );
 }

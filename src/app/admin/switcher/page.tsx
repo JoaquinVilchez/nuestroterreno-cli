@@ -2,6 +2,7 @@
 
 import PageHeader from '@/app/components/PageHeader';
 import SwitcherButton from '@/app/components/SwitcherButton';
+import { waitState } from '@/atoms/waitSate';
 import {
   actions,
   ActionType,
@@ -15,7 +16,11 @@ import {
 } from '@/utils/socket';
 import {
   Box,
+  FormControl,
+  FormLabel,
+  Grid,
   Heading,
+  Select,
   SimpleGrid,
   Spinner,
   Tab,
@@ -25,6 +30,7 @@ import {
   Tabs,
 } from '@chakra-ui/react';
 import { Suspense, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 export default function SwitcherPage() {
   const [activeButtons, setActiveButtons] = useState<
@@ -35,6 +41,12 @@ export default function SwitcherPage() {
     broadcast: null,
   });
 
+  const [wait, setWait] = useRecoilState(waitState);
+  const [quantity, setQuantity] = useState('5');
+  const [group, setGroup] = useState<number | undefined>(undefined);
+  const [resultType, setResultType] = useState('');
+  const [drawType, setDrawType] = useState('');
+
   useEffect(() => {
     initiateSocketConnection();
     return () => {
@@ -42,8 +54,16 @@ export default function SwitcherPage() {
     };
   }, []);
 
-  const handleButton = (action: ActionType, screen: ScreenType) => {
-    emitEvent(`${screen}Action`, action);
+  const toggleWait = () => {
+    setWait(!wait);
+  };
+
+  const handleButton = (
+    action: ActionType,
+    screen: ScreenType,
+    params?: [],
+  ) => {
+    emitEvent(`${screen}Action`, action, params);
     setActiveButtons((prev) => ({ ...prev, [screen]: action }));
   };
 
@@ -51,14 +71,21 @@ export default function SwitcherPage() {
     actionId: ActionType,
     actionLabel: string,
     screenId: ScreenType,
-  ) => (
-    <SwitcherButton
-      onClick={() => handleButton(actionId, screenId)}
-      isActive={activeButtons[screenId] === actionId}
-    >
-      {actionLabel}
-    </SwitcherButton>
-  );
+  ) => {
+    const action = actions.find((action) => action.id === actionId);
+    if (action && action.hide && action.hide.includes(screenId)) {
+      return null;
+    }
+
+    return (
+      <SwitcherButton
+        onClick={() => handleButton(actionId, screenId)}
+        isActive={activeButtons[screenId] === actionId}
+      >
+        {actionLabel}
+      </SwitcherButton>
+    );
+  };
 
   return (
     <Box>
@@ -74,11 +101,114 @@ export default function SwitcherPage() {
             {screens.map((screen) => (
               <TabPanel key={screen.id}>
                 <Heading mt={4}>{screen.label}</Heading>
-                <SimpleGrid columns={3} spacing={4} mt={4}>
+                {screen.id === 'prompter' && (
+                  <Box>
+                    <Grid templateColumns="repeat(2, 1fr)" gap={6} my={5}>
+                      <SwitcherButton
+                        w="100%"
+                        onClick={toggleWait}
+                        isActive={wait}
+                      >
+                        ESPERAR
+                      </SwitcherButton>
+                      <SwitcherButton
+                        w="100%"
+                        onClick={() => alert('hi')}
+                        isActive={false}
+                      >
+                        ENVIAR MENSAJE
+                      </SwitcherButton>
+                    </Grid>
+                    <hr />
+                  </Box>
+                )}
+                <SimpleGrid columns={4} spacing={4} mt={4}>
                   {actions.map((action) =>
                     renderButton(action.id, action.label, screen.id),
                   )}
                 </SimpleGrid>
+
+                {screen.id === 'mainScreen' && (
+                  <Box
+                    p={5}
+                    mt={5}
+                    boxShadow="md"
+                    border="1px solid #EDF2F6"
+                    borderRadius={5}
+                  >
+                    <SimpleGrid columns={5} spacing={4}>
+                      <FormControl>
+                        <FormLabel>Cantidad</FormLabel>
+                        <Select onChange={(e) => setQuantity(e.target.value)}>
+                          <option value="5">5</option>
+                          <option value="3">3</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Grupo</FormLabel>
+                        <Select
+                          placeholder="Seleccione grupo"
+                          onChange={(e) => {
+                            // Establece el estado a `undefined` si el valor es la cadena vacía, de lo contrario conviértelo a número
+                            setGroup(
+                              e.target.value === ''
+                                ? undefined
+                                : Number(e.target.value),
+                            );
+                          }}
+                        >
+                          <option value="">Todos</option>
+                          <option value="1">Grupo 1</option>
+                          <option value="2">Grupo 2</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Tipo de Ganador</FormLabel>
+                        <Select
+                          placeholder="Seleccione tipo de ganador"
+                          onChange={(e) => setResultType(e.target.value)}
+                        >
+                          <option value="">Todos</option>
+                          <option value="incumbent">Titular</option>
+                          <option value="alternate">Suplente</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Tipo de Sorteo</FormLabel>
+                        <Select
+                          placeholder="Seleccione tipo de sorteo"
+                          onChange={(e) => setDrawType(e.target.value)}
+                        >
+                          <option value="">Todos</option>
+                          <option value="cpd">CPD</option>
+                          <option value="general">General</option>
+                        </Select>
+                      </FormControl>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="flex-end"
+                        mt={4}
+                      >
+                        <SwitcherButton
+                          onClick={() =>
+                            handleButton('lastResults', 'mainScreen', {
+                              group,
+                              resultType,
+                              drawType,
+                              quantity: Number(quantity),
+                            })
+                          }
+                          isActive={
+                            activeButtons['mainScreen'] === 'lastResults'
+                          }
+                        >
+                          Últimos Resultados
+                        </SwitcherButton>
+                      </Box>
+                    </SimpleGrid>
+                  </Box>
+                )}
               </TabPanel>
             ))}
           </TabPanels>

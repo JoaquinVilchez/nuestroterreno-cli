@@ -87,7 +87,7 @@ export default function NavbarComponent() {
             <Box>
               <Link href="/admin">
                 <Image
-                  src="/logo.png"
+                  src="/logo_mvt.png"
                   width={100}
                   alt="Logo Municipalidad de Venado Tuerto"
                 />

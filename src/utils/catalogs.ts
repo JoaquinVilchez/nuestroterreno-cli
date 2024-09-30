@@ -25,3 +25,8 @@ const catalogs: Record<string, DataType> = {
 };
 
 export default catalogs;
+
+export const TranslateCatalog = {
+  incumbent: 'titular',
+  alternate: 'suplente',
+};
