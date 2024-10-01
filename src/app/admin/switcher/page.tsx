@@ -33,6 +33,13 @@ import { Suspense, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 export default function SwitcherPage() {
+  interface ParamsType {
+    group?: number;
+    resultType?: string;
+    drawType?: string;
+    quantity?: number;
+  }
+
   const [activeButtons, setActiveButtons] = useState<
     Record<ScreenType, ActionType | null>
   >({
@@ -61,7 +68,7 @@ export default function SwitcherPage() {
   const handleButton = (
     action: ActionType,
     screen: ScreenType,
-    params?: [],
+    params?: ParamsType,
   ) => {
     emitEvent(`${screen}Action`, action, params);
     setActiveButtons((prev) => ({ ...prev, [screen]: action }));
