@@ -1,6 +1,7 @@
 // /utils/catalogs.ts
 
 import { DataType } from '@/types/dataType';
+import { ResultType } from '@/types/resultType';
 
 // Definir un catálogo para todas las entidades
 const catalogs: Record<string, DataType> = {
@@ -26,7 +27,7 @@ const catalogs: Record<string, DataType> = {
 
 export default catalogs;
 
-export const TranslateCatalog = {
+export const TranslateCatalog: Record<ResultType, string> = {
   incumbent: 'titular',
   alternate: 'suplente',
 };

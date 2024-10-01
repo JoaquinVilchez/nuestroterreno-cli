@@ -4,6 +4,7 @@ import { Box, Image, Text } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent';
 import { getFullName } from '@/utils/formatters';
 import { TranslateCatalog } from '@/utils/catalogs';
+import { ResultType } from '@/types/resultType';
 
 export default function MainScreenPage() {
   const content = useSocketContent('mainScreen');
@@ -382,7 +383,7 @@ export default function MainScreenPage() {
                         color="white"
                       >
                         {TranslateCatalog[
-                          content.data.params.resultType
+                          content.data.params.resultType as ResultType
                         ].toUpperCase()}
                       </Text>
                     )}

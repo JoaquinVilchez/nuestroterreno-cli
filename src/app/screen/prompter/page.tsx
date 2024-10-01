@@ -7,15 +7,18 @@ import { useRecoilValue } from 'recoil';
 import { waitState } from '@/atoms/waitSate';
 import { TranslateCatalog } from '@/utils/catalogs';
 import { getFullName } from '@/utils/formatters';
+import { ResultType } from '@/types/resultType';
 const Clock = dynamic(() => import('react-live-clock'), {
   ssr: false, // Desactiva el renderizado del lado del servidor
 });
 
 export default function PrompterPage() {
   const content = useSocketContent('prompter'); // Usa el hook para obtener el contenido específico para prompter
-  const wait = useRecoilValue(waitState);
   const getColor = (wait: boolean) => (wait ? 'red' : 'green');
+  const wait = useRecoilValue(waitState);
   const statusColor = getColor(wait);
+
+  type DataKey = 'lot' | 'resultType' | 'group' | 'drawType';
 
   const renderContent = () => {
     console.log('renderContent: ', content);
@@ -64,7 +67,9 @@ export default function PrompterPage() {
                   </Box>
                   <Box gap={4} display="flex" mt={5}>
                     <Text fontSize="6xl" w="50%" bg="white" color="black">
-                      {TranslateCatalog[content.data.resultType].toUpperCase()}
+                      {TranslateCatalog[
+                        content.data.resultType as ResultType
+                      ].toUpperCase()}
                     </Text>
                     <Text fontSize="6xl" w="50%" bg="white" color="black">
                       {content.data.drawType.toUpperCase()}
@@ -120,7 +125,9 @@ export default function PrompterPage() {
                   </Box>
                   <Box gap={4} display="flex" mt={5}>
                     <Text fontSize="6xl" w="50%" bg="white" color="black">
-                      {TranslateCatalog[content.data.resultType].toUpperCase()}
+                      {TranslateCatalog[
+                        content.data.resultType as ResultType
+                      ].toUpperCase()}
                     </Text>
                     <Text fontSize="6xl" w="50%" bg="white" color="black">
                       {content.data.drawType.toUpperCase()}
@@ -144,17 +151,19 @@ export default function PrompterPage() {
 
       case 'fullInfo':
         if (content.data) {
-          const data = {
+          const data: Record<DataKey, string | number> = {
             lot: content.data.nextDraw.lot
               ? content.data.nextDraw.lot.denomination.toUpperCase()
               : content.data.nextDraw.orderNumber,
             resultType:
-              TranslateCatalog[content.data.nextDraw.resultType].toUpperCase(),
+              TranslateCatalog[
+                content.data.nextDraw.resultType as ResultType
+              ].toUpperCase(),
             group: content.data.nextDraw.group,
             drawType: content.data.nextDraw.drawType,
           };
 
-          const items = [
+          const items: { key: DataKey; label: string }[] = [
             {
               key: 'lot',
               label: content.data.nextDraw.lot ? 'LOTE' : 'NUMERO DE ORDEN',
@@ -229,42 +238,46 @@ export default function PrompterPage() {
                         Orden
                       </Text>
                     </Grid>
-                    {content.data.lastResults.map((winner, index) => (
-                      <Grid
-                        key={index}
-                        templateColumns=".75fr 0.25fr .25fr .25fr 0.1fr"
-                        bg={index % 2 === 0 ? 'black.600' : 'black.700'}
-                        p={2}
-                      >
-                        <GridItem>
-                          <Text fontSize="4xl">
-                            {`${winner.participant.id} - ${getFullName(winner.participant.firstName, winner.participant.lastName)}`}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="4xl">
-                            {winner.lot?.denomination
-                              ? winner.lot.denomination.toUpperCase()
-                              : '-'}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="4xl">
-                            {TranslateCatalog[winner.resultType].toUpperCase()}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="4xl">
-                            {winner.drawType.toUpperCase()}
-                          </Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text fontSize="4xl">
-                            {winner.orderNumber ? winner.orderNumber : '-'}
-                          </Text>
-                        </GridItem>
-                      </Grid>
-                    ))}
+                    {content.data.lastResults.map(
+                      (winner: any, index: number) => (
+                        <Grid
+                          key={index}
+                          templateColumns=".75fr 0.25fr .25fr .25fr 0.1fr"
+                          bg={index % 2 === 0 ? 'black.600' : 'black.700'}
+                          p={2}
+                        >
+                          <GridItem>
+                            <Text fontSize="4xl">
+                              {`${winner.participant.id} - ${getFullName(winner.participant.firstName, winner.participant.lastName)}`}
+                            </Text>
+                          </GridItem>
+                          <GridItem>
+                            <Text fontSize="4xl">
+                              {winner.lot?.denomination
+                                ? winner.lot.denomination.toUpperCase()
+                                : '-'}
+                            </Text>
+                          </GridItem>
+                          <GridItem>
+                            <Text fontSize="4xl">
+                              {TranslateCatalog[
+                                winner.resultType as ResultType
+                              ].toUpperCase()}
+                            </Text>
+                          </GridItem>
+                          <GridItem>
+                            <Text fontSize="4xl">
+                              {winner.drawType.toUpperCase()}
+                            </Text>
+                          </GridItem>
+                          <GridItem>
+                            <Text fontSize="4xl">
+                              {winner.orderNumber ? winner.orderNumber : '-'}
+                            </Text>
+                          </GridItem>
+                        </Grid>
+                      ),
+                    )}
                   </Box>
                 </GridItem>
 
@@ -317,7 +330,7 @@ export default function PrompterPage() {
                     >
                       <Text fontSize="6xl" textAlign="center">
                         {TranslateCatalog[
-                          content.data.nextDraw.resultType
+                          content.data.nextDraw.resultType as ResultType
                         ].toUpperCase()}
                       </Text>
                     </GridItem>
