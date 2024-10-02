@@ -84,9 +84,9 @@ export default function LandingPage() {
         alignItems="center"
         w="full"
         minH="600px"
-        bgImage="url('/hero.png')"
+        bgImage="url('/hero.jpeg')"
         bgSize="cover"
-        bgPosition="center"
+        bgPosition="center -200px" // Desplaza la imagen 100px hacia abajo
         bgRepeat="no-repeat"
         position="relative"
         sx={{
@@ -103,7 +103,7 @@ export default function LandingPage() {
           right="0"
           bottom="0"
           left="0"
-          bg="blackAlpha.500"
+          bg="blackAlpha.600"
           zIndex="0"
         />
         <Image
@@ -237,12 +237,34 @@ export default function LandingPage() {
             ¿SALISTE SORTEADO?
           </Text>
           <Text
-            maxW={{ base: '100%', md: '600px' }}
+            maxW={{ base: '100%', md: '900px' }}
             fontSize={{ base: 'sm', md: 'md' }}
             sx={{ textStyle: 'bodyText' }}
+            mb={2}
           >
-            En caso que hayas salido sorteado, los pasos a seguir son
-            comunicarte con la municipalidad al número 3462-627812
+            Si estás en el Parque, acercate al stand de Nuestro Terreno con tu
+            DNI.
+          </Text>
+          <Text
+            maxW={{ base: '100%', md: '900px' }}
+            fontSize={{ base: 'sm', md: 'md' }}
+            sx={{ textStyle: 'bodyText' }}
+            mb={2}
+          >
+            Si no estas en el Parque, partir del lunes 7/10 comunicate por
+            cualquiera de estos medios:
+          </Text>
+          <Text
+            maxW={{ base: '100%', md: '900px' }}
+            fontSize={{ base: 'sm', md: 'md' }}
+            sx={{ textStyle: 'bodyText' }}
+            mb={2}
+            color="gray.600"
+          >
+            📱3462 585207 <br />
+            📧programanuestroterreno@gmail.com <br />
+            📌Dirección de Tierra y Hábitat (San Martín y Marconi) de lunes a
+            viernes de 7 a 13 h.
           </Text>
         </Box>
       </Flex>
@@ -262,12 +284,7 @@ export default function LandingPage() {
               h={{ base: '50px', md: '70px' }}
             />
           </Link>
-          <Flex alignItems="center" mt={10} mb={5}>
-            <Link href="/politica-de-privacidad">
-              <Text fontSize={{ base: 'xs', md: 'md' }} textAlign="center">
-                Política de privacidad
-              </Text>
-            </Link>
+          <Flex alignItems="center" flexDirection="column" mt={10} mb={5}>
             <Box mx={10} display="flex" alignItems="center">
               <Link
                 href="https://www.facebook.com/VenadoTuertoGobierno"
@@ -286,11 +303,16 @@ export default function LandingPage() {
                 {/* boxSize="10" equivale a 40px */}
               </Link>
             </Box>
-            <Link href="/terminos-y-condiciones">
-              <Text fontSize={{ base: 'xs', md: 'md' }} textAlign="center">
-                Términos y condiciones
-              </Text>
-            </Link>
+            <Box mt={5}>
+              <Link
+                href="https://venadotuerto.gob.ar/nuestroterreno/"
+                target="_blank"
+              >
+                <Text fontSize={{ base: 'xs', md: 'md' }} textAlign="center">
+                  Política de privacidad
+                </Text>
+              </Link>
+            </Box>
           </Flex>
           <Text fontSize="sm">© Nuestro Terreno 2024</Text>
         </Flex>
