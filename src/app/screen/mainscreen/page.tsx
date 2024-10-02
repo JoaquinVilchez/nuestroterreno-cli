@@ -389,7 +389,7 @@ export default function MainScreenPage() {
                     )}
                     {content.data.params.group && (
                       <Text
-                        fontSize="2xl"
+                        fontSize="3xl"
                         bg="#11929b"
                         w="100%"
                         textAlign="center"
@@ -418,10 +418,10 @@ export default function MainScreenPage() {
                       mt={4}
                       minH="100px"
                       bg="#FA3232"
-                      key={index} // Aquí agregas la prop `key`
+                      key={index}
                     >
                       <Text
-                        fontSize="4xl"
+                        fontSize="32px"
                         w="60%"
                         textAlign="left"
                         px="50px"
@@ -436,7 +436,7 @@ export default function MainScreenPage() {
                         alignItems="center"
                         color="white"
                         display="flex"
-                        fontSize="4xl"
+                        fontSize="32px"
                         justifyContent="center"
                         pr="50px"
                         textAlign="center"
@@ -445,7 +445,7 @@ export default function MainScreenPage() {
                         {winner.drawType.toUpperCase()}
                       </Text>
                       <Text
-                        fontSize="4xl"
+                        fontSize="32px"
                         textAlign="left"
                         w="20%"
                         pr="50px"

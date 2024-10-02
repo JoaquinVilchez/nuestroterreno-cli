@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 const Links = [
   {
@@ -71,6 +71,7 @@ const NavLink = ({
 
 export default function NavbarComponent() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: session } = useSession();
 
   return (
     <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -124,7 +125,7 @@ export default function NavbarComponent() {
               <MenuList>
                 <MenuItem
                   as={NextLink}
-                  href="/admin/screen/mainscreen"
+                  href="/screen/mainscreen"
                   target="_blank"
                   icon={<ExternalLinkIcon />}
                 >
@@ -132,7 +133,7 @@ export default function NavbarComponent() {
                 </MenuItem>
                 <MenuItem
                   as={NextLink}
-                  href="/admin/screen/prompter"
+                  href="/screen/prompter"
                   target="_blank"
                   icon={<ExternalLinkIcon />}
                 >
@@ -140,7 +141,7 @@ export default function NavbarComponent() {
                 </MenuItem>
                 <MenuItem
                   as={NextLink}
-                  href="/admin/screen/streaming"
+                  href="/screen/streaming"
                   target="_blank"
                   icon={<ExternalLinkIcon />}
                 >
@@ -164,11 +165,10 @@ export default function NavbarComponent() {
                 />
               </MenuButton>
               <MenuList>
-                <MenuItem>Perfil</MenuItem>
-                <MenuItem>Configuraciones</MenuItem>
+                <MenuItem>{session?.user?.firstName}</MenuItem>
                 <MenuDivider />
                 <MenuItem
-                  onClick={() => signOut({ callbackUrl: '/auth/login' })}
+                  onClick={() => signOut({ callbackUrl: '/auth/l`ogin' })}
                 >
                   Cerrar sesión
                 </MenuItem>
