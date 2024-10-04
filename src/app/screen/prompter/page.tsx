@@ -160,7 +160,7 @@ export default function PrompterPage() {
                 content.data.nextDraw.resultType as ResultType
               ].toUpperCase(),
             group: content.data.nextDraw.group,
-            drawType: content.data.nextDraw.drawType,
+            drawType: content.data.nextDraw.drawType.toUpperCase(),
           };
 
           const items: { key: DataKey; label: string }[] = [
@@ -364,7 +364,7 @@ export default function PrompterPage() {
                       border="4px solid white"
                     >
                       <Text fontSize="6xl" textAlign="center">
-                        {content.data.nextDraw.drawType}
+                        {content.data.nextDraw.drawType.toUpperCase()}
                       </Text>
                     </GridItem>
                     <GridItem

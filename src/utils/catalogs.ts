@@ -31,3 +31,14 @@ export const TranslateCatalog: Record<ResultType, string> = {
   incumbent: 'titular',
   alternate: 'suplente',
 };
+
+export const NumberOfDrawsCatalog = {
+  cpd: [
+    { group: 1, incumbent: 2, alternate: 8 },
+    { group: 2, incumbent: 2, alternate: 8 },
+  ],
+  general: [
+    { group: 1, incumbent: 74, alternate: 74 },
+    { group: 2, incumbent: 22, alternate: 22 },
+  ],
+};

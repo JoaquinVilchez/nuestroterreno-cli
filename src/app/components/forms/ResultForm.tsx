@@ -21,10 +21,11 @@ import { useEditOne } from '@/services/editOneService';
 import { ResultType } from '@/types/resultType';
 import ReactSelect from 'react-select';
 import { useGetMany } from '@/services/getManyService';
-import { useQuery } from 'react-query';
 import { Lot } from '@/types/lot';
 import { Participant } from '@/types/participant';
 import { useEffect, useState } from 'react';
+import { NextDrawType } from '@/types/nextDraw';
+import { useQuery } from 'react-query';
 
 type ResultData = {
   participant: number | null;
@@ -36,8 +37,10 @@ type ResultData = {
 
 export default function ResultForm({
   resultData,
+  nextDraw,
 }: {
   resultData?: ResultData;
+  nextDraw?: NextDrawType; // Reemplaza NextDrawType con el tipo real de nextDraw
 }) {
   const [selectedDrawType, setSelectedDrawType] = useState<DrawType | null>(
     null,
@@ -62,8 +65,7 @@ export default function ResultForm({
           router.push(`/admin/${resultCatalog.route}`);
         } else {
           await createOne(resultCatalog, value);
-          router.push(`/admin/draw`);
-          // TODO: Podemos resetear los campos y traer de nuevo los registros o traerlos de forma optimizada par ano volver a traer los 5700 registros
+          window.location.reload();
         }
       } catch {
         return;
@@ -122,12 +124,38 @@ export default function ResultForm({
     { enabled: !!selectedGroup && !!selectedDrawType },
   );
 
+  useEffect(() => {
+    if (nextDraw && lotsData) {
+      // Actualizar los valores del formulario
+      form.setFieldValue('group', +nextDraw.group);
+      if (nextDraw.drawType === DrawType.CPD) {
+        form.setFieldValue('drawType', DrawType.CPD);
+      } else {
+        form.setFieldValue('drawType', DrawType.GENERAL);
+      }
+      if (nextDraw.resultType === ResultType.INCUMBENT) {
+        form.setFieldValue('resultType', ResultType.INCUMBENT);
+      } else {
+        form.setFieldValue('resultType', ResultType.ALTERNATE);
+      }
+
+      form.setFieldValue(
+        'lot',
+        nextDraw.lot?.id ? Number(nextDraw.lot.id) : null,
+      );
+
+      // Actualizar los estados locales si es necesario
+      setSelectedGroup(nextDraw.group);
+      setSelectedDrawType(nextDraw.drawType);
+      setSelectedResultType(nextDraw.resultType);
+    }
+  }, [nextDraw, form, lotsData]);
+
   return (
     <Box>
       <Box
-        maxW="4xl"
+        maxW="6xl"
         mx="auto"
-        mt={10}
         p={4}
         boxShadow="lg"
         borderRadius="md"
@@ -267,7 +295,7 @@ export default function ResultForm({
                       options={
                         lotsData
                           ? lotsData.map((lot: Lot) => ({
-                              value: lot.id,
+                              value: Number(lot.id),
                               label: `${lot.id} - ${lot.denomination}`,
                             }))
                           : []
@@ -276,10 +304,17 @@ export default function ResultForm({
                       value={
                         selectedResultType === ResultType.ALTERNATE
                           ? null
-                          : lotsData?.find(
-                              (option: { value: number; label: string }) =>
-                                option.value === field.state.value,
-                            )
+                          : lotsData && field.state.value
+                            ? lotsData
+                                .map((lot: Lot) => ({
+                                  value: Number(lot.id),
+                                  label: `${lot.id} - ${lot.denomination}`,
+                                }))
+                                .find(
+                                  (option: any) =>
+                                    option.value === Number(field.state.value),
+                                )
+                            : null
                       }
                       onChange={(selectedOption) => {
                         if (selectedOption && selectedOption.value) {

@@ -49,7 +49,6 @@ export default function MainScreenPage() {
                     px="40"
                     mt={0}
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     {`${content.data.participant.id} - ${getFullName(content.data.participant.firstName, content.data.participant.lastName)}`}
@@ -61,7 +60,6 @@ export default function MainScreenPage() {
                   px="40"
                   mt={6}
                   textAlign="center"
-                  sx={{ textStyle: 'customText' }}
                   color="white"
                 >
                   {content.data.lot && content.data.lot.denomination
@@ -74,7 +72,6 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     GRUPO {content.data.group}
@@ -84,7 +81,6 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     {content.data.drawType.toUpperCase()}
@@ -137,7 +133,6 @@ export default function MainScreenPage() {
                     px="40"
                     mt={0}
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     {`${content.data.participant.id} - ${getFullName(content.data.participant.firstName, content.data.participant.lastName)}`}
@@ -160,7 +155,6 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     GRUPO {content.data.group}
@@ -170,7 +164,6 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     {content.data.drawType.toUpperCase()}
@@ -223,7 +216,6 @@ export default function MainScreenPage() {
                     px="40"
                     mt={0}
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     {content.data.lot && content.data.lot.denomination
@@ -237,7 +229,6 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
                     GRUPO {content.data.group}
@@ -247,10 +238,9 @@ export default function MainScreenPage() {
                     bg="#FA3232"
                     w="100%"
                     textAlign="center"
-                    sx={{ textStyle: 'customText' }}
                     color="white"
                   >
-                    {content.data.drawType}
+                    {content.data.drawType.toUpperCase()}
                   </Text>
                 </Box>
               </Box>
@@ -299,7 +289,6 @@ export default function MainScreenPage() {
                   px="40"
                   mt={0}
                   textAlign="center"
-                  sx={{ textStyle: 'customText' }}
                   color="white"
                 >
                   {content.data.group === '1'
@@ -312,10 +301,9 @@ export default function MainScreenPage() {
                   px="10"
                   w="100%"
                   textAlign="center"
-                  sx={{ textStyle: 'customText' }}
                   color="white"
                 >
-                  {content.data.drawType === 'CPD'
+                  {content.data.drawType.toUpperCase() === 'CPD'
                     ? 'CUPO POR DISCAPACIDAD'
                     : 'GENERAL'}
                 </Text>
@@ -325,7 +313,6 @@ export default function MainScreenPage() {
                   px="10"
                   w="100%"
                   textAlign="center"
-                  sx={{ textStyle: 'customText' }}
                   color="white"
                 >
                   {content.data.resultType === 'incumbent'
@@ -376,7 +363,7 @@ export default function MainScreenPage() {
                   <Box display="flex" gap={4} mt={6}>
                     {content.data.params.resultType && (
                       <Text
-                        fontSize="2xl"
+                        fontSize="3xl"
                         bg="#11929b"
                         w="100%"
                         textAlign="center"
@@ -400,7 +387,7 @@ export default function MainScreenPage() {
                     )}
                     {content.data.params.drawType && (
                       <Text
-                        fontSize="2xl"
+                        fontSize="3xl"
                         bg="#11929b"
                         w="100%"
                         textAlign="center"

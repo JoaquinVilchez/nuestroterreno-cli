@@ -19,10 +19,12 @@ interface ClientToServerEvents {
   broadcastAction: (action: string) => void;
 }
 
+const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 let socket: Socket<ServerToClientEvents, ClientToServerEvents> | null = null;
 
 export const initiateSocketConnection = (): void => {
-  socket = io('https://api.nuestroterreno.com.ar');
+  // socket = io('https://api.nuestroterreno.com.ar');
+  socket = io(SOCKET_URL);
   console.log('Conectando con el servidor de Socket.IO');
 
   // Escuchar el evento 'connect'

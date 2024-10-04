@@ -1,9 +1,17 @@
-import apiClient from './apiClient';
+// src/services/yourServiceFile.ts
 
-export const getNextDraw = async () => {
+import apiClient from './apiClient';
+import { NextDrawType } from '@/types/nextDraw';
+
+interface ApiResponse {
+  status: string;
+  data: NextDrawType;
+}
+
+export const getNextDraw = async (): Promise<NextDrawType> => {
   try {
-    const { data } = await apiClient.get(`/result/next-draw`);
-    return data;
+    const { data } = await apiClient.get<ApiResponse>(`/result/next-draw`);
+    return data.data; // Accedemos a `data.data` ya que la respuesta tiene `{ status, data }`
   } catch (err) {
     throw err;
   }
