@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Grid, GridItem, Image, Progress, Text } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Image, Text } from '@chakra-ui/react';
 import { useSocketContent } from '@/hooks/useSocketContent'; // Importa el hook
 import dynamic from 'next/dynamic';
 import { useRecoilValue } from 'recoil';
@@ -135,15 +135,6 @@ export default function PrompterPage() {
                   </Box>
                 </Box>
               </Box>
-              <Progress
-                value={60}
-                size="lg"
-                width="80%"
-                height="75px"
-                colorScheme="green"
-                position="absolute"
-                bottom="10px"
-              />
             </Box>
           );
         }

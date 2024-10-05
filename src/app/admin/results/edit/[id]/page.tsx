@@ -44,7 +44,6 @@ export default function EditResultPage() {
         showButton={false}
         goBackSteps={2}
       />
-      {resultData}
       {resultData && <ResultForm resultData={resultData} />}
     </Box>
   );

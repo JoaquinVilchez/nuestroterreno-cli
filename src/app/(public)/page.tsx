@@ -86,7 +86,7 @@ export default function LandingPage() {
         minH="600px"
         bgImage="url('/hero.jpeg')"
         bgSize="cover"
-        bgPosition="center -200px" // Desplaza la imagen 100px hacia abajo
+        bgPosition={{ center: 'center center', md: 'center -200px' }} // Desplaza la imagen 100px hacia abajo
         bgRepeat="no-repeat"
         position="relative"
         sx={{
