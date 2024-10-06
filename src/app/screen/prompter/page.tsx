@@ -142,22 +142,39 @@ export default function PrompterPage() {
 
       case 'fullInfo':
         if (content.data) {
-          const data: Record<DataKey, string | number> = {
-            lot: content.data.nextDraw.lot
-              ? content.data.nextDraw.lot.denomination.toUpperCase()
-              : content.data.nextDraw.orderNumber,
-            resultType:
-              TranslateCatalog[
-                content.data.nextDraw.resultType as ResultType
-              ].toUpperCase(),
-            group: content.data.nextDraw.group,
-            drawType: content.data.nextDraw.drawType.toUpperCase(),
-          };
+          const nextDraw = content.data.nextDraw;
+
+          // Definición del objeto 'data' con valores predeterminados
+          const data: Record<DataKey, string | number> = nextDraw
+            ? {
+                lot: nextDraw.lot
+                  ? nextDraw.lot.denomination.toUpperCase()
+                  : nextDraw.orderNumber,
+                resultType: nextDraw.resultType
+                  ? TranslateCatalog[
+                      nextDraw.resultType as ResultType
+                    ].toUpperCase()
+                  : '-',
+                group: nextDraw.group ?? '-',
+                drawType: nextDraw.drawType
+                  ? nextDraw.drawType.toUpperCase()
+                  : '-',
+              }
+            : {
+                lot: '-',
+                resultType: '-',
+                group: '-',
+                drawType: '-',
+              };
 
           const items: { key: DataKey; label: string }[] = [
             {
               key: 'lot',
-              label: content.data.nextDraw.lot ? 'LOTE' : 'NUMERO DE ORDEN',
+              label: nextDraw
+                ? nextDraw.lot
+                  ? 'LOTE'
+                  : 'NÚMERO DE ORDEN'
+                : 'LOTE',
             },
             { key: 'resultType', label: 'TIPO GANADOR' },
             { key: 'group', label: 'GRUPO' },
@@ -251,14 +268,18 @@ export default function PrompterPage() {
                           </GridItem>
                           <GridItem>
                             <Text fontSize="4xl">
-                              {TranslateCatalog[
-                                winner.resultType as ResultType
-                              ].toUpperCase()}
+                              {winner.resultType
+                                ? TranslateCatalog[
+                                    winner.resultType as ResultType
+                                  ].toUpperCase()
+                                : '-'}
                             </Text>
                           </GridItem>
                           <GridItem>
                             <Text fontSize="4xl">
-                              {winner.drawType.toUpperCase()}
+                              {winner.drawType
+                                ? winner.drawType.toUpperCase()
+                                : '-'}
                             </Text>
                           </GridItem>
                           <GridItem>
@@ -308,11 +329,13 @@ export default function PrompterPage() {
                     ))}
                   </Grid>
                 </GridItem>
+
                 <GridItem colSpan={4}>
                   <Grid
                     templateRows="repeat(1, 1fr)"
                     templateColumns="repeat(6, 1fr)"
                   >
+                    {/* Tipo Ganador */}
                     <GridItem
                       colSpan={6}
                       rowSpan={1}
@@ -320,11 +343,15 @@ export default function PrompterPage() {
                       border="4px solid white"
                     >
                       <Text fontSize="6xl" textAlign="center">
-                        {TranslateCatalog[
-                          content.data.nextDraw.resultType as ResultType
-                        ].toUpperCase()}
+                        {nextDraw
+                          ? TranslateCatalog[
+                              nextDraw.resultType as ResultType
+                            ]?.toUpperCase()
+                          : '-'}
                       </Text>
                     </GridItem>
+
+                    {/* Grupo */}
                     <GridItem
                       colSpan={4}
                       rowSpan={1}
@@ -332,22 +359,27 @@ export default function PrompterPage() {
                       border="4px solid white"
                     >
                       <Text fontSize="6xl" textAlign="center">
-                        {`GRUPO ${content.data.nextDraw.group}`}
+                        {nextDraw && nextDraw.group
+                          ? `GRUPO ${nextDraw.group}`
+                          : '-'}
                       </Text>
                     </GridItem>
+
+                    {/* Grupo Detalle */}
                     <GridItem
                       colSpan={2}
                       rowSpan={1}
                       bg="blue.700"
                       border="4px solid white"
                     >
-                      <Text fontSize="4xl" textAlign="center" m="auto">
-                        GRUPO
-                      </Text>
-                      <Text fontSize="6xl" textAlign="center" m="0">
-                        {content.data.nextDraw.group} de 2
+                      <Text fontSize="6xl" textAlign="center">
+                        {nextDraw && nextDraw.group
+                          ? `GRUPO ${nextDraw.group} de 2`
+                          : '-'}
                       </Text>
                     </GridItem>
+
+                    {/* Tipo Sorteo Detalle */}
                     <GridItem
                       colSpan={4}
                       rowSpan={1}
@@ -355,22 +387,33 @@ export default function PrompterPage() {
                       border="4px solid white"
                     >
                       <Text fontSize="6xl" textAlign="center">
-                        {content.data.nextDraw.drawType.toUpperCase()}
+                        {nextDraw && nextDraw.drawType
+                          ? nextDraw.drawType.toUpperCase()
+                          : '-'}
                       </Text>
                     </GridItem>
+
+                    {/* Sorteo Número y Cantidad */}
                     <GridItem
                       colSpan={2}
                       rowSpan={1}
                       bg="blue.700"
                       border="4px solid white"
                     >
-                      <Text fontSize="4xl" textAlign="center" m="0">
-                        SORTEO
-                      </Text>
-                      <Text fontSize="6xl" textAlign="center" m="0">
-                        {content.data.nextDraw.drawNumber} de{' '}
-                        {content.data.nextDraw.quantity}
-                      </Text>
+                      {nextDraw && nextDraw.drawNumber && nextDraw.quantity ? (
+                        <>
+                          <Text fontSize="4xl" textAlign="center" m="0">
+                            SORTEO
+                          </Text>
+                          <Text fontSize="6xl" textAlign="center" m="0">
+                            {nextDraw.drawNumber} de {nextDraw.quantity}
+                          </Text>
+                        </>
+                      ) : (
+                        <Text fontSize="6xl" textAlign="center" m="0">
+                          -
+                        </Text>
+                      )}
                     </GridItem>
                   </Grid>
                   <GridItem

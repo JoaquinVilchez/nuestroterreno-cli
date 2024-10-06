@@ -9,8 +9,8 @@ export const screens = [
 export type ScreenType = (typeof screens)[number]['id'];
 
 export const actions: Action[] = [
-  { id: 'fullInfo', label: 'Información Completa', hide: ['mainScreen'] },
-  { id: 'defaultPage', label: 'Placa Fija' },
+  { id: 'fullInfo', label: 'Automático', hide: ['mainScreen', 'broadcast'] },
+  { id: 'defaultPage', label: 'Placa Fija', hide: ['broadcast'] },
   { id: 'nextDraw', label: 'Próximo Sorteo', hide: ['prompter'] },
   { id: 'nextCategory', label: 'Próxima Categoría', hide: ['prompter'] },
   {
@@ -27,6 +27,16 @@ export const actions: Action[] = [
     id: 'lastWinner',
     label: 'Último Ganador',
     hide: ['broadcast'],
+  },
+  {
+    id: 'qrPage',
+    label: 'QR Web',
+    hide: ['prompter'],
+  },
+  {
+    id: 'hideContent',
+    label: 'Limpiar',
+    hide: ['mainScreen', 'prompter'],
   },
 ];
 

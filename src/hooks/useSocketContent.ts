@@ -16,7 +16,9 @@ type EventType =
   | 'nextCategory'
   | 'fullInfo'
   | 'winnerInfo'
+  | 'qrPage'
   | 'defaultPage'
+  | 'hideContent'
   | 'none';
 const eventTypes: EventType[] = [
   'lastResults',
@@ -25,7 +27,9 @@ const eventTypes: EventType[] = [
   'nextCategory',
   'fullInfo',
   'winnerInfo',
+  'qrPage',
   'defaultPage',
+  'hideContent',
   'none',
 ];
 

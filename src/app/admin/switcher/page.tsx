@@ -2,7 +2,6 @@
 
 import PageHeader from '@/app/components/PageHeader';
 import SwitcherButton from '@/app/components/SwitcherButton';
-import { waitState } from '@/atoms/waitSate';
 import {
   actions,
   ActionType,
@@ -18,7 +17,6 @@ import {
   Box,
   FormControl,
   FormLabel,
-  Grid,
   Heading,
   Select,
   SimpleGrid,
@@ -30,7 +28,6 @@ import {
   Tabs,
 } from '@chakra-ui/react';
 import { Suspense, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
 
 export default function SwitcherPage() {
   interface ParamsType {
@@ -48,7 +45,6 @@ export default function SwitcherPage() {
     broadcast: null,
   });
 
-  const [wait, setWait] = useRecoilState(waitState);
   const [quantity, setQuantity] = useState('5');
   const [group, setGroup] = useState<number | undefined>(undefined);
   const [resultType, setResultType] = useState('');
@@ -60,10 +56,6 @@ export default function SwitcherPage() {
       disconnectSocket();
     };
   }, []);
-
-  const toggleWait = () => {
-    setWait(!wait);
-  };
 
   const handleButton = (
     action: ActionType,
@@ -108,28 +100,7 @@ export default function SwitcherPage() {
             {screens.map((screen) => (
               <TabPanel key={screen.id}>
                 <Heading mt={4}>{screen.label}</Heading>
-                {screen.id === 'prompter' && (
-                  <Box>
-                    <Grid templateColumns="repeat(2, 1fr)" gap={6} my={5}>
-                      <SwitcherButton
-                        w="100%"
-                        onClick={toggleWait}
-                        isActive={wait}
-                      >
-                        ESPERAR
-                      </SwitcherButton>
-                      <SwitcherButton
-                        w="100%"
-                        onClick={() => alert('hi')}
-                        isActive={false}
-                      >
-                        ENVIAR MENSAJE
-                      </SwitcherButton>
-                    </Grid>
-                    <hr />
-                  </Box>
-                )}
-                <SimpleGrid columns={4} spacing={4} mt={4}>
+                <SimpleGrid columns={5} spacing={4} mt={4}>
                   {actions.map((action) =>
                     renderButton(action.id, action.label, screen.id),
                   )}
@@ -208,6 +179,86 @@ export default function SwitcherPage() {
                           }
                           isActive={
                             activeButtons['mainScreen'] === 'lastResults'
+                          }
+                        >
+                          Últimos Resultados
+                        </SwitcherButton>
+                      </Box>
+                    </SimpleGrid>
+                  </Box>
+                )}
+                {screen.id === 'broadcast' && (
+                  <Box
+                    p={5}
+                    mt={5}
+                    boxShadow="md"
+                    border="1px solid #EDF2F6"
+                    borderRadius={5}
+                  >
+                    <SimpleGrid columns={5} spacing={4}>
+                      <FormControl>
+                        <FormLabel>Cantidad</FormLabel>
+                        <Select>
+                          <option value="3">3</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Grupo</FormLabel>
+                        <Select
+                          placeholder="Seleccione grupo"
+                          onChange={(e) => {
+                            // Establece el estado a `undefined` si el valor es la cadena vacía, de lo contrario conviértelo a número
+                            setGroup(
+                              e.target.value === ''
+                                ? undefined
+                                : Number(e.target.value),
+                            );
+                          }}
+                        >
+                          <option value="">Todos</option>
+                          <option value="1">Grupo 1</option>
+                          <option value="2">Grupo 2</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Tipo de Ganador</FormLabel>
+                        <Select
+                          placeholder="Seleccione tipo de ganador"
+                          onChange={(e) => setResultType(e.target.value)}
+                        >
+                          <option value="">Todos</option>
+                          <option value="incumbent">Titular</option>
+                          <option value="alternate">Suplente</option>
+                        </Select>
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Tipo de Sorteo</FormLabel>
+                        <Select
+                          placeholder="Seleccione tipo de sorteo"
+                          onChange={(e) => setDrawType(e.target.value)}
+                        >
+                          <option value="">Todos</option>
+                          <option value="cpd">CPD</option>
+                          <option value="general">General</option>
+                        </Select>
+                      </FormControl>
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="flex-end"
+                        mt={4}
+                      >
+                        <SwitcherButton
+                          onClick={() =>
+                            handleButton('lastResults', 'broadcast', {
+                              group,
+                              resultType,
+                              drawType,
+                              quantity: 3,
+                            })
+                          }
+                          isActive={
+                            activeButtons['broadcast'] === 'lastResults'
                           }
                         >
                           Últimos Resultados

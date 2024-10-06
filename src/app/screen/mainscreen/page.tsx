@@ -93,6 +93,7 @@ export default function MainScreenPage() {
   };
 
   const renderContent = () => {
+    console.log('MAINSCREEN: CONTENT -> ', content);
     switch (content.type) {
       case 'lastWinner': {
         if (content.data) {
@@ -752,6 +753,75 @@ export default function MainScreenPage() {
                   exit="hidden"
                 />
               </Flex>
+            </Box>
+          </motion.div>
+        );
+      }
+
+      case 'qrPage': {
+        return (
+          <motion.div
+            key="defaultPage"
+            variants={screenVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <Box>
+              <Box
+                id="defaultPageScreen"
+                height="100vh"
+                width="100vw"
+                padding="50px"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDir="column"
+                bgImage="url('/trama_nuestro-terreno.png')"
+                bgRepeat="repeat"
+              >
+                <Flex
+                  alignItems="center"
+                  justifyContent="center"
+                  flexDir="column"
+                >
+                  <MotionText
+                    fontSize="6xl"
+                    mb={0}
+                    lineHeight={1.5}
+                    textAlign="center"
+                    sx={{ textStyle: 'customText' }}
+                    variants={fadeInUpVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    ACCEDÉ A TODOS LOS RESULTADOS
+                  </MotionText>
+                  <MotionText
+                    fontSize="5xl"
+                    mb={0}
+                    lineHeight={1.5}
+                    textAlign="center"
+                    variants={fadeInUpVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    WWW.NUESTROTERRENO.COM.AR
+                  </MotionText>
+                  <MotionImage
+                    src="/qrweb.png"
+                    width="500px"
+                    mt={10}
+                    borderRadius="15px" // Aplica el radio del borde al contenedor
+                    overflow="hidden" // Asegura que el contenido interno no se desborde del borde redondeado
+                    boxShadow="24px 24px 0px #2AC5D3" // Aplica sombra al contenedor
+                    variants={logoVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                  />
+                </Flex>
+              </Box>
             </Box>
           </motion.div>
         );

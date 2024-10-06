@@ -8,6 +8,8 @@ interface ServerToClientEvents {
   nextDraw: (result: any) => void;
   fullInfo: (response: any) => void;
   winnerInfo: (response: any) => void;
+  qrPage: () => void;
+  hideContent: () => void;
   defaultPage: () => void;
   none: () => void;
 }
