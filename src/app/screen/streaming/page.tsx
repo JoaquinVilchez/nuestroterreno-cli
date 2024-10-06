@@ -625,7 +625,7 @@ export default function PrompterPage() {
         <Flex>
           <MotionText
             width="200px"
-            fontSize="xl"
+            fontSize="lg"
             bg="#11929b"
             color="#fff"
             px={5}
