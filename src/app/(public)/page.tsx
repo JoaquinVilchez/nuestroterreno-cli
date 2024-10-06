@@ -182,7 +182,7 @@ export default function LandingPage() {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/live/eAtsgNWjwPQ"
+            src="https://www.youtube.com/embed/eAtsgNWjwPQ?si=at3wFhxK5KWx_imD"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             style={{
