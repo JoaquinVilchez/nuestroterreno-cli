@@ -198,6 +198,7 @@ export default function LandingPage() {
         alignItems="center"
         w="full"
         py={50}
+        id="results"
       >
         <Text
           sx={{ textStyle: 'bigTitle' }}
@@ -214,7 +215,6 @@ export default function LandingPage() {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          id="results"
         >
           <Button onClick={() => refetch()} isLoading={isFetching} mb={8}>
             ACTUALIZAR RESULTADOS
@@ -243,17 +243,7 @@ export default function LandingPage() {
             sx={{ textStyle: 'bodyText' }}
             mb={2}
           >
-            Si estás en el Parque, acercate al stand de Nuestro Terreno con tu
-            DNI.
-          </Text>
-          <Text
-            maxW={{ base: '100%', md: '900px' }}
-            fontSize={{ base: 'sm', md: 'md' }}
-            sx={{ textStyle: 'bodyText' }}
-            mb={2}
-          >
-            Si no estas en el Parque, partir del lunes 7/10 comunicate por
-            cualquiera de estos medios:
+            A partir del lunes 7/10 comunicate por cualquiera de estos medios:
           </Text>
           <Text
             maxW={{ base: '100%', md: '900px' }}
