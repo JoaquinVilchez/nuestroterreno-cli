@@ -214,6 +214,7 @@ export default function LandingPage() {
           direction="column"
           justifyContent="center"
           alignItems="center"
+          id="results"
         >
           <Button onClick={() => refetch()} isLoading={isFetching} mb={8}>
             ACTUALIZAR RESULTADOS
