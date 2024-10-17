@@ -93,7 +93,6 @@ export default function MainScreenPage() {
   };
 
   const renderContent = () => {
-    console.log('MAINSCREEN: CONTENT -> ', content);
     switch (content.type) {
       case 'lastWinner': {
         if (content.data) {

@@ -27,12 +27,9 @@ let socket: Socket<ServerToClientEvents, ClientToServerEvents> | null = null;
 export const initiateSocketConnection = (): void => {
   // socket = io('https://api.nuestroterreno.com.ar');
   socket = io(SOCKET_URL);
-  console.log('Conectando con el servidor de Socket.IO');
 
   // Escuchar el evento 'connect'
-  socket.on('connect', () => {
-    console.log('Conectado al servidor de Socket.IO con ID:', socket?.id);
-  });
+  socket.on('connect', () => {});
 
   // Escuchar el evento 'connect_error' para manejar errores de conexión
   socket.on('connect_error', (error) => {
@@ -43,7 +40,6 @@ export const initiateSocketConnection = (): void => {
 export const disconnectSocket = (): void => {
   if (socket) {
     socket.disconnect();
-    console.log('Desconectado del servidor de Socket.IO');
   }
 };
 
@@ -67,6 +63,5 @@ export const emitEvent = <K extends keyof ClientToServerEvents>(
   ...args: unknown[]
 ): void => {
   if (!socket) return;
-  console.log(eventName, args);
   socket.emit(eventName, ...(args as Parameters<ClientToServerEvents[K]>));
 };

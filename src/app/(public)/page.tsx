@@ -16,53 +16,43 @@ import DataTable from '../components/DataTable';
 import { Suspense } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Result } from '@/types/result';
-import { getFullName } from '@/utils/formatters';
 import catalogs from '@/utils/catalogs';
-import { useGetMany } from '@/services/getManyService';
 import { useQuery } from 'react-query';
 
 export default function LandingPage() {
   const { resultCatalog } = catalogs;
-  const { getMany } = useGetMany();
+
+  const fetchResults = async () => {
+    const response = await fetch('/results.json');
+    if (!response.ok) {
+      throw new Error('Error fetching data');
+    }
+    return response.json();
+  };
+
   const { data, refetch, isFetching } = useQuery('resultsData', () =>
-    getMany(resultCatalog, {
-      orderBy: 'DESC',
-      includes: ['lot', 'participant'],
-    }),
+    fetchResults(),
   );
 
   const columns: ColumnDef<Result>[] = [
     {
-      id: 'id',
+      accessorKey: 'ball_number',
       header: 'Bolilla',
-      accessorFn: (row) => row.participant.id,
-      cell: (info) => info.getValue(),
     },
     {
-      id: 'fullName',
+      accessorKey: 'participant',
       header: 'Nombre completo',
-      accessorFn: (row) =>
-        getFullName(row.participant.firstName, row.participant.lastName),
-      cell: (info) => info.getValue(),
     },
     {
-      id: 'lote',
+      accessorKey: 'lot',
       header: 'Lote',
-      accessorFn: (row) => {
-        const lot = row.lot;
-        const ballNumber = row.orderNumber;
-        return lot?.denomination
-          ? lot.denomination.toUpperCase()
-          : `SUPLENTE - NRO ${ballNumber}`;
-      },
-      cell: (info) => info.getValue(),
     },
     {
       accessorKey: 'group',
       header: 'Grupo',
     },
     {
-      accessorKey: 'drawType',
+      accessorKey: 'draw_type',
       header: 'Tipo de sorteo',
     },
   ];

@@ -85,7 +85,6 @@ export default function PrompterPage() {
   };
 
   const renderContent = () => {
-    console.log('BROADCAST: CONTENT -> ', content);
     switch (content.type) {
       case 'winnerInfo': {
         if (content.data) {

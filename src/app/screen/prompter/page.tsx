@@ -21,8 +21,6 @@ export default function PrompterPage() {
   type DataKey = 'lot' | 'resultType' | 'group' | 'drawType';
 
   const renderContent = () => {
-    console.log('renderContent: ', content);
-
     switch (content.type) {
       case 'lastWinner': {
         if (content.data) {
@@ -431,8 +429,6 @@ export default function PrompterPage() {
         break;
 
       case 'defaultPage':
-        console.log('DEFAULTPAGE', content.data);
-
         return (
           <Box
             p={2}
