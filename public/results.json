@@ -32,7 +32,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:36:06.131005",
     "updated_at": "2024-10-06 17:36:06.131005",
-    "lot": "NULL",
+    "lot": "Suplente 1",
     "participant": "IRUSTA, NOELIA CAROLINA"
   },
   {
@@ -44,7 +44,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:36:33.151061",
     "updated_at": "2024-10-06 17:36:33.151061",
-    "lot": "NULL",
+    "lot": "Suplente 2",
     "participant": "TORRES, SONIA BEATRIZ"
   },
   {
@@ -56,7 +56,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:36:54.604233",
     "updated_at": "2024-10-06 17:36:54.604233",
-    "lot": "NULL",
+    "lot": "Suplente 3",
     "participant": "RAMIREZ, YOANA SOLEDAD"
   },
   {
@@ -68,7 +68,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:37:36.372028",
     "updated_at": "2024-10-06 17:37:36.372028",
-    "lot": "NULL",
+    "lot": "Suplente 4",
     "participant": "HEREDIA, NATALIA"
   },
   {
@@ -80,7 +80,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:38:04.558269",
     "updated_at": "2024-10-06 17:38:04.558269",
-    "lot": "NULL",
+    "lot": "Suplente 5",
     "participant": "BIDEGAIN, CARLOS RAÚL"
   },
   {
@@ -92,7 +92,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:38:27.544465",
     "updated_at": "2024-10-06 17:38:27.544465",
-    "lot": "NULL",
+    "lot": "Suplente 6",
     "participant": "TULIAN, JOANA NATALI"
   },
   {
@@ -104,7 +104,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:38:49.878033",
     "updated_at": "2024-10-06 17:38:49.878033",
-    "lot": "NULL",
+    "lot": "Suplente 7",
     "participant": "ALEGRE, ELIDA ISABEL"
   },
   {
@@ -116,7 +116,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 17:39:12.284852",
     "updated_at": "2024-10-06 17:39:12.284852",
-    "lot": "NULL",
+    "lot": "Suplente 8",
     "participant": "YANICELLI, VALERIA FLORENCIA"
   },
   {
@@ -1016,7 +1016,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:24:11.503797",
     "updated_at": "2024-10-06 19:24:11.503797",
-    "lot": "NULL",
+    "lot": "Suplente 1",
     "participant": "PROFITOS, JONATAN"
   },
   {
@@ -1028,7 +1028,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:24:49.062779",
     "updated_at": "2024-10-06 19:24:49.062779",
-    "lot": "NULL",
+    "lot": "Suplente 2",
     "participant": "VALLEJOS, MILCIADES ARIEL"
   },
   {
@@ -1040,7 +1040,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:25:07.764904",
     "updated_at": "2024-10-06 19:25:07.764904",
-    "lot": "NULL",
+    "lot": "Suplente 3",
     "participant": "RUIZ, ANAHI AURORA"
   },
   {
@@ -1052,7 +1052,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:25:29.289580",
     "updated_at": "2024-10-06 19:25:29.289580",
-    "lot": "NULL",
+    "lot": "Suplente 4",
     "participant": "DEBIA, NATANAEL"
   },
   {
@@ -1064,7 +1064,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:25:49.419152",
     "updated_at": "2024-10-06 19:25:49.419152",
-    "lot": "NULL",
+    "lot": "Suplente 5",
     "participant": "CERUTTI, BRENDA SOLEDAD"
   },
   {
@@ -1076,7 +1076,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:26:12.200966",
     "updated_at": "2024-10-06 19:26:12.200966",
-    "lot": "NULL",
+    "lot": "Suplente 6",
     "participant": "GOROSITO, LUCAS MICHEL"
   },
   {
@@ -1088,7 +1088,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:26:36.482348",
     "updated_at": "2024-10-06 19:26:36.482348",
-    "lot": "NULL",
+    "lot": "Suplente 7",
     "participant": "ROMERO, MARCOS PEDRO FABIAN"
   },
   {
@@ -1100,7 +1100,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:26:56.168581",
     "updated_at": "2024-10-06 19:26:56.168581",
-    "lot": "NULL",
+    "lot": "Suplente 8",
     "participant": "BERTOMEU, ANA CAROLINA"
   },
   {
@@ -1112,7 +1112,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:27:23.024968",
     "updated_at": "2024-10-06 19:27:23.024968",
-    "lot": "NULL",
+    "lot": "Suplente 9",
     "participant": "ALZARICE, CESAR DAVID"
   },
   {
@@ -1124,7 +1124,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:27:40.047329",
     "updated_at": "2024-10-06 19:27:40.047329",
-    "lot": "NULL",
+    "lot": "Suplente 10",
     "participant": "RUEDI, ELIANA MAILEN"
   },
   {
@@ -1136,7 +1136,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:28:01.622639",
     "updated_at": "2024-10-06 19:28:01.622639",
-    "lot": "NULL",
+    "lot": "Suplente 11",
     "participant": "CAROSSI, ROMINA DAIANA"
   },
   {
@@ -1148,7 +1148,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:28:28.850536",
     "updated_at": "2024-10-06 19:28:28.850536",
-    "lot": "NULL",
+    "lot": "Suplente 12",
     "participant": "OJEDA, ELIANA"
   },
   {
@@ -1160,7 +1160,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:28:46.328959",
     "updated_at": "2024-10-06 19:28:46.328959",
-    "lot": "NULL",
+    "lot": "Suplente 13",
     "participant": "BERNARDI, MALENA"
   },
   {
@@ -1172,7 +1172,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:29:02.062116",
     "updated_at": "2024-10-06 19:29:02.062116",
-    "lot": "NULL",
+    "lot": "Suplente 14",
     "participant": "FLORES, MATÍAS ESEQUIEL"
   },
   {
@@ -1184,7 +1184,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:29:18.886575",
     "updated_at": "2024-10-06 19:29:18.886575",
-    "lot": "NULL",
+    "lot": "Suplente 15",
     "participant": "TALLE, MILENA"
   },
   {
@@ -1196,7 +1196,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:29:49.058389",
     "updated_at": "2024-10-06 19:29:49.058389",
-    "lot": "NULL",
+    "lot": "Suplente 16",
     "participant": "ROSETTI UGOLINI, ANDREA ALEJANDRA"
   },
   {
@@ -1208,7 +1208,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:30:12.639862",
     "updated_at": "2024-10-06 19:30:12.639862",
-    "lot": "NULL",
+    "lot": "Suplente 17",
     "participant": "MIOTELLO, LUISINA"
   },
   {
@@ -1220,7 +1220,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:30:35.363067",
     "updated_at": "2024-10-06 19:30:35.363067",
-    "lot": "NULL",
+    "lot": "Suplente 18",
     "participant": "FRUA, MARIA ALEJANDRA"
   },
   {
@@ -1232,7 +1232,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:30:53.456231",
     "updated_at": "2024-10-06 19:30:53.456231",
-    "lot": "NULL",
+    "lot": "Suplente 19",
     "participant": "PIETROCOLA, LUCAS JOSE"
   },
   {
@@ -1244,7 +1244,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:31:08.973280",
     "updated_at": "2024-10-06 19:31:08.973280",
-    "lot": "NULL",
+    "lot": "Suplente 20",
     "participant": "FERREYRA, MIRCO"
   },
   {
@@ -1256,7 +1256,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:31:22.045524",
     "updated_at": "2024-10-06 19:31:22.045524",
-    "lot": "NULL",
+    "lot": "Suplente 21",
     "participant": "RODRIGUEZ, MAURO"
   },
   {
@@ -1268,7 +1268,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:31:34.734961",
     "updated_at": "2024-10-06 19:31:34.734961",
-    "lot": "NULL",
+    "lot": "Suplente 22",
     "participant": "ACUÑA, CLAUDIO ANTONIO"
   },
   {
@@ -1280,7 +1280,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:31:48.582071",
     "updated_at": "2024-10-06 19:31:48.582071",
-    "lot": "NULL",
+    "lot": "Suplente 23",
     "participant": "PIFANO, CESAR FABIAN"
   },
   {
@@ -1292,7 +1292,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:32:08.597742",
     "updated_at": "2024-10-06 19:32:08.597742",
-    "lot": "NULL",
+    "lot": "Suplente 24",
     "participant": "VENICA, DIEGO"
   },
   {
@@ -1304,7 +1304,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:32:29.920934",
     "updated_at": "2024-10-06 19:32:29.920934",
-    "lot": "NULL",
+    "lot": "Suplente 25",
     "participant": "BARROS, LUCAS"
   },
   {
@@ -1316,7 +1316,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:32:42.443963",
     "updated_at": "2024-10-06 19:32:42.443963",
-    "lot": "NULL",
+    "lot": "Suplente 26",
     "participant": "CACERES, MARCELO DAMIAN"
   },
   {
@@ -1328,7 +1328,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:32:56.844020",
     "updated_at": "2024-10-06 19:32:56.844020",
-    "lot": "NULL",
+    "lot": "Suplente 27",
     "participant": "GARRO, DANTE"
   },
   {
@@ -1340,7 +1340,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:33:12.256390",
     "updated_at": "2024-10-06 19:33:12.256390",
-    "lot": "NULL",
+    "lot": "Suplente 28",
     "participant": "FANTINO, EMILIANO"
   },
   {
@@ -1352,7 +1352,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:33:34.413156",
     "updated_at": "2024-10-06 19:33:34.413156",
-    "lot": "NULL",
+    "lot": "Suplente 29",
     "participant": "BRUNO, LAURA IVANNA"
   },
   {
@@ -1364,7 +1364,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:33:59.569040",
     "updated_at": "2024-10-06 19:33:59.569040",
-    "lot": "NULL",
+    "lot": "Suplente 30",
     "participant": "MONZON, ANA SOFÍA"
   },
   {
@@ -1376,7 +1376,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:34:23.612961",
     "updated_at": "2024-10-06 19:34:23.612961",
-    "lot": "NULL",
+    "lot": "Suplente 31",
     "participant": "LOPEZ, ANDRÉS ALEJANDRO"
   },
   {
@@ -1388,7 +1388,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:34:40.913325",
     "updated_at": "2024-10-06 19:34:40.913325",
-    "lot": "NULL",
+    "lot": "Suplente 32",
     "participant": "GONZALEZ, URIEL ALEJANDRO"
   },
   {
@@ -1400,7 +1400,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:34:54.051951",
     "updated_at": "2024-10-06 19:34:54.051951",
-    "lot": "NULL",
+    "lot": "Suplente 33",
     "participant": "DE ANTONI, JOSE FEDERICO"
   },
   {
@@ -1412,7 +1412,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:37:04.823061",
     "updated_at": "2024-10-06 19:37:04.823061",
-    "lot": "NULL",
+    "lot": "Suplente 34",
     "participant": "RUIZ, CRISTIAN"
   },
   {
@@ -1424,7 +1424,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:37:26.239732",
     "updated_at": "2024-10-06 19:37:26.239732",
-    "lot": "NULL",
+    "lot": "Suplente 35",
     "participant": "RAMPICHINI, GUSTAVO JAVIER"
   },
   {
@@ -1436,7 +1436,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:37:42.621989",
     "updated_at": "2024-10-06 19:37:42.621989",
-    "lot": "NULL",
+    "lot": "Suplente 36",
     "participant": "ORONA, DAMIAN"
   },
   {
@@ -1448,7 +1448,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:37:57.279851",
     "updated_at": "2024-10-06 19:37:57.279851",
-    "lot": "NULL",
+    "lot": "Suplente 37",
     "participant": "OLIVA LEON, MATIAS JOEL"
   },
   {
@@ -1460,7 +1460,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:38:12.638806",
     "updated_at": "2024-10-06 19:38:12.638806",
-    "lot": "NULL",
+    "lot": "Suplente 38",
     "participant": "RODRIGUEZ, BRISA"
   },
   {
@@ -1472,7 +1472,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:38:33.366912",
     "updated_at": "2024-10-06 19:38:33.366912",
-    "lot": "NULL",
+    "lot": "Suplente 39",
     "participant": "BATHAUER GUTTLEIN, PATRICIO JAVIER"
   },
   {
@@ -1484,7 +1484,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:38:49.866315",
     "updated_at": "2024-10-06 19:38:49.866315",
-    "lot": "NULL",
+    "lot": "Suplente 40",
     "participant": "ISAIA, ARACELI"
   },
   {
@@ -1496,7 +1496,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:39:05.685670",
     "updated_at": "2024-10-06 19:39:05.685670",
-    "lot": "NULL",
+    "lot": "Suplente 41",
     "participant": "CRESPO, JOANA NATALI"
   },
   {
@@ -1508,7 +1508,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:39:33.665135",
     "updated_at": "2024-10-06 19:39:33.665135",
-    "lot": "NULL",
+    "lot": "Suplente 42",
     "participant": "TINNIRELLO, ANDRÉS"
   },
   {
@@ -1520,7 +1520,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:39:53.265061",
     "updated_at": "2024-10-06 19:39:53.265061",
-    "lot": "NULL",
+    "lot": "Suplente 43",
     "participant": "ROSALES, ROCIO BELEN"
   },
   {
@@ -1532,7 +1532,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:40:17.290148",
     "updated_at": "2024-10-06 19:40:17.290148",
-    "lot": "NULL",
+    "lot": "Suplente 44",
     "participant": "RAMOS, NELSON"
   },
   {
@@ -1544,7 +1544,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:40:33.975661",
     "updated_at": "2024-10-06 19:40:33.975661",
-    "lot": "NULL",
+    "lot": "Suplente 45",
     "participant": "RINAUDO, SUSANA BEATRIZ"
   },
   {
@@ -1556,7 +1556,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:40:48.589677",
     "updated_at": "2024-10-06 19:40:48.589677",
-    "lot": "NULL",
+    "lot": "Suplente 46",
     "participant": "QUISPE, GUIDO ÁLVARO"
   },
   {
@@ -1568,7 +1568,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:41:01.889558",
     "updated_at": "2024-10-06 19:41:01.889558",
-    "lot": "NULL",
+    "lot": "Suplente 47",
     "participant": "TOLOSA, MARIELA ANALIA"
   },
   {
@@ -1580,7 +1580,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:41:17.503787",
     "updated_at": "2024-10-06 19:41:17.503787",
-    "lot": "NULL",
+    "lot": "Suplente 48",
     "participant": "PINTOS, MICAELA"
   },
   {
@@ -1592,7 +1592,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:41:44.142567",
     "updated_at": "2024-10-06 19:41:44.142567",
-    "lot": "NULL",
+    "lot": "Suplente 49",
     "participant": "BAEZ, ROCÍO DEL CIELO"
   },
   {
@@ -1604,7 +1604,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:42:02.287126",
     "updated_at": "2024-10-06 19:42:02.287126",
-    "lot": "NULL",
+    "lot": "Suplente 50",
     "participant": "CARLA, MIERES"
   },
   {
@@ -1616,7 +1616,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:42:18.789661",
     "updated_at": "2024-10-06 19:42:18.789661",
-    "lot": "NULL",
+    "lot": "Suplente 51",
     "participant": "ELIZAGOYEN, JUAN MANUEL"
   },
   {
@@ -1628,7 +1628,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:42:48.385347",
     "updated_at": "2024-10-06 19:42:48.385347",
-    "lot": "NULL",
+    "lot": "Suplente 52",
     "participant": "BRIAN, CAZORLA"
   },
   {
@@ -1640,7 +1640,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:43:08.111531",
     "updated_at": "2024-10-06 19:43:08.111531",
-    "lot": "NULL",
+    "lot": "Suplente 53",
     "participant": "MONDACA, SABRINA MICAELA"
   },
   {
@@ -1652,7 +1652,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:43:30.344059",
     "updated_at": "2024-10-06 19:43:30.344059",
-    "lot": "NULL",
+    "lot": "Suplente 54",
     "participant": "SANTAANDREA, ALDANA FLORENCIA"
   },
   {
@@ -1664,7 +1664,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:43:53.177878",
     "updated_at": "2024-10-06 19:43:53.177878",
-    "lot": "NULL",
+    "lot": "Suplente 55",
     "participant": "CARRAZZA, FERNANDO ANDRÉS"
   },
   {
@@ -1676,7 +1676,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:44:37.588727",
     "updated_at": "2024-10-06 19:44:37.588727",
-    "lot": "NULL",
+    "lot": "Suplente 56",
     "participant": "ORONA, FABIAN"
   },
   {
@@ -1688,7 +1688,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:44:58.785432",
     "updated_at": "2024-10-06 19:44:58.785432",
-    "lot": "NULL",
+    "lot": "Suplente 57",
     "participant": "GONZALEZ, JAZMIN"
   },
   {
@@ -1700,7 +1700,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:45:12.807607",
     "updated_at": "2024-10-06 19:45:12.807607",
-    "lot": "NULL",
+    "lot": "Suplente 58",
     "participant": "DURAN, EMANUEL CARLOS"
   },
   {
@@ -1712,7 +1712,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:45:21.742252",
     "updated_at": "2024-10-06 19:45:21.742252",
-    "lot": "NULL",
+    "lot": "Suplente 59",
     "participant": "AVILA, CLAUDIO MIGUEL"
   },
   {
@@ -1724,7 +1724,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:46:19.614077",
     "updated_at": "2024-10-06 19:46:19.614077",
-    "lot": "NULL",
+    "lot": "Suplente 60",
     "participant": "IBARGUEN, YAMILA"
   },
   {
@@ -1736,7 +1736,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:46:34.288539",
     "updated_at": "2024-10-06 19:46:34.288539",
-    "lot": "NULL",
+    "lot": "Suplente 61",
     "participant": "MALDONADO, LUCRECIA NATALIA"
   },
   {
@@ -1748,7 +1748,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:47:00.778115",
     "updated_at": "2024-10-06 19:47:00.778115",
-    "lot": "NULL",
+    "lot": "Suplente 62",
     "participant": "ROMANO, JOSÉ ANDRES"
   },
   {
@@ -1760,7 +1760,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:47:23.158571",
     "updated_at": "2024-10-06 19:47:23.158571",
-    "lot": "NULL",
+    "lot": "Suplente 63",
     "participant": "GODOY, CLAUDIA"
   },
   {
@@ -1772,7 +1772,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:48:00.990674",
     "updated_at": "2024-10-06 19:48:00.990674",
-    "lot": "NULL",
+    "lot": "Suplente 64",
     "participant": "RAMIREZ, CLAUDIA"
   },
   {
@@ -1784,7 +1784,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:48:15.454069",
     "updated_at": "2024-10-06 19:48:15.454069",
-    "lot": "NULL",
+    "lot": "Suplente 65",
     "participant": "ORTIZ, GABRIELA MABEL"
   },
   {
@@ -1796,7 +1796,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:48:27.298663",
     "updated_at": "2024-10-06 19:48:27.298663",
-    "lot": "NULL",
+    "lot": "Suplente 66",
     "participant": "BUSTAMANTE, JONATHAN"
   },
   {
@@ -1808,7 +1808,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:48:38.378186",
     "updated_at": "2024-10-06 19:48:38.378186",
-    "lot": "NULL",
+    "lot": "Suplente 67",
     "participant": "ITURREZ, DIEGO FABIAN"
   },
   {
@@ -1820,7 +1820,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:49:05.778348",
     "updated_at": "2024-10-06 19:49:05.778348",
-    "lot": "NULL",
+    "lot": "Suplente 68",
     "participant": "VENAVIDES, JOSE LUIS"
   },
   {
@@ -1832,7 +1832,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:49:18.168670",
     "updated_at": "2024-10-06 19:49:18.168670",
-    "lot": "NULL",
+    "lot": "Suplente 69",
     "participant": "LAGOS, BRIAN RAUL"
   },
   {
@@ -1844,7 +1844,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:49:50.365521",
     "updated_at": "2024-10-06 19:49:50.365521",
-    "lot": "NULL",
+    "lot": "Suplente 70",
     "participant": "ESCOBAR HERRERA, MIGUEL LAUREANO"
   },
   {
@@ -1856,7 +1856,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:49:59.377417",
     "updated_at": "2024-10-06 19:49:59.377417",
-    "lot": "NULL",
+    "lot": "Suplente 71",
     "participant": "OROZCO, MATIAS"
   },
   {
@@ -1868,7 +1868,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:50:12.737898",
     "updated_at": "2024-10-06 19:50:12.737898",
-    "lot": "NULL",
+    "lot": "Suplente 72",
     "participant": "HEREDIA, DANIEL RICARDO"
   },
   {
@@ -1880,7 +1880,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:50:26.012684",
     "updated_at": "2024-10-06 19:50:26.012684",
-    "lot": "NULL",
+    "lot": "Suplente 73",
     "participant": "PRIMICIA, MARIA DE LAS NIEVES"
   },
   {
@@ -1892,7 +1892,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 19:50:48.176357",
     "updated_at": "2024-10-06 19:50:48.176357",
-    "lot": "NULL",
+    "lot": "Suplente 74",
     "participant": "GROSSI, ANABELLA"
   },
   {
@@ -1928,7 +1928,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:28:35.923777",
     "updated_at": "2024-10-06 20:28:35.923777",
-    "lot": "NULL",
+    "lot": "Suplente 1",
     "participant": "BALMACEDA, JUAN BAUTISTA"
   },
   {
@@ -1940,7 +1940,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:28:58.817723",
     "updated_at": "2024-10-06 20:28:58.817723",
-    "lot": "NULL",
+    "lot": "Suplente 2",
     "participant": "SARRIA, PATRICIA MILAGROS"
   },
   {
@@ -1952,7 +1952,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:29:22.790817",
     "updated_at": "2024-10-06 20:29:22.790817",
-    "lot": "NULL",
+    "lot": "Suplente 3",
     "participant": "SUAREZ, JUAN DOMINGO"
   },
   {
@@ -1964,7 +1964,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:29:44.390593",
     "updated_at": "2024-10-06 20:29:44.390593",
-    "lot": "NULL",
+    "lot": "Suplente 4",
     "participant": "ULLUA, NAZARENO"
   },
   {
@@ -1976,7 +1976,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:30:07.475561",
     "updated_at": "2024-10-06 20:30:07.475561",
-    "lot": "NULL",
+    "lot": "Suplente 5",
     "participant": "TECCE, NICOLAS"
   },
   {
@@ -1988,7 +1988,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:30:22.202888",
     "updated_at": "2024-10-06 20:30:22.202888",
-    "lot": "NULL",
+    "lot": "Suplente 6",
     "participant": "GABRIEL, MARISA DE LUJÁN"
   },
   {
@@ -2000,7 +2000,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:30:43.518153",
     "updated_at": "2024-10-06 20:30:43.518153",
-    "lot": "NULL",
+    "lot": "Suplente 7",
     "participant": "YAKAS, MAURO"
   },
   {
@@ -2012,7 +2012,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:31:01.443780",
     "updated_at": "2024-10-06 20:31:01.443780",
-    "lot": "NULL",
+    "lot": "Suplente 8",
     "participant": "ACTIS, DANIEL SILVIO"
   },
   {
@@ -2288,7 +2288,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:53:52.651419",
     "updated_at": "2024-10-06 20:53:52.651419",
-    "lot": "NULL",
+    "lot": "Suplente 1",
     "participant": "MONDINO, MARISOL ALDANA"
   },
   {
@@ -2300,7 +2300,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:54:28.396762",
     "updated_at": "2024-10-06 20:54:28.396762",
-    "lot": "NULL",
+    "lot": "Suplente 2",
     "participant": "ZANOTTI, MARIANO"
   },
   {
@@ -2312,7 +2312,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:55:07.900396",
     "updated_at": "2024-10-06 20:55:07.900396",
-    "lot": "NULL",
+    "lot": "Suplente 3",
     "participant": "HERNANDEZ SCHIEL, SOFÍA MILAGROS"
   },
   {
@@ -2324,7 +2324,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:55:31.383367",
     "updated_at": "2024-10-06 20:55:31.383367",
-    "lot": "NULL",
+    "lot": "Suplente 4",
     "participant": "TROVATO, CINTIA ANABELA"
   },
   {
@@ -2336,7 +2336,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:55:51.540895",
     "updated_at": "2024-10-06 20:55:51.540895",
-    "lot": "NULL",
+    "lot": "Suplente 5",
     "participant": "SALINAS, SOFÍA"
   },
   {
@@ -2348,7 +2348,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:56:28.942716",
     "updated_at": "2024-10-06 20:56:28.942716",
-    "lot": "NULL",
+    "lot": "Suplente 6",
     "participant": "ZILKOWFSKY, ALEXIS"
   },
   {
@@ -2360,7 +2360,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:56:54.053939",
     "updated_at": "2024-10-06 20:56:54.053939",
-    "lot": "NULL",
+    "lot": "Suplente 7",
     "participant": "OLGUIN, SOFIA"
   },
   {
@@ -2372,7 +2372,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:57:09.407856",
     "updated_at": "2024-10-06 20:57:09.407856",
-    "lot": "NULL",
+    "lot": "Suplente 8",
     "participant": "SIMONETTI, NOELIA MARIA"
   },
   {
@@ -2384,7 +2384,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:57:32.551733",
     "updated_at": "2024-10-06 20:57:32.551733",
-    "lot": "NULL",
+    "lot": "Suplente 9",
     "participant": "AGÜERO, NICOLÁS"
   },
   {
@@ -2396,7 +2396,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:57:49.535285",
     "updated_at": "2024-10-06 20:57:49.535285",
-    "lot": "NULL",
+    "lot": "Suplente 10",
     "participant": "CAMINOS, TANIA"
   },
   {
@@ -2408,7 +2408,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:58:09.549188",
     "updated_at": "2024-10-06 20:58:09.549188",
-    "lot": "NULL",
+    "lot": "Suplente 11",
     "participant": "ACOSTA, DIANA CAMILA"
   },
   {
@@ -2420,7 +2420,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:58:43.374215",
     "updated_at": "2024-10-06 20:58:43.374215",
-    "lot": "NULL",
+    "lot": "Suplente 12",
     "participant": "CABRERA, EMANUEL"
   },
   {
@@ -2432,7 +2432,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:59:05.424641",
     "updated_at": "2024-10-06 20:59:05.424641",
-    "lot": "NULL",
+    "lot": "Suplente 13",
     "participant": "SIMEONI, MARIELA VANINA"
   },
   {
@@ -2444,7 +2444,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:59:22.063264",
     "updated_at": "2024-10-06 20:59:22.063264",
-    "lot": "NULL",
+    "lot": "Suplente 14",
     "participant": "ESQUIVEL, ALEJANDRO IVAN"
   },
   {
@@ -2456,7 +2456,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:59:40.756999",
     "updated_at": "2024-10-06 20:59:40.756999",
-    "lot": "NULL",
+    "lot": "Suplente 15",
     "participant": "TORRES, CAMILA BERENICE"
   },
   {
@@ -2468,7 +2468,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 20:59:56.882905",
     "updated_at": "2024-10-06 20:59:56.882905",
-    "lot": "NULL",
+    "lot": "Suplente 16",
     "participant": "MORA GARGAGLIONE, FRANCO EMANUEL"
   },
   {
@@ -2480,7 +2480,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 21:00:18.785476",
     "updated_at": "2024-10-06 21:00:18.785476",
-    "lot": "NULL",
+    "lot": "Suplente 17",
     "participant": "GIL, LUCAS ELIEZER"
   },
   {
@@ -2492,7 +2492,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 21:00:34.172758",
     "updated_at": "2024-10-06 21:00:34.172758",
-    "lot": "NULL",
+    "lot": "Suplente 18",
     "participant": "HIDALGO, MARÍA DE LOS MILAGROS"
   },
   {
@@ -2504,7 +2504,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 21:00:48.176851",
     "updated_at": "2024-10-06 21:00:48.176851",
-    "lot": "NULL",
+    "lot": "Suplente 19",
     "participant": "ZAPATA LOPEZ, MAXIMILIANO DAMIAN"
   },
   {
@@ -2516,7 +2516,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 21:01:12.731834",
     "updated_at": "2024-10-06 21:01:12.731834",
-    "lot": "NULL",
+    "lot": "Suplente 20",
     "participant": "MANISCOTTI, NICOLÁS AGUSTÍN"
   },
   {
@@ -2528,7 +2528,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 21:01:35.281331",
     "updated_at": "2024-10-06 21:01:35.281331",
-    "lot": "NULL",
+    "lot": "Suplente 21",
     "participant": "RUSSO, MARIANELA"
   },
   {
@@ -2540,7 +2540,7 @@
     "result_type": "alternate",
     "created_at": "2024-10-06 21:01:49.489266",
     "updated_at": "2024-10-06 21:01:49.489266",
-    "lot": "NULL",
+    "lot": "Suplente 22",
     "participant": "PONCE, ZOE"
   }
 ]
