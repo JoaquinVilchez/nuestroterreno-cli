@@ -18,6 +18,6 @@ El sistema facilita la gestión en vivo de sorteos de alta concurrencia, proporc
 
 ## Enlaces
 
-- [Repositorio del Frontend](https://github.com/JoaquinVilchez/nuestroterreno-cli)
+- [Repositorio del Backend](https://github.com/JoaquinVilchez/nuestroterreno-api)
 - [Sitio Web (Landing Page)](https://nuestroterreno.com.ar/)
 - [Transmisión en Vivo](https://www.youtube.com/watch?v=U7pCnNV4HJY)
